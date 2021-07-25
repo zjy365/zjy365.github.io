@@ -1,0 +1,466 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/touxiang.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>新手小白入门前后端分离-持续更新 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZJY'S BLOG</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新手小白入门前后端分离-持续更新">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-25 15:37" pubdate>
+        July 25, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新手小白入门前后端分离-持续更新</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前后端分离-前端做前端的-后端做后端的-前端用-axios-调用后端的接口进行交互"><a href="#前后端分离-前端做前端的-后端做后端的-前端用-axios-调用后端的接口进行交互" class="headerlink" title="前后端分离,前端做前端的,后端做后端的.     前端用 axios 调用后端的接口进行交互"></a>前后端分离,前端做前端的,后端做后端的.     前端用 axios 调用后端的接口进行交互</h2><p>前端的目录结构<br>build – 构建相关<br>config – 配置<br>assets – 静态资源<br>components – 全局公用组件<br>router – 路由<br>utils – 公用方法<br>APP.vue – 入口页面<br>main.js – 入口文件，加载组件和初始化<br>static – 静态资源<br><img src="https://img-blog.csdnimg.cn/20210706134306321.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JlaWNoZW55dW1v,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"># 在这个项目中,components 下直接写的 前端页面,不是公用组件;<br>router.js 是前端的 页面管理, 注意这跟后端一点关系没有,  每一个 path 就是前端能访问的页面,(用户能访问的页面)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs javascript">routes: [<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;登录&#x27;</span>,<br>    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">component</span>: Login<br>  &#125;, &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Home,<br>    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span><br>  &#125;, &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Home,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;文章管理&#x27;</span>,<br>    <span class="hljs-attr">iconCls</span>: <span class="hljs-string">&#x27;fa fa-file-text-o&#x27;</span>,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/articleList&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;文章列表&#x27;</span>,<br>        <span class="hljs-attr">component</span>: ArticleList,<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span><br>        &#125;<br>      &#125;, &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/postArticle&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;发表文章&#x27;</span>,<br>        <span class="hljs-attr">component</span>: PostArticle,<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">false</span><br>        &#125;<br>      &#125;, &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/blogDetail&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;博客详情&#x27;</span>,<br>        <span class="hljs-attr">component</span>: BlogDetail,<br>        <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">false</span><br>        &#125;<br>      &#125;, &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/editBlog&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;编辑博客&#x27;</span>,<br>        <span class="hljs-attr">component</span>: PostArticle,<br>        <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">false</span><br>        &#125;<br>      &#125;<br>    ]<br>  &#125;, <br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Home,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;用户管理&#x27;</span>,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/user&#x27;</span>,<br>        <span class="hljs-attr">iconCls</span>: <span class="hljs-string">&#x27;fa fa-user-o&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;用户管理&#x27;</span>,<br>        <span class="hljs-attr">component</span>: UserMana<br>      &#125;<br>    ]<br>  &#125;, <br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Home,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;栏目管理&#x27;</span>,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/cateMana&#x27;</span>,<br>        <span class="hljs-attr">iconCls</span>: <span class="hljs-string">&#x27;fa fa-reorder&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;栏目管理&#x27;</span>,<br>        <span class="hljs-attr">component</span>: CateMana<br>      &#125;<br>    ]<br>  &#125;, <br>]<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>   <a target="_blank" rel="noopener" href="http://localhost:8080/#/">http://localhost:8080/#/</a>    井号后面开始的path<br>   看这个路径意思就是当访问path: ‘/‘, 根目录的时候==&gt;&gt;显示 component: Login Login页面</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&#123;<br>  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;登录&#x27;</span>,<br>  <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">component</span>: Login<br>&#125;,<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210706140040496.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2021070614000446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JlaWNoZW55dW1v,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="这个页面"></p>
+<h3 id="axios和接口封装"><a href="#axios和接口封装" class="headerlink" title="axios和接口封装:"></a>axios和接口封装:</h3><blockquote>
+<p>在前后端交互方面采用axios，为了便于维护和复用，避免每个页面都引入一次axios和qs、避免每个接口都进行请求头配置，我们可以对axios进行封装。</p>
+</blockquote>
+<p>例子get方法的封装, 例子如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 封装get请求</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-variable">url</span></span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-variable">params</span></span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@returns <span class="hljs-type">&#123;Promise&#125;</span></span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params">url, params = &#123;&#125;</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    axios.get(url, &#123;<br>      <span class="hljs-attr">params</span>: params<br>    &#125;).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> &#123;<br>      <span class="hljs-built_in">console</span>.log(response);<br>      <br>      resolve(response.data)<br>    &#125;).catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>      reject(error)<br>    &#125;)<br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我们解析一下项目中的代码, 项目的代码如下,同样也是把代码封装了一层<br>注意 () =&gt; {}  这是es6的箭头函数, 他就是函数跟上边的function是一样的,()括号中是这个函数的参数;<br>用axios get post 等请求.params是参数 transformRequest在向服务器发送前，修改请求数据<br>export 是把这个函数导出 ====&gt;&gt;&gt;其他地方import 引入就能直接用</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getRequest = <span class="hljs-function">(<span class="hljs-params">url,params</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> axios(&#123;<br>    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;get&#x27;</span>,<br>    <span class="hljs-attr">data</span>:params,<br>    <span class="hljs-attr">transformRequest</span>: [<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;<br>      <span class="hljs-keyword">let</span> ret = <span class="hljs-string">&#x27;&#x27;</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> it <span class="hljs-keyword">in</span> data) &#123;<br>        ret += <span class="hljs-built_in">encodeURIComponent</span>(it) + <span class="hljs-string">&#x27;=&#x27;</span> + <span class="hljs-built_in">encodeURIComponent</span>(data[it]) + <span class="hljs-string">&#x27;&amp;&#x27;</span><br>      &#125;<br>      <span class="hljs-keyword">return</span> ret<br>    &#125;],<br>    <span class="hljs-attr">headers</span>: &#123;<br>      <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/x-www-form-urlencoded&#x27;</span><br>    &#125;,<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`<span class="hljs-subst">$&#123;base&#125;</span><span class="hljs-subst">$&#123;url&#125;</span>`</span><br>  &#125;);<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> deleteRequest = <span class="hljs-function">(<span class="hljs-params">url</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> axios(&#123;<br>    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;delete&#x27;</span>,<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`<span class="hljs-subst">$&#123;base&#125;</span><span class="hljs-subst">$&#123;url&#125;</span>`</span><br>  &#125;);<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> postRequest = <span class="hljs-function">(<span class="hljs-params">url, params</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> axios(&#123;<br>    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;post&#x27;</span>,<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`<span class="hljs-subst">$&#123;base&#125;</span><span class="hljs-subst">$&#123;url&#125;</span>`</span>,<br>    <span class="hljs-attr">data</span>: params,<br>    <span class="hljs-attr">transformRequest</span>: [<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;<br>      <span class="hljs-comment">// Do whatever you want to transform the data</span><br>      <span class="hljs-keyword">let</span> ret = <span class="hljs-string">&#x27;&#x27;</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> it <span class="hljs-keyword">in</span> data) &#123;<br>        ret += <span class="hljs-built_in">encodeURIComponent</span>(it) + <span class="hljs-string">&#x27;=&#x27;</span> + <span class="hljs-built_in">encodeURIComponent</span>(data[it]) + <span class="hljs-string">&#x27;&amp;&#x27;</span><br>      &#125;<br>      <span class="hljs-keyword">return</span> ret<br>    &#125;],<br>    <span class="hljs-attr">headers</span>: &#123;<br>      <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/x-www-form-urlencoded&#x27;</span><br>    &#125;<br>  &#125;);<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> uploadFileRequest = <span class="hljs-function">(<span class="hljs-params">url, params</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> axios(&#123;<br>    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;post&#x27;</span>,<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`<span class="hljs-subst">$&#123;base&#125;</span><span class="hljs-subst">$&#123;url&#125;</span>`</span>,<br>    <span class="hljs-attr">data</span>: params,<br>    <span class="hljs-attr">headers</span>: &#123;<br>      <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;multipart/form-data&#x27;</span><br>    &#125;<br>  &#125;);<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> putRequest = <span class="hljs-function">(<span class="hljs-params">url, params</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> axios(&#123;<br>    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;put&#x27;</span>,<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`<span class="hljs-subst">$&#123;base&#125;</span><span class="hljs-subst">$&#123;url&#125;</span>`</span>,<br>    <span class="hljs-attr">data</span>: params,<br>    <span class="hljs-attr">transformRequest</span>: [<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;<br>      <span class="hljs-keyword">let</span> ret = <span class="hljs-string">&#x27;&#x27;</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> it <span class="hljs-keyword">in</span> data) &#123;<br>        ret += <span class="hljs-built_in">encodeURIComponent</span>(it) + <span class="hljs-string">&#x27;=&#x27;</span> + <span class="hljs-built_in">encodeURIComponent</span>(data[it]) + <span class="hljs-string">&#x27;&amp;&#x27;</span><br>      &#125;<br>      <span class="hljs-keyword">return</span> ret<br>    &#125;],<br>    <span class="hljs-attr">headers</span>: &#123;<br>      <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/x-www-form-urlencoded&#x27;</span><br>    &#125;<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs javascript">找到登录的页面 用户输入的账号密码都通过 v-model进行双向绑定 存到了loginForm 这里<br><span class="hljs-keyword">import</span> &#123;postRequest&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../utils/api&#x27;</span>  通过<span class="hljs-keyword">import</span>引入封装好的方法<br>&lt;el-button type=<span class="hljs-string">&quot;primary&quot;</span> @click.native.prevent=<span class="hljs-string">&quot;submitClick&quot;</span> style=<span class="hljs-string">&quot;width: 100%&quot;</span>&gt;登录&lt;/el-button&gt;<br>这是登录的 按钮, 使用了element-ui ;  @click.native.prevent=<span class="hljs-string">&quot;submitClick&quot;</span> 绑定事件,当点击按钮的时候会触发这个方法函数.<br> <span class="hljs-string">&#x27;/login&#x27;</span>,为上方封装号的url; &#123;<span class="hljs-attr">username</span>: <span class="hljs-built_in">this</span>.loginForm.username,<span class="hljs-attr">password</span>: <span class="hljs-built_in">this</span>.loginForm.password&#125;这就是要传递的参数<br>        <br>      <span class="hljs-attr">submitClick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">var</span> _this = <span class="hljs-built_in">this</span>;<br>        <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">true</span>;<br>        postRequest(<span class="hljs-string">&#x27;/login&#x27;</span>, &#123;<br>          <span class="hljs-attr">username</span>: <span class="hljs-built_in">this</span>.loginForm.username,<br>          <span class="hljs-attr">password</span>: <span class="hljs-built_in">this</span>.loginForm.password<br>        &#125;).then(<span class="hljs-function"><span class="hljs-params">resp</span>=&gt;</span> &#123;<br>          _this.loading = <span class="hljs-literal">false</span>;<br>          <span class="hljs-keyword">if</span> (resp.status == <span class="hljs-number">200</span>) &#123;<br>            <span class="hljs-comment">//成功</span><br>            <span class="hljs-keyword">var</span> json = resp.data;<br>            <span class="hljs-keyword">if</span> (json.status == <span class="hljs-string">&#x27;success&#x27;</span>) &#123;<br>              _this.$router.replace(&#123;<span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>&#125;);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>              _this.$alert(<span class="hljs-string">&#x27;登录失败!&#x27;</span>, <span class="hljs-string">&#x27;失败!&#x27;</span>);<br>            &#125;<br>          &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//失败</span><br>            _this.$alert(<span class="hljs-string">&#x27;登录失败!&#x27;</span>, <span class="hljs-string">&#x27;失败!&#x27;</span>);<br>          &#125;<br>        &#125;, <span class="hljs-function"><span class="hljs-params">resp</span>=&gt;</span> &#123;<br>          _this.loading = <span class="hljs-literal">false</span>;<br>          _this.$alert(<span class="hljs-string">&#x27;找不到服务器⊙﹏⊙∥!&#x27;</span>, <span class="hljs-string">&#x27;失败!&#x27;</span>);<br>        &#125;);<br>      &#125;<br>      ##############<br><span class="hljs-string">&#x27;/login&#x27;</span>  是后端的接口<br>注意 在config文件夹下的index文件中 配置了服务端的信息<br>意思就是 axios中写的url <span class="hljs-string">&#x27;/login&#x27;</span> 会和<span class="hljs-string">&#x27;http://localhost:8081&#x27;</span> 拼接在一起形成完整的服务端接口地址.<br>    <span class="hljs-comment">// Paths</span><br>    <span class="hljs-attr">assetsSubDirectory</span>: <span class="hljs-string">&#x27;static&#x27;</span>,<br>    <span class="hljs-attr">assetsPublicPath</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>    <span class="hljs-attr">proxyTable</span>: &#123;<br>      <span class="hljs-string">&#x27;/&#x27;</span>: &#123;<br>        <span class="hljs-attr">target</span>: <span class="hljs-string">&#x27;http://localhost:8081&#x27;</span>,  <span class="hljs-comment">// 本地测试</span><br>        <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">pathRewrite</span>: &#123;<br>          <span class="hljs-string">&#x27;^/&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span><br>        &#125;<br>      &#125;<br>    &#125;,<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                      <a class="hover-with-bg" href="/tags/axios/">axios</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/04/learn-git01/">
+                        <span class="hidden-mobile">git的学习笔记</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
