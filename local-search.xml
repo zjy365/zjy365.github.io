@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>JavaScript小记---01</title>
+    <link href="/2021/07/28/JavaScript%E5%B0%8F%E8%AE%B001/"/>
+    <url>/2021/07/28/JavaScript%E5%B0%8F%E8%AE%B001/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Array-apply-null-length-20-map"><a href="#Array-apply-null-length-20-map" class="headerlink" title="Array.apply(null, { length 20 }).map()"></a>Array.apply(null, { length 20 }).map()</h1><p>参考链接 <a href="https://blog.csdn.net/qq_20794095/article/details/103244977">https://blog.csdn.net/qq_20794095/article/details/103244977</a></p><p>本质是<strong>函数式编程</strong>的<strong>循环方法</strong>。</p><p>就是一种<strong>循环方法</strong>，你用<code>for</code>循环代替，效果也是一样的，但是<code>Array.apply(null, &#123; length: 20 &#125;).map()</code>算是<strong>函数式编程</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.cardloading = <span class="hljs-built_in">Array</span>.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">Array</span>(<span class="hljs-number">20</span>)).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item, i</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;);<br><span class="hljs-built_in">this</span>.eploading = <span class="hljs-built_in">Array</span>.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">Array</span>(<span class="hljs-number">20</span>)).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item, i</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;);<br></code></pre></td></tr></table></figure><p>这就是简单的<strong>函数式循环</strong>。然而重点其实是前面<strong>需要循环的数组</strong>，如何<strong>优雅</strong>的产生。</p><p>如果我们想循环<code>20</code>次，直接写一个<code>0</code>到<code>20</code>的数组，结合<code>forEach</code>是可以的，但是未免显得有些拙略,</p><p>可以使用<code>js</code>内置函数<code>Array()</code>来生成一个<strong>指定长度</strong>的数组，这样子只需要指定长度就能循环了</p><p>直接使用<code>Array()</code>可以生成指定长度的数组，但是会有一个问题：<strong>数组里面的值都是没有初始化的</strong>！！重要的是，你<strong>拿不到循环的索引</strong>，因为里面的<code>key</code>和<code>value</code>都是<code>empty</code>状态</p><p>为了解决<code>index</code>无法获取的问题，我们可以<strong>在<code>Array()</code>初始化的时候传入数值</strong></p><h3 id="主要用户操作数组"><a href="#主要用户操作数组" class="headerlink" title="主要用户操作数组"></a>主要用户操作数组</h3><h3 id="splice"><a href="#splice" class="headerlink" title="splice()"></a>splice()</h3><ul><li><p>传入  <strong>2</strong>     个参数的时候是删除    (第一个参数是要删除元素的位置,    第二个参数是要删除的元素数量)</p></li><li><p>传入 <strong>3</strong>    个参数可执行插入操作    (第一个参数是要参入的位置,    第二个参数任然是要删除的元素的数量在插入操作中是0,    第三个参数是想要插入的元素—-可以很多个) </p><ul><li>注意当 第二个参数为     <strong>1</strong>    便是替换操作了</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>什么是模块化开发,为什么需要模块化开发?</title>
     <link href="/2021/07/26/%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91/"/>
     <url>/2021/07/26/%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91/</url>
