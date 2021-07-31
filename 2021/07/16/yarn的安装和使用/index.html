@@ -18,7 +18,7 @@
   <meta name="author" content="zjy">
   <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
   
-  <title>部署vue +koa+nginx前后端分离项目到服务器 - zjy的个人博客</title>
+  <title>yarn快速、可靠、安全的依赖管理工具 - zjy的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="部署vue +koa+nginx前后端分离项目到服务器">
+            <span class="h2" id="subtitle" title="yarn快速、可靠、安全的依赖管理工具">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-05 13:26" pubdate>
-        July 5, 2021 pm
+      <time datetime="2021-07-16 13:26" pubdate>
+        July 16, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      705 字
+      554 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      6
        分钟
     </span>
   
@@ -225,39 +225,53 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">部署vue +koa+nginx前后端分离项目到服务器</h1>
+            <h1 style="display: none">yarn快速、可靠、安全的依赖管理工具</h1>
             
             <div class="markdown-body">
-              <h1 id="部署vue-koa-nginx前后端分离项目到服务器"><a href="#部署vue-koa-nginx前后端分离项目到服务器" class="headerlink" title="部署vue +koa+nginx前后端分离项目到服务器"></a>部署vue +koa+nginx前后端分离项目到服务器</h1><h5 id="因为遇到很多坑-百度了很多-记录一下-方便以后回看-也希望这篇文章能够帮到需要的人"><a href="#因为遇到很多坑-百度了很多-记录一下-方便以后回看-也希望这篇文章能够帮到需要的人" class="headerlink" title="因为遇到很多坑,百度了很多,记录一下,方便以后回看,也希望这篇文章能够帮到需要的人"></a>因为遇到很多坑,百度了很多,记录一下,方便以后回看,也希望这篇文章能够帮到需要的人</h5><p>先上正确部署，</p>
-<ol>
-<li><p>部署前先确保本地可以跑起来，在打包前对自己项目的修改=&gt;把baseurl 修改成<strong>自己的ip地                址</strong>，原来可能类似这样</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// axios 配置接口默认路径</span><br>axios.defaults.baseURL = <span class="hljs-string">&#x27;http://127.0.0.1:8888/api/&#x27;</span><br></code></pre></td></tr></table></figure></li>
-<li><p>cd到自己的项目目录下  <code>npm run build </code> 就行打包，右侧就会出来打包后的文件夹<strong>dist</strong>，这些是自己的静态资源。前端到这里打包完成。在自己的服务器上新建个文件夹例如/www/demo，这个目录就是我们网站的根目录了。可以选择通过xshell 自带的xftp，也可以直接用宝塔面板把本地的dist文件夹上传到服务器。</p>
-</li>
-<li><p><strong>这里使用的是阿里云服务器，通过xhell 连接操作服务器，并且使用宝塔Linux操作面板方便安装一些环境，对新手十分友好，就像软件商店一样简单。</strong></p>
-</li>
-<li><p>nginx 的安装，nginx是一个开源的，支持高性能，高并发的www服务和代理服务软件。宝塔操作面板软件商店一键安装，我们只需要关心nginx的配置问题<br><img src="https://img-blog.csdnimg.cn/20210307121212315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JlaWNoZW55dW1v,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-</li>
-<li><p>nginx的使用<code>cd /usr/local/nginx/sbin</code>。一些命令<code> ./nginx  启动</code>，<code>./nginx -s stop 停止</code>，<code> ./nginx  -s reload 重启</code>，当修改完配置文件记得重新启动nginx</p>
-</li>
-<li><p>nginx的配置，<strong>nginx.conf</strong>  。可以通过<code>vim /etc/nginx/nginx.conf</code>编辑</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">server<br>   &#123;<br>       listen 80;  <span class="hljs-comment">#监听的端口号</span><br>       server_name <span class="hljs-comment">#自己服务器的ip地址;  </span><br>       index index.html index.htm index.php;  <span class="hljs-comment">#默认页面</span><br>       root  /www/demo/dist; <span class="hljs-comment"># 自己项目的根目录，不知道的看上的打包</span><br></code></pre></td></tr></table></figure></li>
-<li><p>部署后端项目，把本地文件夹上传至服务器，本地原来是通过node  app.js来运行一个服务部署到服务器，也就相当于在服务器上运行一个进程。注意需要端口号的开放。去阿里云的实例控制台对安全组就行管理，开放你需要的端口号。查看正在运行的端口<code>netstat -ntlp</code>常用。</p>
-</li>
-<li><p>使用pm2 管理后端接口，<br> 安装pm2</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install pm2 -g<br></code></pre></td></tr></table></figure>
-<p> 开启服务pm2</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 start app.js                //启动app.js应用<br></code></pre></td></tr></table></figure>
-<p> 停止服务</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 stop all               //停止所有应用<br>pm2 stop [AppName]        //根据应用名停止指定应用<br>pm2 stop [ID]             //根据应用id停止指定应用<br></code></pre></td></tr></table></figure>
-<p> 自启动 <code>pm2 startup</code></p>
-<h5 id="完结"><a href="#完结" class="headerlink" title="完结"></a>完结</h5></li>
+              <h3 id="yarn快速、可靠、安全的依赖管理工具。—npm就不多说了"><a href="#yarn快速、可靠、安全的依赖管理工具。—npm就不多说了" class="headerlink" title="yarn快速、可靠、安全的依赖管理工具。—npm就不多说了"></a>yarn快速、可靠、安全的依赖管理工具。—npm就不多说了</h3><h4 id="速度超快。"><a href="#速度超快。" class="headerlink" title="速度超快。"></a>速度超快。</h4><p>Yarn 缓存了每个下载过的包，所以再次使用时无需重复下载。 同时利用并行下载以最大化资源利用率，因此安装速度更快。</p>
+<h4 id="超级安全。"><a href="#超级安全。" class="headerlink" title="超级安全。"></a>超级安全。</h4><p>在执行代码之前，Yarn 会通过算法校验每个安装包的完整性。</p>
+<h4 id="超级可靠。"><a href="#超级可靠。" class="headerlink" title="超级可靠。"></a>超级可靠。</h4><p>使用详细、简洁的锁文件格式和明确的安装算法，Yarn 能够保证在不同系统上无差异的工作。</p>
+<p>Yarn 对你的代码来说是一个包管理器。它可以让你使用并分享 全世界开发者的（例如 JavaScript）代码。 Yarn 能够快速、安全、 并可靠地完成这些工作，所以你不用有任何担心。</p>
+<p>通过Yarn你可以使用其他开发者针对不同问题的解决方案，使自己的开发过程更简单。 使用过程中遇到问题，你可以将其上报或者贡献解决方案。一旦问题被修复， Yarn会更新保持同步。</p>
+<p>代码通过 <strong>包（package）</strong> (或者称为 <strong>模块（module）</strong>) 的方式来共享。 一个包里包含所有需要共享的代码，以及描述包信息的文件，称为 <code>package.json</code> 。<a target="_blank" rel="noopener" href="https://yarn.bootcss.com/docs/install">安装 →</a></p>
+<h4 id="yarn的安装"><a href="#yarn的安装" class="headerlink" title="yarn的安装:"></a>yarn的安装:</h4><ol>
+<li>下载node.js，使用npm安装<br><code>npm install -g yarn</code></li>
+<li>Yarn 淘宝源安装，分别复制粘贴以下代码行到黑窗口运行即可<br>yarn config set registry <a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a> -g<br>yarn config set sass_binary_site <a target="_blank" rel="noopener" href="http://cdn.npm.taobao.org/dist/node-sass">http://cdn.npm.taobao.org/dist/node-sass</a> -g</li>
 </ol>
-<hr>
-<p>因为在项目中使用了WebSocket,部署是遇见这个报错,</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">WebSocket connection to <span class="hljs-string">&#x27;ws://*********&#x27;</span> failed: <span class="hljs-built_in">Error</span> <span class="hljs-keyword">in</span> connection establishment: net::ERR_CONNECTION_TIMED_OUT<br></code></pre></td></tr></table></figure>
-<p>解决方案 :  运行下面代码关闭防火墙</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl stop firewalld.service<br></code></pre></td></tr></table></figure>
+<p><strong>初始化一个新项目</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">yarn <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>添加依赖包</strong></p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs processing">yarn <span class="hljs-built_in">add</span> [<span class="hljs-keyword">package</span>]<br>yarn <span class="hljs-built_in">add</span> [<span class="hljs-keyword">package</span>]@[version]<br>yarn <span class="hljs-built_in">add</span> [<span class="hljs-keyword">package</span>]@[tag]<br></code></pre></td></tr></table></figure>
+
+<p><strong>将依赖项添加到不同依赖项类别中</strong></p>
+<p>分别添加到 <code>devDependencies</code>、<code>peerDependencies</code> 和 <code>optionalDependencies</code> 类别中：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada">yarn add [<span class="hljs-keyword">package</span>] <span class="hljs-comment">--dev</span><br>yarn add [<span class="hljs-keyword">package</span>] <span class="hljs-comment">--peer</span><br>yarn add [<span class="hljs-keyword">package</span>] <span class="hljs-comment">--optional</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>升级依赖包</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs inform7">yarn upgrade <span class="hljs-comment">[package]</span><br>yarn upgrade <span class="hljs-comment">[package]</span>@<span class="hljs-comment">[version]</span><br>yarn upgrade <span class="hljs-comment">[package]</span>@<span class="hljs-comment">[tag]</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>移除依赖包</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">yarn <span class="hljs-built_in">remove</span> [<span class="hljs-built_in">package</span>]<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="yarn的常用命令："><a href="#yarn的常用命令：" class="headerlink" title="yarn的常用命令："></a>yarn的常用命令：</h4><ul>
+<li><p>安装 npm i -g  yarn</p>
+</li>
+<li><p>检查yarn 版本号 yarn -v</p>
+</li>
+<li><p>yarn的配置项：</p>
+</li>
+<li><p>yarn config list // 显示所有配置项<br>yarn config get <key> //显示某配置项<br>yarn config delete <key> //删除某配置项<br>yarn config set <key> <value> [-g|–global] //设置配置项</p>
+</li>
+<li><p>发布包  yarn publish</p>
+</li>
+<li><p>运行 脚本 yarn run  …</p>
+</li>
+<li></li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -274,9 +288,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Koa/">Koa</a>
+                      <a class="hover-with-bg" href="/tags/yarn/">yarn</a>
                     
                   </div>
                 
@@ -293,9 +305,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/16/yarn%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                      <a href="/2021/07/26/%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">yarn快速、可靠、安全的依赖管理工具</span>
+                        <span class="hidden-mobile">什么是模块化开发,为什么需要模块化开发?</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -303,8 +315,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/04/learn-git01/">
-                        <span class="hidden-mobile">git的学习笔记</span>
+                      <a href="/2021/07/05/vue-koa/">
+                        <span class="hidden-mobile">部署vue +koa+nginx前后端分离项目到服务器</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
