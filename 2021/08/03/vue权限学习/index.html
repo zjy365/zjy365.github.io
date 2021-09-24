@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/touxiang.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这是zjy的个人博客,记录自己的学习经历和成长过程,并也希望能够产生价值,帮助到其他人.学习笔记,vue,axios,前端,后端">
+  <meta name="author" content="zjy">
+  <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
+  
+  <title>VUE---前端---权限的学习笔记 - zjy的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zjy365.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZJY'S BLOG</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/home.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="VUE---前端---权限的学习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-03 20:46" pubdate>
+        August 3, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      61
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">VUE---前端---权限的学习笔记</h1>
+            
+            <div class="markdown-body">
+              <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/harsima/article/details/77949448Vue">https://blog.csdn.net/harsima/article/details/77949448Vue</a> + ElementUI 手撸后台管理网站基本框架(二)权限控制</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/227833652Vue">https://zhuanlan.zhihu.com/p/227833652Vue</a> +利用 addRoutes     动态创建路由，并在页面刷新后保留动态路由的完整 Demo</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903478880370701">https://juejin.cn/post/6844903478880370701</a>  + 花裤衩  手摸手，带你用vue撸后台 系列二(登录权限篇)</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903816593145864">https://juejin.cn/post/6844903816593145864</a>  +Vue中后台鉴权的另一种方案 - 动态路由</p>
+<h3 id="权限接口的控制"><a href="#权限接口的控制" class="headerlink" title="权限接口的控制"></a>权限接口的控制</h3><p>一般来说,正常登录后,后端会返回一个token,之后的用户每次请求都应该携带者token;</p>
+<p>对axios 进行简单的设置,增加请求拦截器,为每个请求的 header 都添加   token</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">const</span> service = axios.<span class="hljs-built_in">create</span>()<br><br><span class="hljs-comment">// http request 拦截器</span><br><span class="hljs-comment">// 每次请求都为http头增加Authorization字段，其内容为token</span><br>service.interceptors.request.<span class="hljs-built_in">use</span>(<br>    config =&gt; &#123;<br>        config.headers.Authorization = `$&#123;token&#125;`<br>        <span class="hljs-keyword">return</span> config<br>    &#125;<br>);<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> service<br></code></pre></td></tr></table></figure>
+
+<h3 id="创建路由表"><a href="#创建路由表" class="headerlink" title="创建路由表"></a>创建路由表</h3><p>在创建路由表前，我们先总结一下前端路由表构成的两种模式：</p>
+<p>同时拥有静态路由和动态路由。<br>只拥有静态路由<br>在第一种模式中，将系统中不需要权限的页面构成静态路由，需要权限的页面构成动态路由。当用户登录后，根据返回数据匹配动态路由表，将结果通过addRoutes方法添加到静态路由中。完整的路由中将只包含当前用户能访问的页面，用户无权访问的页面将直接跳转到404。（这也是我之前一直使用的模式）</p>
+<p>第二种模式则直接将所有页面都配置到静态路由中。用户正常登录，系统将返回数据记录下来作为权限数据。当页面跳转时，判断跳转的页面是否在用户的权限列表中，如果在则正常跳转，如果不在则可以跳转到任意其他页面。</p>
+<p>在经过不断的实践和改进后，个人认为第二种模式相对简单，只有单一的路由表，方便以后的管理和维护。同时又因无论哪种模式都不能避免所谓的“安全”问题——个别情况下跳过前端路由情况的发生，所以第二种模式无论怎么看都比第一种要好很多。</p>
+<p>需要注意的是，在第二种模式中，因为只有单一的静态路由，所以一定要使用vue-router的懒加载策略对路由组件进行加载行为优化，防止首次加载时直接加载全部页面组件的尴尬问题。当然，你可以对那些不需要权限的固定页面不使用懒加载策略，这些页面包括登录页、注册页等。</p>
+<p>而实现它则需要使用<code>vue</code>的自定义指令。你可以戳这里查看<code>vue</code>自定义指令的说明：<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/custom-directive.html">自定义指令</a></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs stylus">const hasPermission = &#123;<br>    install (Vue, options)&#123;<br>        Vue<span class="hljs-selector-class">.directive</span>(<span class="hljs-string">&#x27;hasPermission&#x27;</span>, &#123;<br>            bind(el, binding, vnode)&#123;<br>                let permissionList = vnode<span class="hljs-selector-class">.context</span>.<span class="hljs-variable">$route</span><span class="hljs-selector-class">.meta</span><span class="hljs-selector-class">.permission</span><br>                <span class="hljs-keyword">if</span>(permissionList &amp;&amp; permissionList<span class="hljs-selector-class">.length</span> &amp;&amp; !permissionList<span class="hljs-selector-class">.includes</span>(binding.value))&#123;<br>                    el<span class="hljs-selector-class">.parentNode</span><span class="hljs-selector-class">.removeChild</span>(el)<br>                &#125;<br>            &#125;<br>        &#125;)<br>    &#125;<br>&#125;<br><br>export default hasPermission<br></code></pre></td></tr></table></figure>
+
+<h3 id="权限策略"><a href="#权限策略" class="headerlink" title="权限策略"></a>权限策略</h3><p>在理解了前端权限的本质后，我们说一下前端的权限策略。依照我目前的了解，大致上把权限策略分为以下两种：</p>
+<p>前端记录所有的权限。用户登录后，后端返回用户角色，前端根据角色自行分配页面<br>前端仅记录页面，后端记录权限。用户登陆后，后端返回用户权限列表，前端根据该列表生成可访问页面<br>第一种的优点是前端完全控制，想怎么改就怎么改；缺点是当角色越来越多时，可能会给前端路由编写上带来一定的麻烦。</p>
+<p>第二种的优点是前端完全基于后端数据，后期几乎没有维护成本；缺点是为了降低维护成本，必须拥有菜单配置页面及权限分配页面，否则就是噩梦。</p>
+<p>接下来，将一点一点带你实现前端权限控制。</p>
+<ol>
+<li>路由跳转 先判断是否登录 未登录只能访问白名单页面,访问其他页面全部重定向到登录页面</li>
+<li>登录行为触发,获取动态路由,递归解析动态路由信息,并且addRouter,同时存储到Vuex,并且记录获取路由的状态</li>
+<li>跳转页面不会获取动态路由,刷新页面重新获取动态路由</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/8/17024767cfd6c8b5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="前端权限思路一"><a href="#前端权限思路一" class="headerlink" title="前端权限思路一"></a>前端权限思路一</h2><p>先mock出 用户的信息</p>
+<h3 id="编写-mock-js"><a href="#编写-mock-js" class="headerlink" title="编写 mock.js"></a>编写 mock.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 用户信息</span><br><span class="hljs-keyword">const</span> users = [<br>  &#123;<br>    <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;student&#x27;</span>,<br>    <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;123456&#x27;</span>,<br>    <span class="hljs-attr">photo</span>: <span class="hljs-string">&#x27;http://www.lxandzjy.top:9002/2021/06/05/f570fcf9ad636.png&#x27;</span>,<br>    <span class="hljs-attr">token</span>: <span class="hljs-string">&#x27;student-token&#x27;</span>,<br>    <span class="hljs-attr">role</span>: <span class="hljs-string">&#x27;student&#x27;</span>,<br>    <span class="hljs-attr">rights</span>: []<br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,<br>    <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;admin&#x27;</span>,<br>    <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;123456&#x27;</span>,<br>    <span class="hljs-attr">photo</span>: <span class="hljs-string">&#x27;http://www.lxandzjy.top:9002/2021/06/05/f570fcf9ad636.png&#x27;</span>,<br>    <span class="hljs-attr">token</span>: <span class="hljs-string">&#x27;admin-token&#x27;</span>,<br>    <span class="hljs-attr">role</span>: <span class="hljs-string">&#x27;admin&#x27;</span>,<br>    <span class="hljs-attr">rights</span>: []<br>  &#125;<br>  <br>  <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs javascript">后端响应回来不同的角色能看的 路由  ,通过 addrouters ,动态渲染上路由<br><span class="hljs-keyword">const</span> roles = &#123;<br>  <span class="hljs-attr">student</span>: [<br>    &#123;<br>      <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,<br>      <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;基本页面&#x27;</span>,<br>      <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-connection&#x27;</span>,<br>      <span class="hljs-attr">children</span>: [<br>        &#123;<br>          <span class="hljs-attr">id</span>: <span class="hljs-number">11</span>,<br>          <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;表格页面&#x27;</span>,<br>          <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-grid&#x27;</span>,<br>          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;table&#x27;</span>,<br>          <span class="hljs-attr">rights</span>: [<span class="hljs-string">&#x27;view&#x27;</span>]<br>        &#125;,<br>        &#123;<br>          <span class="hljs-attr">id</span>: <span class="hljs-number">12</span>,<br>          <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;素材页面&#x27;</span>,<br>          <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-marketing&#x27;</span>,<br>          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;image&#x27;</span>,<br>          <span class="hljs-attr">rights</span>: [<span class="hljs-string">&#x27;view&#x27;</span>]<br>        &#125;<br>      ]<br>    &#125;<br>  ],<br>  <span class="hljs-attr">admin</span>: [<br>    &#123;<br>      <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,<br>      <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;基本页面&#x27;</span>,<br>      <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-connection&#x27;</span>,<br>      <span class="hljs-attr">children</span>: [<br>        &#123;<br>          <span class="hljs-attr">id</span>: <span class="hljs-number">11</span>,<br>          <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;表格页面&#x27;</span>,<br>          <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-grid&#x27;</span>,<br>          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;table&#x27;</span>,<br>          <span class="hljs-attr">rights</span>: [<span class="hljs-string">&#x27;view&#x27;</span>, <span class="hljs-string">&#x27;edit&#x27;</span>, <span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;delete&#x27;</span>]<br>        &#125;,<br>        &#123;<br>          <span class="hljs-attr">id</span>: <span class="hljs-number">12</span>,<br>          <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;素材页面&#x27;</span>,<br>          <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-marketing&#x27;</span>,<br>          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;image&#x27;</span>,<br>          <span class="hljs-attr">rights</span>: [<span class="hljs-string">&#x27;view&#x27;</span>, <span class="hljs-string">&#x27;edit&#x27;</span>, <span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;delete&#x27;</span>]<br>        &#125;<br>      ]<br>    &#125;,<br>    &#123;<br>      <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,<br>      <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;用户权限&#x27;</span>,<br>      <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-set-up&#x27;</span>,<br>      <span class="hljs-attr">children</span>: [<br>        &#123;<br>          <span class="hljs-attr">id</span>: <span class="hljs-number">21</span>,<br>          <span class="hljs-attr">authName</span>: <span class="hljs-string">&#x27;权限页面&#x27;</span>,<br>          <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-custom&#x27;</span>,<br>          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;users&#x27;</span>,<br>          <span class="hljs-attr">rights</span>: [<span class="hljs-string">&#x27;view&#x27;</span>, <span class="hljs-string">&#x27;edit&#x27;</span>, <span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;delete&#x27;</span>]<br>        &#125;<br>      ]<br>    &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="编写-router-js"><a href="#编写-router-js" class="headerlink" title="编写 router.js"></a>编写 router.js</h3><ul>
+<li><p>定义一些基本路由,所有用户都能看的路由</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> routes = [<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;login&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/login&#x27;</span>)<br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;home&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Layout,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/image&#x27;</span>)<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/chart&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/chart&#x27;</span>)<br>      &#125;<br>    ]<br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/404&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/404.vue&#x27;</span>)<br>  &#125;<br>]<br><br><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;<br>  <span class="hljs-attr">mode</span>: <span class="hljs-string">&#x27;history&#x27;</span>,<br>  <span class="hljs-attr">base</span>: process.env.BASE_URL,<br>  routes<br>&#125;)<br><br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>定义动态路由</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> tableRule = &#123;<br>  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/table&#x27;</span>,<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;table&#x27;</span>,<br>  <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/table/ceshi.vue&#x27;</span>)<br>&#125;<br><span class="hljs-keyword">const</span> imageRule = &#123;<br>  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/image&#x27;</span>,<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;image&#x27;</span>,<br>  <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/image&#x27;</span>)<br>&#125;<br><span class="hljs-keyword">const</span> userRule = &#123;<br>  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users&#x27;</span>,<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;users&#x27;</span>,<br>  <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/users&#x27;</span>)<br>&#125;<br><br><span class="hljs-comment">// 路由规则和字符串的映射关系</span><br><span class="hljs-keyword">const</span> ruleMapping = &#123;<br>  <span class="hljs-attr">table</span>: tableRule,<br>  <span class="hljs-attr">users</span>: userRule,<br>  <span class="hljs-attr">image</span>: imageRule<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>初始化动态路由</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initDynamicRoutes</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">// console.log(router.options,&#x27;.....初始化的路由&#x27;);</span><br><br>  <span class="hljs-keyword">const</span> currentRoutes = router.options.routes<br>  <span class="hljs-built_in">console</span>.log(currentRoutes,<span class="hljs-string">&#x27;当前路由&#x27;</span>);<br>  <span class="hljs-comment">// 刷新 页面 动态添加的路由消失</span><br>  <span class="hljs-comment">// 使用  vuex 时的也会消失</span><br>  <span class="hljs-keyword">const</span> rightList = <span class="hljs-built_in">JSON</span>.parse(sessionStorage.getItem(<span class="hljs-string">&#x27;rightList&#x27;</span>) || <span class="hljs-string">&#x27;[]&#x27;</span>)<br>  rightList.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123; <span class="hljs-comment">// 如果是没有子路由的话 就直接添加进去 如果有子路由的话就进入二级权限遍历</span><br>    <span class="hljs-comment">// console.log(item, &#x27;item,rightList&#x27;)</span><br>    <span class="hljs-comment">// console.log(item.path);</span><br>    <span class="hljs-comment">// 如果没有二级路由 的话</span><br>    <span class="hljs-keyword">if</span> (item.children.length === <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-keyword">const</span> temp = ruleMapping[item.path]<br>      <span class="hljs-comment">// 路由规则中添加元数据meta</span><br>      temp.meta = item.rights<br>      currentRoutes.push(temp)<br>      <span class="hljs-comment">// currentRoutes[1].children.push(temp)</span><br>    &#125;<br>    item.children.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>      <span class="hljs-comment">// item 二级权限</span><br>      <span class="hljs-comment">// console.log(item, &#x27;item-2&#x27;)</span><br>      <span class="hljs-keyword">const</span> temp = ruleMapping[item.path]<br>      <span class="hljs-comment">// 路由规则中添加元数据meta</span><br>      temp.meta = item.rights<br>      currentRoutes[<span class="hljs-number">1</span>].children.push(temp)<br>    &#125;)<br>  &#125;)<br>  router.addRoutes(currentRoutes)<br>  <span class="hljs-comment">// console.log(router.options.routes,&#x27;用户登录后的路由&#x27;)</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>通过自定义指令来, 实现按钮级别的权限管理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 自定义指令的注册</span><br><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/router&#x27;</span><br>Vue.directive(<span class="hljs-string">&#x27;permission&#x27;</span>, &#123;<br>  inserted (el, binding) &#123;<br>    <span class="hljs-comment">// console.log(el)</span><br>    <span class="hljs-comment">// console.log(binding)</span><br>    <span class="hljs-keyword">const</span> action = binding.value.action<br>    <span class="hljs-keyword">const</span> effect = binding.value.effect<br>    <span class="hljs-comment">// 判断 当前的路由所对应的组件中 如何判断用户是否具备action的权限</span><br>    <span class="hljs-comment">// console.log(router.currentRoute.meta, &#x27;按钮权限&#x27;)</span><br>    <span class="hljs-keyword">if</span> (router.currentRoute.meta.indexOf(action) === -<span class="hljs-number">1</span>) &#123; <span class="hljs-comment">// 等于-1说明没找到 不具备权限</span><br>      <span class="hljs-keyword">if</span> (effect === <span class="hljs-string">&#x27;disabled&#x27;</span>) &#123;<br>        el.disabled = <span class="hljs-literal">true</span><br>        el.classList.add(<span class="hljs-string">&#x27;is-disabled&#x27;</span>)<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        el.parentNode.removeChild(el)<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;)<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="前端权限思路二"><a href="#前端权限思路二" class="headerlink" title="前端权限思路二"></a>前端权限思路二</h2><ul>
+<li><p>mock 后端返回来的数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">定义token 假定 admin 的token就是<span class="hljs-string">&#x27;admin-token&#x27;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> tokens = &#123;<br>  <span class="hljs-attr">admin</span>: &#123;<br>    <span class="hljs-attr">token</span>: <span class="hljs-string">&#x27;admin-token&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">student</span>: &#123;<br>    <span class="hljs-attr">token</span>: <span class="hljs-string">&#x27;student-token&#x27;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>```javascript<br>token 对应的信息<br>export const users = {<br>  ‘admin-token’: {</p>
+<pre><code>role: &#39;admin&#39;,
+name: &#39;管理员&#39;,
+photo: &#39;https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1709216491,2536617744&amp;fm=26&amp;gp=0.jpg&#39;
+</code></pre>
+<p>  },<br>  ‘student-token’: {</p>
+<pre><code>role: &#39;student&#39;,
+name: &#39;学生&#39;,
+photo: &#39;https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364244149,3298797080&amp;fm=26&amp;gp=0.jpg&#39;
+</code></pre>
+<p>  }<br>}</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><br>- 登录<br><br>  ```<span class="javascript">javascript</span><br><span class="javascript">      <span class="hljs-keyword">async</span> onSubmit (form) &#123;</span><br><span class="javascript">        <span class="hljs-comment">// console.log(&#x27;form&#x27;, form)</span></span><br><span class="javascript">        <span class="hljs-keyword">const</span> &#123; <span class="hljs-attr">data</span>: token &#125; = <span class="hljs-keyword">await</span> login(form)</span><br><span class="javascript">        setToken(token.token)</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.$store.commit(<span class="hljs-string">&#x27;SET_TOKEN&#x27;</span>, token.token)</span><br><span class="javascript">  </span><br><span class="javascript">        <span class="hljs-built_in">this</span>.$router.push(&#123;</span><br><span class="javascript">          <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span></span><br><span class="javascript">        &#125;)</span><br><span class="javascript">      &#125;</span><br><span class="javascript">  	<span class="hljs-comment">// 导入</span></span><br><span class="javascript">      <span class="hljs-keyword">import</span> &#123; setToken &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/utils/auth&#x27;</span></span><br><span class="javascript">      setToken(token.token)  这个方法</span><br><span class="javascript">      <span class="hljs-comment">// auth.js</span></span><br><span class="javascript">      <span class="hljs-keyword">import</span> Cookies <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;js-cookie&#x27;</span></span><br><span class="javascript">  	<span class="hljs-comment">// 个方法  存取token ,把toekn存到cookies中</span></span><br><span class="javascript">      <span class="hljs-comment">// 设置 token 的键名</span></span><br><span class="javascript">      <span class="hljs-keyword">const</span> TokenKey = <span class="hljs-string">&#x27;vue_admin_token&#x27;</span></span><br><span class="javascript">  </span><br><span class="javascript">      <span class="hljs-comment">// 从缓存中获取token</span></span><br><span class="javascript">      <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getToken</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> Cookies.get(TokenKey)</span><br><span class="javascript">      &#125;</span><br><span class="javascript">  </span><br><span class="javascript">      <span class="hljs-comment">// 在缓存中存入token</span></span><br><span class="javascript">      <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setToken</span> (<span class="hljs-params">token</span>) </span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> Cookies.set(TokenKey, token)</span><br><span class="javascript">      &#125;</span><br><span class="javascript">  </span><br><span class="javascript">      <span class="hljs-comment">// 清除缓存中的token</span></span><br><span class="javascript">      <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeToken</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> Cookies.remove(TokenKey)</span><br><span class="javascript">      &#125;</span><br><span class="javascript">  </span><br></code></pre></td></tr></table></figure></li>
+<li><h3 id="router-js"><a href="#router-js" class="headerlink" title="router.js"></a>router.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 把所有 的路由 都写出来,不必动态添加路由</span><br><span class="hljs-comment">// 对于 需要权限的路由,在路由的元信息	meta	中进行添加</span><br><span class="hljs-keyword">const</span> routes = [<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/login&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;login&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/login&#x27;</span>),<br>    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span><br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Home&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Layout,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/home&#x27;</span>, <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> 这里如果注释掉 则无法通过按钮跳转到首页</span><br>    <span class="hljs-comment">// redirect: &#123;</span><br>    <span class="hljs-comment">//   name: &#x27;home&#x27;</span><br>    <span class="hljs-comment">// &#125;,</span><br>    <span class="hljs-attr">meta</span>: &#123;<br>      <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-home&#x27;</span>,<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;首页&#x27;</span><br>    &#125;,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;home&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/home&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;首页&#x27;</span><br>        &#125;<br>      &#125;<br>    ]<br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/dataCenter&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;dataCenter&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Layout,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/dataCenter/form&#x27;</span>,<br>    <span class="hljs-attr">meta</span>: &#123;<br>      <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-data&#x27;</span>,<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;数据中心&#x27;</span><br>    &#125;,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/dataCenter/form&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;form&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/form&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;表单&#x27;</span><br>        &#125;<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/dataCenter/table&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;table&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/table&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;表格&#x27;</span><br>        &#125;<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/dataCenter/echart&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;echart&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/echart&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;可视化&#x27;</span><br>        &#125;<br>      &#125;<br>    ]<br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/power&#x27;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Power&#x27;</span>,<br>    <span class="hljs-attr">component</span>: Layout,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/power&#x27;</span>,<br>    <span class="hljs-attr">meta</span>: &#123;<br>      <span class="hljs-attr">icon</span>: <span class="hljs-string">&#x27;el-icon-s-custom&#x27;</span>,<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;权限页面&#x27;</span><br>    &#125;,<br>    <span class="hljs-attr">children</span>: [<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/power&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;power&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/power&#x27;</span>),<br>        <span class="hljs-attr">meta</span>: &#123;<br>          <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;权限页面&#x27;</span>,<br>          <span class="hljs-attr">roles</span>: [<span class="hljs-string">&#x27;admin&#x27;</span>]<br>        &#125;<br>      &#125;<br>    ]<br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/404&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;@/views/404&#x27;</span>),<br>    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span><br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;*&#x27;</span>,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/404&#x27;</span>,<br>    <span class="hljs-attr">hidden</span>: <span class="hljs-literal">true</span><br>  &#125;<br>]<br></code></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><h3 id="permission-js"><a href="#permission-js" class="headerlink" title="permission.js"></a>permission.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./router&#x27;</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store&#x27;</span><br><span class="hljs-keyword">import</span> NProgress <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;nprogress&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;nprogress/nprogress.css&#x27;</span><br><span class="hljs-keyword">import</span> &#123; Message &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;element-ui&#x27;</span><br><span class="hljs-keyword">import</span> &#123; getToken, removeToken &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/utils/auth&#x27;</span><br><span class="hljs-keyword">import</span> &#123; findUserByToken &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/api/user&#x27;</span><br><br>NProgress.configure(&#123; <span class="hljs-attr">showSpinner</span>: <span class="hljs-literal">false</span> &#125;)<br><br><span class="hljs-keyword">const</span> whiteList = [<span class="hljs-string">&#x27;/login&#x27;</span>] <span class="hljs-comment">// 不重定向白名单</span><br><br>router.beforeEach(<span class="hljs-function">(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>) =&gt;</span> &#123;<br>  NProgress.start()<br>  <span class="hljs-keyword">if</span> (getToken()) &#123;<br>    <span class="hljs-comment">// 如果有token 则没必要再去登录页面 直接跳到首页</span><br>    <span class="hljs-keyword">if</span> (to.path === <span class="hljs-string">&#x27;/login&#x27;</span>) &#123;<br>      next(<span class="hljs-string">&#x27;/&#x27;</span>)<br>    &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 去其它页面</span><br>      <span class="hljs-comment">// console.log(&#x27;getToken()&#x27;, getToken())</span><br>      <span class="hljs-comment">// 将用户信息存入缓存不安全 所以存入vuex 然而每次刷新页面vuex都会清空 所以每次路由跳转时重新获取信息存入vuex</span><br>      findUserByToken(getToken()).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>        <span class="hljs-comment">// console.log(&#x27;findUserByToken res&#x27;, res)</span><br>        <span class="hljs-comment">// 如果返回的信息为空 则说明token不匹配 清除token 刷新页面 返回登录页面</span><br>        <span class="hljs-keyword">if</span> (res.data === <span class="hljs-literal">undefined</span>) &#123;<br>          Message.error(<span class="hljs-string">&#x27;无效的token&#x27;</span>)<br>          removeToken()<br>          <span class="hljs-built_in">window</span>.location.reload()<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-comment">// 如果是有效token 将信息用户信息存入vuex</span><br>          <span class="hljs-keyword">const</span> userInfo = res.data<br>          store.commit(<span class="hljs-string">&#x27;SET_ROLE&#x27;</span>, userInfo.role)<br>          store.commit(<span class="hljs-string">&#x27;SET_NAME&#x27;</span>, userInfo.name)<br>          store.commit(<span class="hljs-string">&#x27;SET_PHOTO&#x27;</span>, userInfo.photo)<br><br>          <span class="hljs-keyword">const</span> userRole = store.getters.GET_ROLE<br>          <span class="hljs-comment">// console.log(&#x27;userRole&#x27;, userRole)</span><br>          <span class="hljs-comment">// console.log(&#x27;to&#x27;, to)</span><br>          <span class="hljs-comment">// 判断正在跳转的路由是否需要权限 如果不需要权限 则直接放行</span><br>          <span class="hljs-comment">// 如果没有没有定义的meta.roles, 则(to.meta.roles)值为undefined; ===&gt;&gt;&gt;undefined 取非是true</span><br>          <span class="hljs-keyword">if</span> (!(to.meta.roles) &#123;<br>            <span class="hljs-comment">// console.log(&#x27;to.meta.roles&#x27;, to.meta.roles)</span><br>            next()<br>          &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 如果需要权限 判断用户的role是否在可跳转roles数组中</span><br>            <span class="hljs-keyword">if</span> (to.meta.roles.indexOf(userRole) !== -<span class="hljs-number">1</span>) &#123; <span class="hljs-comment">// 有权限 放行</span><br>              next()<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>              <span class="hljs-comment">// // 没有权限 清空用户信息 返回登录页面</span><br>              <span class="hljs-comment">// Message.error(&#x27;非法访问&#x27;)</span><br>              <span class="hljs-comment">// removeToken()</span><br>              <span class="hljs-comment">// window.location.reload() // 刷新vuex</span><br>              <span class="hljs-comment">// next(&#x27;/login&#x27;)</span><br><br>              <span class="hljs-comment">// 没有权限 去404</span><br>              next(<span class="hljs-string">&#x27;/404&#x27;</span>)<br>            &#125;<br>          &#125;<br>        &#125;<br>      &#125;).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;findUserByToken&#x27;</span>, err)<br>      &#125;)<br>    &#125;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 没有token 先判断是否在白名单 在白名单则放行 比如未登录时 是可以去登录页面的</span><br>    <span class="hljs-keyword">if</span> (whiteList.indexOf(to.path) !== -<span class="hljs-number">1</span>) &#123;<br>      next()<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-comment">// 要去的页面没有在白名单 则不让跳转 而是去登录页面</span><br>      next(<span class="hljs-string">&#x27;/login&#x27;</span>)<br>    &#125;<br>  &#125;<br>&#125;)<br><br>router.afterEach(<span class="hljs-function">() =&gt;</span> &#123;<br>  NProgress.done()<br>&#125;)<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>按钮级别的思路</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/store/index&#x27;</span><br><br>Vue.directive(<span class="hljs-string">&#x27;permission&#x27;</span>, &#123;<br>  inserted (el, binding) &#123;<br>    <span class="hljs-keyword">const</span> role = binding.value.role<br>    <span class="hljs-keyword">const</span> userRole = store.getters.GET_ROLE<br>    <span class="hljs-comment">// 假如用户没有相关权限则不显示</span><br>    <span class="hljs-keyword">if</span> (role.indexOf(userRole) === -<span class="hljs-number">1</span>) &#123;<br>      el.parentElement.removeChild(el)<br>    &#125;<br>  &#125;<br>&#125;)<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="前端权限实现思路三"><a href="#前端权限实现思路三" class="headerlink" title="前端权限实现思路三"></a>前端权限实现思路三</h2><ul>
+<li><p>所有的路由,页面都写好,有前端完全控制,先定义好某个 角色的能访问的页面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/*</span><br><span class="hljs-comment">  前端权限思路：</span><br><span class="hljs-comment">  1.前端自己写出权限映射,后端传来权限等级即可</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">// 隐藏路由</span><br><span class="hljs-keyword">const</span> main = [<span class="hljs-string">&#x27;main&#x27;</span>, <span class="hljs-string">&#x27;mainF&#x27;</span>, <span class="hljs-string">&#x27;404&#x27;</span>]<br><br><span class="hljs-comment">// 工艺流程</span><br><span class="hljs-keyword">const</span> process = [<span class="hljs-string">&#x27;process&#x27;</span>, <span class="hljs-string">&#x27;forming&#x27;</span>, <span class="hljs-string">&#x27;dipping&#x27;</span>, <span class="hljs-string">&#x27;graphiting&#x27;</span>, <span class="hljs-string">&#x27;tunnelKiln&#x27;</span>]<br><br><span class="hljs-comment">// 数据中心</span><br><span class="hljs-keyword">const</span> dataCenter = [<span class="hljs-string">&#x27;dataCenter&#x27;</span>, <span class="hljs-string">&#x27;cargo&#x27;</span>, <span class="hljs-string">&#x27;warehouse&#x27;</span>, <span class="hljs-string">&#x27;formCheck&#x27;</span>, <span class="hljs-string">&#x27;formCheckKiln&#x27;</span>, <span class="hljs-string">&#x27;process&#x27;</span>, <span class="hljs-string">&#x27;forming&#x27;</span>, <span class="hljs-string">&#x27;dipping&#x27;</span>, <span class="hljs-string">&#x27;graphiting&#x27;</span>, <span class="hljs-string">&#x27;form&#x27;</span>, <span class="hljs-string">&#x27;formCheckDip&#x27;</span>]<br><br><span class="hljs-comment">// 配置中心</span><br><span class="hljs-keyword">const</span> configCenter = [<span class="hljs-string">&#x27;configCenter&#x27;</span>, <span class="hljs-string">&#x27;formTemplate&#x27;</span>, <span class="hljs-string">&#x27;processManage&#x27;</span>, <span class="hljs-string">&#x27;employeeInfo&#x27;</span>, <span class="hljs-string">&#x27;platform&#x27;</span>, <span class="hljs-string">&#x27;parameter&#x27;</span>, <span class="hljs-string">&#x27;analysis&#x27;</span>]<br><br><span class="hljs-comment">// 权限中心</span><br><span class="hljs-keyword">const</span> powerManage = [<span class="hljs-string">&#x27;powerManage&#x27;</span>, <span class="hljs-string">&#x27;api&#x27;</span>, <span class="hljs-string">&#x27;auth&#x27;</span>, <span class="hljs-string">&#x27;role&#x27;</span>, <span class="hljs-string">&#x27;user&#x27;</span>]<br><br><span class="hljs-comment">// 个人中心</span><br><span class="hljs-keyword">const</span> person = [<span class="hljs-string">&#x27;person&#x27;</span>, <span class="hljs-string">&#x27;personF&#x27;</span>, <span class="hljs-string">&#x27;modifyPwd&#x27;</span>]<br><br><span class="hljs-comment">// 经过测试，Array.toString()并不会输出//背后的内容</span><br><br><span class="hljs-comment">// 抽离直接使用</span><br><br><span class="hljs-comment">// 0 管理员</span><br><span class="hljs-keyword">const</span> role0 = [<br>  main,<br>  process, <span class="hljs-comment">// 工艺流程</span><br>  dataCenter, <span class="hljs-comment">// 数据中心</span><br>  configCenter, <span class="hljs-comment">// 配置中心</span><br>  powerManage, <span class="hljs-comment">// 权限中心</span><br>  person <span class="hljs-comment">// 个人中心</span><br>]<br><br><span class="hljs-comment">// 1 压型员工</span><br><span class="hljs-keyword">const</span> role1 = [<br>  main,<br>  [<span class="hljs-string">&#x27;dataCenter&#x27;</span>, <span class="hljs-string">&#x27;forming&#x27;</span>, <span class="hljs-string">&#x27;process&#x27;</span>, <span class="hljs-string">&#x27;form&#x27;</span>],<br>  person<br>]<br><br><span class="hljs-comment">// 2 浸渍员工</span><br><span class="hljs-keyword">const</span> role2 = [<br>  main,<br>  [<span class="hljs-string">&#x27;process&#x27;</span>, <span class="hljs-string">&#x27;dipping&#x27;</span>, <span class="hljs-string">&#x27;dataCenter&#x27;</span>, <span class="hljs-string">&#x27;formCheckDip&#x27;</span>],<br>  person<br>]<br><br><span class="hljs-comment">// 3 浸隧道窑员工</span><br><span class="hljs-keyword">const</span> role3 = [<br>  main,<br>  [<span class="hljs-string">&#x27;process&#x27;</span>, <span class="hljs-string">&#x27;tunnelKiln&#x27;</span>, <span class="hljs-string">&#x27;dataCenter&#x27;</span>, <span class="hljs-string">&#x27;formCheckKiln&#x27;</span>],<br>  person<br>]<br><br><span class="hljs-comment">// 4 石墨化员工</span><br><span class="hljs-keyword">const</span> role4 = [<br>  main,<br>  [<span class="hljs-string">&#x27;process&#x27;</span>, <span class="hljs-string">&#x27;graphiting&#x27;</span>],<br>  [<span class="hljs-string">&#x27;dataCenter&#x27;</span>, <span class="hljs-string">&#x27;formCheck&#x27;</span>],<br>  person<br>]<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> allRole = &#123;<br>  role0,<br>  role1,<br>  role2,<br>  role3,<br>  role4<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+<li></li>
+<li><pre><code class="javascript">router.beforeEach((to, from, next) =&gt; &#123;
+  NProgress.start()
+  store.commit(&#39;insertCurrentPage&#39;, (to.fullPath).substr(1))
+  // console.log(to.path)
+  // 如果去登录 直接放行
+  if (to.path === &#39;/login&#39;) &#123;
+    next()
+    NProgress.done()
+  &#125; else &#123;
+    // 如果跳过了登录去其它页面 先判断是否具有token
+    // console.log(sessionStorage.getItem(&#39;Token&#39;))
+    if (sessionStorage.getItem(&#39;Token&#39;)) &#123;
+      // 有token的话调用接口获取用户信息 存到vuex里 这样就不会在控制台的本地缓存中找到用户信息
+      findByToken(sessionStorage.getItem(&#39;Token&#39;))
+        .then(res =&gt; &#123;
+          // console.log(&#39;findByToken&#39;, res)
+          // 请求拦截器将res处理了
+          if (res === undefined) &#123;
+            next(&#39;/login&#39;)
+            NProgress.done()
+          &#125;
+          // sessionStorage.setItem(&#39;loginState&#39;, JSON.stringify(res.data.data))
+          const payload = res.data.data
+          // 将用户信息存到vuex中
+          store.commit(&#39;insertLoginState&#39;, payload)
+          // console.log(&#39;state&#39;, store)
+
+          // 从vuex里面获取数据代替router,假如没有数据则重新获取
+          // 对用户状态进行检测,假如跳转到非当前用户权限范围则返回
+          try &#123;
+            // console.log(to.fullPath)
+            // 这里有个问题，假如获取到的role为null,直接会报typeError,不会进入roleState === null,故要try&#123;&#125;catch&#123;&#125;
+            const roleState = store.getters.getRole
+            // eslint-disable-next-line no-useless-escape
+            const toPath = &#39;&#39; + (to.path).substr(1) + &#39;&#39;
+            // const toPath = &#39;\&quot;routerName\&quot;:\&quot;&#39; + (to.path).substr(1) + &#39;\&quot;&#39;
+            // const toPath = (to.path).substr(1)
+            // console.log(toPath)
+            var roleName = &#39;role&#39; + roleState
+            // console.log(allRole[roleName])
+            // console.log(router.options.routes)
+            var roleGet = allRole[roleName].toString()
+            if (roleGet.indexOf(toPath) === -1) &#123;
+              // console.log(toPath)
+              // console.log(&#39;非法跳转&#39;)
+              // return new Error(&#39;非法跳转&#39;)
+              // Message.error(&#39;非法跳转&#39;)
+              localStorage.clear()
+              // next(&#39;/login&#39;)
+              next(&#39;/404&#39;)
+              NProgress.done()
+            &#125; else &#123;
+              next()
+              NProgress.done()
+            &#125;
+          &#125; catch (error) &#123;
+            console.log(&#39;路由守卫err&#39;, error)
+            next(&#39;/login&#39;)
+            NProgress.done()
+          &#125;
+        &#125;).catch(err =&gt; &#123;
+          console.log(&#39;findByToken&#39;, err)
+        &#125;)
+    &#125; else &#123;
+      // 如果跳过登录去其它页面 没有token 则返回到登录页面
+      next(&#39;/login&#39;)
+      NProgress.done()
+    &#125;
+  &#125;
+&#125;)
+</code></pre>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/29/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/">
+                        <span class="hidden-mobile">比特币白皮书---转载</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
