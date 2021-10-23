@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这是zjy的个人博客,记录自己的学习经历和成长过程,并也希望能够产生价值,帮助到其他人.学习笔记,vue,axios,前端,后端">
+  <meta name="author" content="zjy">
+  <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
+  
+  <title>Scss 学习笔记 - zjy的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zjy365.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZJY'S BLOG</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/home.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Scss 学习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-11 20:46" pubdate>
+        November 11, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Scss 学习笔记</h1>
+            
+            <div class="markdown-body">
+              <h3 id="Scss-学习笔记"><a href="#Scss-学习笔记" class="headerlink" title="Scss 学习笔记"></a>Scss 学习笔记</h3><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量用来存储需要在CSS中复用的信息，例如颜色和字体。SASS通过$符号去声明一个变量。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$font</span>-stack: Helvetica, sans-serif;<br><span class="hljs-variable">$primary</span>-color: <span class="hljs-comment">#333;</span><br><br>body &#123;<br>  font: 100% <span class="hljs-variable">$font</span>-stack;<br>  color: <span class="hljs-variable">$primary</span>-color;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面例子中变量$font-stack和$primary-color的值将会替换所有引用他们的位置。</p>
+<h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h3><p>SASS允许开发人员以嵌套的方式使用CSS，但是过度的使用嵌套会让产生的CSS难以维护，因此是一种不好的实践，下面的例子表达了一个典型的网站导航样式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp">nav &#123;<br>  ul &#123;<br>    margin: <span class="hljs-number">0</span>;<br>    padding: <span class="hljs-number">0</span>;<br>    list-style: none;<br>  &#125;<br><br>  li &#123; display: <span class="hljs-keyword">inline</span>-block; &#125;<br><br>  a &#123;<br>    display: block;<br>    padding: <span class="hljs-number">6</span>px <span class="hljs-number">12</span>px;<br>    text-decoration: none;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>大家注意上面代码中的ul、li、a选择器都被嵌套在nav选择器当中使用，这是一种书写更高可读性CSS的良好方式，编译后产生的CSS代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">nav</span> <span class="hljs-selector-tag">ul</span> &#123;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">list-style</span>: none; &#125;<br><span class="hljs-selector-tag">nav</span> <span class="hljs-selector-tag">li</span> &#123;<br>  <span class="hljs-attribute">display</span>: inline-block; &#125;<br><span class="hljs-selector-tag">nav</span> <span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">display</span>: block;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">12px</span>;<br>  <span class="hljs-attribute">text-decoration</span>: none; &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>SASS的@import则会直接将这些引入的片段合并至当前CSS文件，并且不会产生新的HTTP请求。下面例子中的代码，将会在base.scss文件当中引入_reset.scss片断。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">// _reset.scss</span><br>html, body, ul, ol &#123;<br>  margin:  <span class="hljs-number">0</span>;<br>  padding: <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-comment">// base.scss</span><br>@import <span class="hljs-string">&#x27;reset&#x27;</span>;<br>body &#123;<br>  font: <span class="hljs-number">100</span>% Helvetica, sans-serif;<br>  background-color: <span class="hljs-meta">#efefef;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>SASS中引入片断时，可以缺省使用文件扩展名，因此上面代码中直接通过@import ‘reset’引入，编译后生成的代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span>, <span class="hljs-selector-tag">ul</span>, <span class="hljs-selector-tag">ol</span> &#123;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; &#125;<br><br><span class="hljs-selector-tag">body</span> &#123;<br>  <span class="hljs-attribute">font</span>: <span class="hljs-number">100%</span> Helvetica, sans-serif;<br>  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#efefef</span>; &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><p>混合（Mixin）用来分组那些需要在页面中复用的CSS声明，开发人员可以通过向Mixin传递变量参数来让代码更加灵活，该特性在添加浏览器兼容性前缀的时候非常有用，SASS目前使用@mixin name指令来进行混合操作。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable">@mixin</span> border-radius(<span class="hljs-variable">$radius</span>) &#123;<br>          border-<span class="hljs-symbol">radius:</span> <span class="hljs-variable">$radius</span>;<br>      -ms-border-<span class="hljs-symbol">radius:</span> <span class="hljs-variable">$radius</span>;<br>     -moz-border-<span class="hljs-symbol">radius:</span> <span class="hljs-variable">$radius</span>;<br>  -webkit-border-<span class="hljs-symbol">radius:</span> <span class="hljs-variable">$radius</span>;<br>&#125;<br><br>.box &#123;<br>  <span class="hljs-variable">@include</span> border-radius(10px);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码建立了一个名为border-radius的Mixin，并传递了一个变量$radius作为参数，然后在后续代码中通过@include border-radius(10px)使用该Mixin，最终编译的结果如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.box</span> &#123;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;<br>  -ms-<span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;<br>  -moz-<span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;<br>  -webkit-<span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>; &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承是SASS中非常重要的一个特性，可以通过@extend指令在选择器之间复用CSS属性，并且不会产生冗余的代码，下面例子将会通过SASS提供的继承机制建立一系列样式：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// 这段代码不会被输出到最终生成的CSS文件，因为它没有被任何代码所继承。</span><br>%other-styles &#123;<br>  display: flex;<br>  flex-wrap: wrap;<br>&#125;<br><br><span class="hljs-comment">// 下面代码会正常输出到生成的CSS文件，因为它被其接下来的代码所继承。</span><br>%message-common &#123;<br>  border: <span class="hljs-number">1</span>px solid #ccc;<br>  padding: <span class="hljs-number">10</span>px;<br>  color: #<span class="hljs-number">333</span>;<br>&#125;<br><br>.message &#123;<br>  <span class="hljs-meta">@extend</span> %message-common;<br>&#125;<br><br>.success &#123;<br>  <span class="hljs-meta">@extend</span> %message-common;<br>  border-color: green;<br>&#125;<br><br>.error &#123;<br>  <span class="hljs-meta">@extend</span> %message-common;<br>  border-color: red;<br>&#125;<br><br>.warning &#123;<br>  <span class="hljs-meta">@extend</span> %message-common;<br>  border-color: yellow;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码将.message中的CSS属性应用到了.success、.error、.warning上面，魔法将会发生在最终生成的CSS当中。这种方式能够避免在HTML元素上书写多个class选择器，最终生成的CSS样式是下面这样的：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.message</span>, <span class="hljs-selector-class">.success</span>, <span class="hljs-selector-class">.error</span>, <span class="hljs-selector-class">.warning</span> &#123;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>; &#125;<br><br><span class="hljs-selector-class">.success</span> &#123;<br>  <span class="hljs-attribute">border-color</span>: green; &#125;<br><br><span class="hljs-selector-class">.error</span> &#123;<br>  <span class="hljs-attribute">border-color</span>: red; &#125;<br><br><span class="hljs-selector-class">.warning</span> &#123;<br>  <span class="hljs-attribute">border-color</span>: yellow; &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><p>SASS提供了标准的算术运算符，例如+、-、*、/、%。在接下来的例子里，我们尝试在aside和article选择器当中对宽度进行简单的计算。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123; <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; &#125;<br><br><span class="hljs-selector-tag">article</span><span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;main&quot;</span>]</span> &#123;<br>  <span class="hljs-attribute">float</span>: left;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">600px</span> / <span class="hljs-number">960px</span> * <span class="hljs-number">100%</span>;<br>&#125;<br><br><span class="hljs-selector-tag">aside</span><span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;complementary&quot;</span>]</span> &#123;<br>  <span class="hljs-attribute">float</span>: right;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span> / <span class="hljs-number">960px</span> * <span class="hljs-number">100%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码以960px为基准建立了简单的流式网格布局，SASS提供的算术运算符让开发人员可以更容易的将像素值转换为百分比，最终生成的CSS样式如下所示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; &#125;<br><br><span class="hljs-selector-tag">article</span><span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;main&quot;</span>]</span> &#123;<br>  <span class="hljs-attribute">float</span>: left;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">62.5%</span>; &#125;<br><br><span class="hljs-selector-tag">aside</span><span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;complementary&quot;</span>]</span> &#123;<br>  <span class="hljs-attribute">float</span>: right;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">31.25%</span>; &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="CSS扩展"><a href="#CSS扩展" class="headerlink" title="CSS扩展"></a>CSS扩展</h2><hr>
+<h3 id="引用父级选择器”-amp-”"><a href="#引用父级选择器”-amp-”" class="headerlink" title="引用父级选择器”&amp;”"></a>引用父级选择器”&amp;”</h3><p>Scss使用”&amp;”关键字在CSS规则中引用父级选择器，例如在嵌套使用伪类选择器的场景下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-comment">/*===== SCSS =====*/</span><br>a &#123;<br>  font<span class="hljs-operator">-</span>weight: bold;<br>  text<span class="hljs-operator">-</span>decoration: none;<br>  <span class="hljs-operator">&amp;</span>:hover &#123; text<span class="hljs-operator">-</span>decoration: underline; &#125;<br>  body.firefox <span class="hljs-operator">&amp;</span> &#123; font<span class="hljs-operator">-</span>weight: normal; &#125;<br>&#125;<br><br><span class="hljs-comment">/*===== CSS =====*/</span><br>a &#123;<br>  font<span class="hljs-operator">-</span>weight: bold;<br>  text<span class="hljs-operator">-</span>decoration: none; &#125;<br>  a:hover &#123;<br>    text<span class="hljs-operator">-</span>decoration: underline; &#125;<br>  body.firefox a &#123;<br>    font<span class="hljs-operator">-</span>weight: normal; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>无论CSS规则嵌套的深度怎样，关键字”&amp;”都会使用父级选择器级联替换全部其出现的位置：</p>
+<p>作者：白雪公主960<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a99764ff3c41">https://www.jianshu.com/p/a99764ff3c41</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/scss/">scss</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/20/websocket/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Websocket学习</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/28/learn-vue01/">
+                        <span class="hidden-mobile">vue的学习笔记---vue的生命周期</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        豫ICP备2021008845号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
