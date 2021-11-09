@@ -18,7 +18,7 @@
   <meta name="author" content="zjy">
   <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
   
-  <title>微信小程序订阅消息推送 - zjy的个人博客</title>
+  <title>微信小程序版本自动更新的方法 - zjy的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="微信小程序订阅消息推送">
+            <span class="h2" id="subtitle" title="微信小程序版本自动更新的方法">
               
             </span>
 
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      528 字
+      756 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      9
        分钟
     </span>
   
@@ -225,38 +225,21 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">微信小程序订阅消息推送</h1>
+            <h1 style="display: none">微信小程序版本自动更新的方法</h1>
             
             <div class="markdown-body">
-              <h3 id="微信小程序做订阅消息"><a href="#微信小程序做订阅消息" class="headerlink" title="微信小程序做订阅消息"></a>微信小程序做订阅消息</h3><p>先放上官方文档的位置 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/subscribe-message.html">https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/subscribe-message.html</a></p>
-<p>消息能力是小程序能力中的重要组成，我们为开发者提供了订阅消息能力，以便实现服务的闭环和更优的体验。</p>
-<ul>
-<li>订阅消息推送位置：服务通知</li>
-<li>订阅消息下发条件：用户自主订阅</li>
-<li>订阅消息卡片跳转能力：点击查看详情可跳转至该小程序的页面</li>
-</ul>
-<p><img src="https://res.wx.qq.com/wxdoc/dist/assets/img/request-subscribe-message.3851318e.jpg" srcset="/img/loading.gif" lazyload alt="intro"></p>
-<h3 id="消息类型分为两种"><a href="#消息类型分为两种" class="headerlink" title="消息类型分为两种"></a>消息类型分为两种</h3><p><strong>1. 一次性订阅消息</strong></p>
-<p>一次性订阅消息用于解决用户使用小程序后，后续服务环节的通知问题。用户自主订阅后，开发者可<strong>不限时间</strong>地下发<strong>一条对应的服务消息</strong>；每条消息可单独订阅或退订。</p>
-<p><strong>2. 长期订阅消息</strong></p>
-<p>一次性订阅消息可满足小程序的大部分服务场景需求，但线下公共服务领域存在一次性订阅无法满足的场景，如航班延误，需根据航班实时动态来多次发送消息提醒。为便于服务，我们提供了长期性订阅消息，用户订阅一次后，开发者可长期下发多条消息。</p>
-<p>目前长期性订阅消息仅向政务民生、医疗、交通、金融、教育等线下公共服务开放，后期将逐步支持到其他线下公共服务业务。</p>
-<p>本人只使用过第一种</p>
-<h3 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h3><ol>
-<li>先去微信公众平台手动配置 获取模板ID</li>
-<li>小程序端  调取下发权限  详见小程序端消息订阅接口 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/open-api/subscribe-message/wx.requestSubscribeMessage.html">wx.requestSubscribeMessage</a><ul>
-<li>参数需要有刚刚订阅的ID</li>
-</ul>
-</li>
-<li>最后需要服务端去调用 详见服务端消息发送接口 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html">subscribeMessage.send</a><ul>
-<li>参数 需要接口调用凭证</li>
-<li>接受者（订阅者）的openId</li>
-<li>想要下发的模板ID</li>
-<li>可选参数 用户点击消息跳转到的页面</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br>wx.requestSubscribeMessage(&#123;<br>  <span class="hljs-attr">tmplIds</span>: [<br>      <span class="hljs-string">&#x27;hrnc0VOS_KB4VvKIB9V8zRkkV7q_vZ7KoxBPRFUWDMk&#x27;</span>,<br>      <span class="hljs-string">&#x27;jtay-u_B1HgxMnlLlw4oskdJOXlzWcPasSnXqFVVqW0&#x27;</span><br>  ],<br>  success (res) &#123;<br>    <span class="hljs-comment">// console.log(res);</span><br>  &#125;<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+              <h1 id="微信小程序版本自动更新的方法"><a href="#微信小程序版本自动更新的方法" class="headerlink" title="微信小程序版本自动更新的方法"></a>微信小程序版本自动更新的方法</h1><h4 id="实践于实验室考勤项目"><a href="#实践于实验室考勤项目" class="headerlink" title="实践于实验室考勤项目"></a>实践于实验室考勤项目</h4><p><strong>知识点1</strong>: 当用户点击左上角关闭，或者按了设备Home 键离开微信，小程序并没有直接销毁，而是进入了后台；<br> 当再次进入微信或再次打开小程序，又会从后台进入前台，只有当小程序进入后台一定时间，或者系统资源占用过高，才会被真正的销毁。</p>
+<p>**知识点2: **小程序的启动分为”冷启动” 和 “热启动”.</p>
+<p>热启动是指: 小程序打开后，在一段时间内（目前：5分钟）再次被打开，此时会将后台的小程序切换到前台。</p>
+<p>冷启动是指: 小程序首次打开或销毁后再次被打开</p>
+<p><strong>知识点3:</strong> 更新版本</p>
+<p>冷启动时, 如果发现有新版本，将会异步下载新版本的代码包，并同时用客户端本地的包进行启动，即新版本的小程序需要等下一次冷启动才会应用上。</p>
+<p>如果要马上应用最新版本，使用<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://developers.weixin.qq.com/miniprogram/dev/api/base/update/wx.getUpdateManager.html">wx.getUpdateManager </a>API 进行处理。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 在app.js里写下以下代码</span><br> onLaunch () &#123;<br>  <span class="hljs-keyword">if</span> (wx.canIUse(<span class="hljs-string">&#x27;getUpdateManager&#x27;</span>)) &#123;<br>   <span class="hljs-keyword">const</span> updateManager = wx.getUpdateManager()<br>   updateManager.onCheckForUpdate(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;onCheckForUpdate====&#x27;</span>, res)<br>    <span class="hljs-comment">// 请求完新版本信息的回调</span><br>    <span class="hljs-keyword">if</span> (res.hasUpdate) &#123;<br>     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;res.hasUpdate====&#x27;</span>)<br>     updateManager.onUpdateReady(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      wx.showModal(&#123;<br>       <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;更新提示&#x27;</span>,<br>       <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经准备好，是否重启应用？&#x27;</span>,<br>       <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;success====&#x27;</span>, res)<br>        <span class="hljs-comment">// res: &#123;errMsg: &quot;showModal: ok&quot;, cancel: false, confirm: true&#125;</span><br>        <span class="hljs-keyword">if</span> (res.confirm) &#123;<br>         <span class="hljs-comment">// 新的版本已经下载好，调用 applyUpdate 应用新版本并重启</span><br>         updateManager.applyUpdate()<br>        &#125;<br>       &#125;<br>      &#125;)<br>     &#125;)<br>     updateManager.onUpdateFailed(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      <span class="hljs-comment">// 新的版本下载失败</span><br>      wx.showModal(&#123;<br>       <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;已经有新版本了哟~&#x27;</span>,<br>       <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~&#x27;</span><br>      &#125;)<br>     &#125;)<br>    &#125;<br>   &#125;)<br>  &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>知识点4</strong>: 小程序重新初始化时会触发onLaunch事件. onLaunch事件会触发在页面onShow事件之前.获取小程序更新版本可以写在onLaunch里.</p>
+<p><strong>知识点5</strong>: 随着小程序的不断更新, 部分功能可能需要最新版的微信客户端才能使用. 这时候可以弹窗提示用户更新到最新版本微信</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs javascript">onLaunch () &#123;<br> <span class="hljs-keyword">if</span> (wx.canIUse(<span class="hljs-string">&#x27;getUpdateManager&#x27;</span>)) &#123;<br>  <span class="hljs-keyword">const</span> updateManager = wx.getUpdateManager()<br>  updateManager.onCheckForUpdate(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>   <span class="hljs-keyword">if</span> (res.hasUpdate) &#123;<br>    updateManager.onUpdateReady(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>     wx.showModal(&#123;<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;更新提示&#x27;</span>,<br>      <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经准备好，是否重启应用？&#x27;</span>,<br>      <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>       <span class="hljs-keyword">if</span> (res.confirm) &#123;<br>        updateManager.applyUpdate()<br>       &#125;<br>      &#125;<br>     &#125;)<br>    &#125;)<br>    updateManager.onUpdateFailed(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>     wx.showModal(&#123;<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;已经有新版本了哟~&#x27;</span>,<br>      <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~&#x27;</span><br>     &#125;)<br>    &#125;)<br>   &#125;<br>  &#125;)<br> &#125; <span class="hljs-keyword">else</span> &#123;<br>  wx.showModal(&#123;<br>   <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;提示&#x27;</span>,<br>   <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。&#x27;</span><br>  &#125;)<br> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
             </div>
@@ -272,6 +255,13 @@
                   </div>
                 
                 
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+                    
+                  </div>
+                
               </div>
               
                 <p class="note note-warning">
@@ -285,9 +275,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/12/element%20%E5%AF%BC%E8%88%AA%E8%8F%9C%E5%8D%95%E6%8A%98%E5%8F%A0%E5%8A%A8%E7%94%BB%EF%BC%8C%E6%96%87%E5%AD%97%E4%B8%8D%E9%9A%90%E8%97%8F/">
+                      <a href="/2021/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">element 导航菜单折叠动画，文字不隐藏</span>
+                        <span class="hidden-mobile">微信小程序订阅消息推送</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -295,8 +285,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95/">
-                        <span class="hidden-mobile">微信小程序版本自动更新的方法</span>
+                      <a href="/2021/09/05/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">
+                        <span class="hidden-mobile">数组去重的方法</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
