@@ -18,7 +18,7 @@
   <meta name="author" content="zjy">
   <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
   
-  <title>vue中引入markdown编辑器 - zjy的个人博客</title>
+  <title>path-to-regexp - zjy的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="vue中引入markdown编辑器">
+            <span class="h2" id="subtitle" title="path-to-regexp">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-20 20:46" pubdate>
-        August 20, 2021 pm
+      <time datetime="2021-08-01 20:46" pubdate>
+        August 1, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      700 字
+      537 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      7
        分钟
     </span>
   
@@ -225,36 +225,49 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">vue中引入markdown编辑器</h1>
+            <h1 style="display: none">path-to-regexp</h1>
             
             <div class="markdown-body">
-              <h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。</p>
-<p>Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。</p>
-<p>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。</p>
-<p>Markdown 编写的文档后缀为 <strong>.md</strong>, <strong>.markdown</strong>。</p>
-<p>Markdown 语法很简单，可以直接上手使用。教程 <a target="_blank" rel="noopener" href="https://www.runoob.com/markdown/md-tutorial.html">https://www.runoob.com/markdown/md-tutorial.html</a></p>
-<h2 id="我在vue的项目中想引入MarkDown编辑器"><a href="#我在vue的项目中想引入MarkDown编辑器" class="headerlink" title="我在vue的项目中想引入MarkDown编辑器"></a>我在vue的项目中想引入MarkDown编辑器</h2><h4 id="在自己搭建的后台模板中的-效果展示如下"><a href="#在自己搭建的后台模板中的-效果展示如下" class="headerlink" title="在自己搭建的后台模板中的 效果展示如下"></a>在自己搭建的后台模板中的 效果展示如下</h4><p><img src="http://101.200.87.232:9000/test/Snipaste_2021-10-23_13-49-56.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>Markdown用途</strong>  Markdown的语法简洁明了、学习容易，而且功能比纯文本更强，因此有很多人用它写博客。世界上最流行的博客平台WordPress和大型CMS如Joomla、Drupal都能很好的支持Markdown。完全采用Markdown编辑器的博客平台有Ghost和Typecho。 用于编写说明文档，并且以“README.md”的文件名保存在软件的目录下面。 除此之外，由于我们有了RStudio这样的神级编辑器，我们还可以快速将Markdown转化为演讲PPT、Word产品文档、LaTex论文甚至是用非常少量的代码完成最小可用原型。在数据科学领域，Markdown已经广泛使用，极大地推进了动态可重复性研究的历史进程。</p>
-<h3 id="项目中使用方法"><a href="#项目中使用方法" class="headerlink" title="项目中使用方法"></a>项目中使用方法</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm install mavon-editor<span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure>
+              <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>该工具库用来处理 url 中地址与参数，能够很方便得到我们想要的数据。</p>
+<p>js 中有 RegExp 方法做正则表达式校验，而 path-to-regexp 可以看成是 url 字符串的正则表达式。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>第三方库，使用前先进行安装：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable">$ </span>npm install path-to-regexp<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br><span class="hljs-comment">// 导入组件 及 组件样式</span><br><span class="hljs-keyword">import</span> &#123; mavonEditor &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mavon-editor&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;mavon-editor/dist/css/index.css&#x27;</span><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>在 js 中使用：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> pathToRegexp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path-to-regexp&#x27;</span>);<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>    &lt;div&gt;<br>        &lt;mavon-editor <br>            v-model=&quot;content&quot; <br>            ref=&quot;md&quot; <br>            @change=&quot;change&quot; <br>            style=&quot;min-height: 600px&quot;<br>        /&gt;<br><br>        &lt;button @click=&quot;submit&quot;&gt;提交&lt;/button&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br><br><br><br>&lt;script&gt;<br>export default &#123;<br>    // 注册<br>    components: &#123;<br>        mavonEditor,<br>    &#125;,<br>    data() &#123;<br>        return &#123;<br>            content:&#x27;&#x27;, // 输入的markdown<br>            html:&#x27;&#x27;,    // 及时转的html<br>        &#125;<br>    &#125;,<br>    methods: &#123;<br>        // 所有操作都会被解析重新渲染<br>        change(value, render)&#123;<br>            // render 为 markdown 解析后的结果[html]<br>            this.html = render;<br>        &#125;,<br>        // 提交<br>        submit()&#123;<br>            console.log(this.content);<br>            console.log(this.html);<br>        &#125;<br>    &#125;,<br>    mounted() &#123;<br><br>    &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="API-介绍"><a href="#API-介绍" class="headerlink" title="API 介绍"></a>API 介绍</h2><h3 id="1-pathToRegexp"><a href="#1-pathToRegexp" class="headerlink" title="1. pathToRegexp()"></a>1. pathToRegexp()</h3><p>作用：这里这个方法可以类比于 js 中 <code>new RegExp(&#39;xxx&#39;)</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">var</span> pathToRegexp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path-to-regexp&#x27;</span>)<br><br><span class="hljs-keyword">var</span> re = pathToRegexp(<span class="hljs-string">&#x27;/foo/:bar&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(re);    <br></code></pre></td></tr></table></figure>
+
+<p>打印结果如下:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">/^\/foo\/((<span class="hljs-string">?:</span>[^\/]+<span class="hljs-string">?)</span>)(<span class="hljs-string">?:\/</span>(<span class="hljs-string">?=</span><span class="hljs-variable">$)</span>)<span class="hljs-string">?$</span>/i<br></code></pre></td></tr></table></figure>
+
+<p>要注意两点，一点是我们自己的 url 地址，一条是匹配规则。</p>
+<h3 id="2-exec"><a href="#2-exec" class="headerlink" title="2. exec()"></a>2. exec()</h3><p>作用：匹配 url 地址与规则是否相符。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">var</span> pathToRegexp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path-to-regexp&#x27;</span>)<br><br><span class="hljs-keyword">var</span> re = pathToRegexp(<span class="hljs-string">&#x27;/foo/:bar&#x27;</span>);     <span class="hljs-comment">// 匹配规则</span><br><span class="hljs-keyword">var</span> match1 = re.exec(<span class="hljs-string">&#x27;/test/route&#x27;</span>);    <span class="hljs-comment">// url 路径</span><br><span class="hljs-keyword">var</span> match2 = re.exec(<span class="hljs-string">&#x27;/foo/route&#x27;</span>);     <span class="hljs-comment">// url 路径</span><br><br><span class="hljs-built_in">console</span>.log(match1);<br><span class="hljs-built_in">console</span>.log(match2);<br></code></pre></td></tr></table></figure>
+
+<p>打印结果如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-keyword">null</span><br>[ <span class="hljs-string">&#x27;/foo/route&#x27;</span>, <span class="hljs-string">&#x27;route&#x27;</span>, index: <span class="hljs-number">0</span>, input: <span class="hljs-string">&#x27;/foo/route&#x27;</span> ]<br></code></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<p>上述代码中，第一个 url 路径与匹配规则不相符返回 null，第二个 url 路径与匹配规则相符，返回一个数组。</p>
+<h3 id="3-parse"><a href="#3-parse" class="headerlink" title="3. parse()"></a>3. parse()</h3><p>作用：解析 url 字符串中的参数部分（:id）。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">var</span> pathToRegexp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path-to-regexp&#x27;</span>);<br><br><span class="hljs-keyword">var</span> url = <span class="hljs-string">&#x27;/user/:id&#x27;</span>;<br><span class="hljs-built_in">console</span>.log(pathToRegexp.parse(url));<br></code></pre></td></tr></table></figure>
+
+<p>打印结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ <span class="hljs-string">&#x27;/user&#x27;</span>,<br>  &#123; name: <span class="hljs-string">&#x27;id&#x27;</span>,<br>    prefix: <span class="hljs-string">&#x27;/&#x27;</span>,<br>    delimiter: <span class="hljs-string">&#x27;/&#x27;</span>,<br>    optional: <span class="hljs-literal">false</span>,<br>    repeat: <span class="hljs-literal">false</span>,<br>    partial: <span class="hljs-literal">false</span>,<br>    pattern: <span class="hljs-string">&#x27;[^\\/]+?&#x27;</span> &#125; ]<br></code></pre></td></tr></table></figure>
+
+<p>说明：返回一个数组，从第二个数据可以就可以得到 url 地址携带参数的属性名称（item.name）。</p>
+<p>当然，url 中携带参数出了 :id 这种形式，还有 <code>/user?id=11</code> 这种，使用 parse() 方法解析自行查看结果。</p>
+<h3 id="4-compile"><a href="#4-compile" class="headerlink" title="4. compile()"></a>4. compile()</h3><p>作用：快速填充 url 字符串的参数值。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">var</span> pathToRegexp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path-to-regexp&#x27;</span>)<br><br><span class="hljs-keyword">var</span> url = <span class="hljs-string">&#x27;/user/:id/:name&#x27;</span><br><span class="hljs-keyword">var</span> data = &#123;<span class="hljs-attr">id</span>: <span class="hljs-number">10001</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;bob&#x27;</span>&#125;<br><span class="hljs-built_in">console</span>.log(pathToRegexp.compile(url)(data))<br></code></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">/user/10001/bob<br></code></pre></td></tr></table></figure>
 
 
 
-<ul>
-<li>怎么支持添加图片<ul>
-<li>首先监听输入框的变化，如果遇到图片的话，把图片上传到服务器，获取到线上地址，对其进行展示</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mavon-editor</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;content&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;md&quot;</span> @<span class="hljs-attr">imgAdd</span>=<span class="hljs-string">&quot;$imgAdd&quot;</span> @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;change&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;min-height: 600px&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>提交<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">    <span class="hljs-comment">// 将图片上传到服务器，返回地址替换到md中</span></span><br><span class="javascript">    $imgAdd(pos, $file)&#123;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> formdata = <span class="hljs-keyword">new</span> FormData();</span><br><span class="javascript"></span><br><span class="javascript">    <span class="hljs-built_in">this</span>.$upload.post(<span class="hljs-string">&#x27;/上传接口地址&#x27;</span>, formdata).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(res.data);</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.$refs.md.$img2Url(pos, res.data);</span><br><span class="javascript">    &#125;).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(err)</span><br><span class="javascript">    &#125;)</span><br><span class="javascript">    &#125;</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-
-
-<p>感谢包的创作者！！！</p>
-<p>npm 包地址  <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mavon-editor">https://www.npmjs.com/package/mavon-editor</a> </p>
+<p>作者：dkvirus<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7d2dbfdd1b0f">https://www.jianshu.com/p/7d2dbfdd1b0f</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
             </div>
             <hr>
@@ -269,13 +282,6 @@
                   </div>
                 
                 
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/MarkDown/">MarkDown</a>
-                    
-                  </div>
-                
               </div>
               
                 <p class="note note-warning">
@@ -289,9 +295,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%AB%99%E6%94%BB%E5%87%BB/">
+                      <a href="/2021/08/01/%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%B6%E9%97%B4/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">常见网站攻击 （未完成）</span>
+                        <span class="hidden-mobile">格式化时间</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -299,8 +305,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/15/path.join()%E5%92%8Cpath.resolve()%E7%9A%84%E5%8C%BA%E5%88%AB/">
-                        <span class="hidden-mobile">path.join()和path.resolve()的区别</span>
+                      <a href="/2021/07/29/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/">
+                        <span class="hidden-mobile">比特币白皮书---转载</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
