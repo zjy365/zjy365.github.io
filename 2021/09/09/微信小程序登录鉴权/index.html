@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这是zjy的个人博客,记录自己的学习经历和成长过程,并也希望能够产生价值,帮助到其他人.学习笔记,vue,axios,前端,后端">
+  <meta name="author" content="zjy">
+  <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
+  
+  <title>微信小程序登录鉴权 - zjy的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zjy365.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZJY'S BLOG</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/home.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="微信小程序登录鉴权">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-09 20:46" pubdate>
+        September 9, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">微信小程序登录鉴权</h1>
+            
+            <div class="markdown-body">
+              <h3 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h3><p>为了方便小程序应用使用微信登录态进行授权登录，微信小程序提供了登录授权的开放接口。乍一看文档，感觉文档上讲的非常有道理，但是实现起来又真的是摸不着头脑，不知道如何管理和维护登录态。本文就来手把手的教会大家在业务里如何接入和维护微信登录态。</p>
+<h3 id="接入流程"><a href="#接入流程" class="headerlink" title="接入流程"></a>接入流程</h3><p>这里官方文档上的流程图已经足够清晰，我们直接就该图展开详述和补充。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/4/8/162a3f3836b2adae~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>首先大家看到这张图，肯定会注意到小程序进行通信交互的不止是小程序前端和我们自己的服务端，微信第三方服务端也参与其中，那么微信服务端在其中扮演着怎样的角色呢？我们一起来串一遍登录鉴权的流程就明白了。</p>
+<p><strong>1. 调用wx.login生成code</strong></p>
+<p>wx.login()这个API的作用就是为当前用户生成一个临时的登录凭证，这个临时登录凭证的有效期只有五分钟。我们拿到这个登录凭证后就可以进行下一步操作：获取<code>openid</code>和<code>session_key</code></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">wx.login(&#123;<br>    success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(loginRes)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (loginRes.code) &#123;<br>            <span class="hljs-comment">// example: 081LXytJ1Xq1Y40sg3uJ1FWntJ1LXyth</span><br>        &#125;<br>    &#125;<br>&#125;);<br><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><strong>2. 获取openid和session_key</strong></p>
+<p>我们先来介绍下openid，用过公众号的童鞋应该对这个标识都不陌生了，在公众平台里，用来标识每个用户在订阅号、服务号、小程序这三种不同应用的唯一标识，也就是说每个用户在每个应用的openid都是不一致的，所以在小程序里，我们可以用openid来标识用户的唯一性。</p>
+<p>那么session_key是用来干嘛的呢？有了用户标识，我们就需要让该用户进行登录，那么<code>session_key</code>就保证了当前用户进行会话操作的有效性，这个session_key是微信服务端给我们派发的。也就是说，我们可以用这个标识来间接地维护我们小程序用户的登录态，那么这个session_key是怎么拿到的呢？我们需要在自己的服务端请求微信提供的第三方接口<code>https://api.weixin.qq.com/sns/jscode2session</code>，这个接口需要带上四个参数字段：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>appid</td>
+<td>小程序的appid</td>
+</tr>
+<tr>
+<td>secret</td>
+<td>小程序的secret</td>
+</tr>
+<tr>
+<td>js_code</td>
+<td>前面调用wx.login派发的code</td>
+</tr>
+<tr>
+<td>grant_type</td>
+<td>‘authorization_code’</td>
+</tr>
+</tbody></table>
+<p>从这几个参数，我们可以看出，要请求这个接口必须先调用wx.login()来获取到用户当前会话的code。那么为什么我们要在服务端来请求这个接口呢？其实是出于安全性的考量，如果我们在前端通过request调用此接口，就不可避免的需要将我们小程序的appid和小程序的secret暴露在外部，同时也将微信服务端下发的session_key暴露给“有心之人”，这就给我们的业务安全带来极大的风险。除了需要在服务端进行session_key的获取，我们还需要注意两点：</p>
+<ul>
+<li>session_key和微信派发的code是一一对应的，同一code只能换取一次session_key。每次调用wx.login()，都会下发一个新的code和对应的session_key，为了保证用户体验和登录态的有效性，开发者需要清楚用户需要重新登录时才去调用wx.login()</li>
+<li>session_key是有时效性的，即便是不调用wx.login，session_key也会过期，过期时间跟用户使用小程序的频率成正相关，但具体的时间长短开发者和用户都是获取不到的</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">function getSessionKey (code, appid, appSecret) &#123;<br>    <span class="hljs-keyword">var</span> opt = &#123;<br>        method: <span class="hljs-string">&#x27;GET&#x27;</span>,<br>        url: <span class="hljs-string">&#x27;https://api.weixin.qq.com/sns/jscode2session&#x27;</span>,<br>        params: &#123;<br>            appid: appid,<br>            secret: appSecret,<br>            js_code: code,<br>            grant_type: <span class="hljs-string">&#x27;authorization_code&#x27;</span><br>        &#125;<br>    &#125;;<br>    <span class="hljs-keyword">return</span> http(opt).then(function (response) &#123;<br>        <span class="hljs-keyword">var</span> <span class="hljs-keyword">data</span> = response.<span class="hljs-keyword">data</span>;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">data</span>.openid || !<span class="hljs-keyword">data</span>.session_key || <span class="hljs-keyword">data</span>.errcode) &#123;<br>            <span class="hljs-keyword">return</span> &#123;<br>                result: -<span class="hljs-number">2</span>,<br>                errmsg: <span class="hljs-keyword">data</span>.errmsg || <span class="hljs-string">&#x27;返回数据字段不完整&#x27;</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">data</span><br>        &#125;<br>    &#125;);<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><strong>3. 生成3rd_session</strong></p>
+<p>前面说过通过<code>session_key</code>来“间接”地维护登录态，所谓间接，也就是我们需要<strong>自己维护用户的登录态信息</strong>，这里也是考虑到安全性因素，如果直接使用微信服务端派发的session_key来作为业务方的登录态使用，会被“有心之人”用来获取用户的敏感信息，比如wx.getUserInfo()这个接口呢，就需要session_key来配合解密微信用户的敏感信息。</p>
+<p>那么我们如果生成自己的登录态标识呢，这里可以使用几种常见的不可逆的哈希算法，比如md5、sha1等，将生成后的登录态标识（这里我们统称为’skey’）返回给前端，并在前端维护这份登录态标识(一般是存入storage)。而在服务端呢，我们会把生成的skey存在用户对应的数据表中，前端通过传递skey来存取用户的信息。</p>
+<p>可以看到这里我们使用了sha1算法来生成了一个skey：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;crypto&#x27;</span>);<br><br><span class="hljs-keyword">return</span> getSessionKey(code, appid, secret)<br>    .then(<span class="hljs-function"><span class="hljs-params">resData</span> =&gt;</span> &#123;<br>        <span class="hljs-comment">// 选择加密算法生成自己的登录态标识</span><br>        <span class="hljs-keyword">const</span> &#123; session_key &#125; = resData;<br>        <span class="hljs-keyword">const</span> skey = encryptSha1(session_key);<br>    &#125;);<br>    <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encryptSha1</span>(<span class="hljs-params">data</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> crypto.createHash(<span class="hljs-string">&#x27;sha1&#x27;</span>).update(data, <span class="hljs-string">&#x27;utf8&#x27;</span>).digest(<span class="hljs-string">&#x27;hex&#x27;</span>)<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><strong>4. checkSession</strong></p>
+<p>前面我们将skey存入前端的storage里，每次进行用户数据请求时会带上skey，那么如果此时session_key过期呢？所以我们需要调用到wx.checkSession()这个API来校验当前session_key是否已经过期，这个API并不需要传入任何有关session_key的信息参数，而是微信小程序自己去调自己的服务来查询用户最近一次生成的session_key是否过期。如果当前session_key过期，就让用户来重新登录，更新session_key，并将最新的skey存入用户数据表中。</p>
+<p>checkSession这个步骤呢，我们一般是放在小程序启动时就校验登录态的逻辑处，这里贴个校验登录态的流程图：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/4/8/162a3f3836d66f11~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img2"></p>
+<p>下面代码即校验登录态的简单流程：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs awk">let loginFlag = wx.getStorageSync(<span class="hljs-string">&#x27;skey&#x27;</span>);<br><span class="hljs-keyword">if</span> (loginFlag) &#123;<br>    <span class="hljs-regexp">//</span> 检查 session_key 是否过期<br>    wx.checkSession(&#123;<br>        <span class="hljs-regexp">//</span> session_key 有效(未过期)<br>        success: <span class="hljs-keyword">function</span>() &#123;<br>            <span class="hljs-regexp">//</span> 业务逻辑处理<br>        &#125;,<br>    <br>        <span class="hljs-regexp">//</span> session_key 过期<br>        fail: <span class="hljs-keyword">function</span>() &#123;<br>            <span class="hljs-regexp">//</span> session_key过期，重新登录<br>            doLogin();<br>        &#125;<br>    &#125;);<br>) <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-regexp">//</span> 无skey，作为首次登录<br>    doLogin();<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><strong>5. 支持emoji表情存储</strong></p>
+<p>如果需要将用户微信名存入数据表中，那么就确认数据表及数据列的编码格式。因为用户微信名可能会包含emoji图标，而常用的UTF8编码只支持1-3个字节，emoji图标刚好是4个字节的编码进行存储。</p>
+<p>这里有两种方式(以mysql为例)：</p>
+<p>1.设置存储字符集</p>
+<p>在mysql5.5.3版本后，支持将数据库及数据表和数据列的字符集设置为<code>utf8mb4</code>，因此可在<code>/etc/my.cnf</code>设置默认字符集编码及服务端编码格式</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">// my.cnf<br><br>[client]<br><span class="hljs-keyword">default</span>-<span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>=utf8mb4<br>[mysql]<br><span class="hljs-keyword">default</span>-<span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>=utf8mb4<br>[mysqld]<br><span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>-client-handshake = <span class="hljs-keyword">FALSE</span><br><span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>-<span class="hljs-keyword">server</span>=utf8mb4<br><span class="hljs-keyword">collation</span>-<span class="hljs-keyword">server</span>=utf8mb4_unicode_ci<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>设置完默认字符集编码及服务端字符集编码，如果是对已经存在的表和字段进行编码转换，需要执行下面几个步骤：</p>
+<ul>
+<li>设置数据库字符集为<code>utf8mb4</code></li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> 数据库名称 <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> = utf8mb4 <span class="hljs-keyword">COLLATE</span> = utf8mb4_unicode_ci;<br><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>设置数据表字符集为<code>utf8mb4</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 数据表名称 <span class="hljs-keyword">CONVERT</span> <span class="hljs-keyword">TO</span> <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_unicode_ci;<br><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>设置数据列字段字符集为<code>utf8mb4</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 数据表名称 CHANGE 字段列名称 <span class="hljs-type">VARCHAR</span>(n) <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_unicode_ci;<br><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>这里的<code>COLLATE</code>指的是排序字符集，也就是用来对存储的字符进行排序和比较的，<code>utf8mb4</code>常用的collation有两种：<code>utf8mb4_unicode_ci</code>和<code>utf8mb4_general_ci</code>，一般建议使用<code>utf8mb4_unicode_ci</code>，因为它是基于标准的<code>Unicode Collation Algorithm(UCA)</code>来排序的，可以在各种语言进行精确排序。这两种排序方式的具体区别可以参考：<a href="https://link.juejin.cn/?target=https://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci">What’s the difference between utf8_general_ci and utf8_unicode_ci</a></p>
+<ol>
+<li>通过使用sequelize对emoji字符进行编码入库，使用时再进行解码</li>
+</ol>
+<p>这里是sequelize的配置，可参考<a href="https://link.juejin.cn/?target=http://docs.sequelizejs.com/class/lib/sequelize.js~Sequelize.html">Sequelize文档</a></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vim">&#123;<br>       dialec<span class="hljs-variable">t:</span> <span class="hljs-string">&#x27;mysql&#x27;</span>,    // 数据库类型<br>       dialectOption<span class="hljs-variable">s:</span> &#123;    <br>         charse<span class="hljs-variable">t:</span> <span class="hljs-string">&#x27;utf8mb4&#x27;</span>,<br>         collate: <span class="hljs-string">&quot;utf8mb4_unicode_ci&quot;</span><br>      &#125;,<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>前面讲了微信小程序如何接入微信登录态标识的详细流程，那么如何获取小程序中的用户数据以及对用户敏感数据进行解密，并保证用户数据的完整性，我将在下一篇文章给大家做一个详细地介绍。</p>
+<p>作者：腾讯IVWEB团队<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903588498522120">https://juejin.cn/post/6844903588498522120</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微信小程序版本自动更新的方法</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/05/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">
+                        <span class="hidden-mobile">数组去重的方法</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        豫ICP备2021008845号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

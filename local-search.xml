@@ -47,6 +47,8 @@
       
       <tag>vue</tag>
       
+      <tag>svg</tag>
+      
     </tags>
     
   </entry>
@@ -95,6 +97,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>微信小程序</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -105,6 +113,31 @@
     <url>/2021/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95/</url>
     
     <content type="html"><![CDATA[<h1 id="微信小程序版本自动更新的方法"><a href="#微信小程序版本自动更新的方法" class="headerlink" title="微信小程序版本自动更新的方法"></a>微信小程序版本自动更新的方法</h1><h4 id="实践于实验室考勤项目"><a href="#实践于实验室考勤项目" class="headerlink" title="实践于实验室考勤项目"></a>实践于实验室考勤项目</h4><p><strong>知识点1</strong>: 当用户点击左上角关闭，或者按了设备Home 键离开微信，小程序并没有直接销毁，而是进入了后台；<br> 当再次进入微信或再次打开小程序，又会从后台进入前台，只有当小程序进入后台一定时间，或者系统资源占用过高，才会被真正的销毁。</p><p>**知识点2: **小程序的启动分为”冷启动” 和 “热启动”.</p><p>热启动是指: 小程序打开后，在一段时间内（目前：5分钟）再次被打开，此时会将后台的小程序切换到前台。</p><p>冷启动是指: 小程序首次打开或销毁后再次被打开</p><p><strong>知识点3:</strong> 更新版本</p><p>冷启动时, 如果发现有新版本，将会异步下载新版本的代码包，并同时用客户端本地的包进行启动，即新版本的小程序需要等下一次冷启动才会应用上。</p><p>如果要马上应用最新版本，使用<a href="https://links.jianshu.com/go?to=https://developers.weixin.qq.com/miniprogram/dev/api/base/update/wx.getUpdateManager.html">wx.getUpdateManager </a>API 进行处理。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 在app.js里写下以下代码</span><br> onLaunch () &#123;<br>  <span class="hljs-keyword">if</span> (wx.canIUse(<span class="hljs-string">&#x27;getUpdateManager&#x27;</span>)) &#123;<br>   <span class="hljs-keyword">const</span> updateManager = wx.getUpdateManager()<br>   updateManager.onCheckForUpdate(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;onCheckForUpdate====&#x27;</span>, res)<br>    <span class="hljs-comment">// 请求完新版本信息的回调</span><br>    <span class="hljs-keyword">if</span> (res.hasUpdate) &#123;<br>     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;res.hasUpdate====&#x27;</span>)<br>     updateManager.onUpdateReady(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      wx.showModal(&#123;<br>       <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;更新提示&#x27;</span>,<br>       <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经准备好，是否重启应用？&#x27;</span>,<br>       <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;success====&#x27;</span>, res)<br>        <span class="hljs-comment">// res: &#123;errMsg: &quot;showModal: ok&quot;, cancel: false, confirm: true&#125;</span><br>        <span class="hljs-keyword">if</span> (res.confirm) &#123;<br>         <span class="hljs-comment">// 新的版本已经下载好，调用 applyUpdate 应用新版本并重启</span><br>         updateManager.applyUpdate()<br>        &#125;<br>       &#125;<br>      &#125;)<br>     &#125;)<br>     updateManager.onUpdateFailed(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      <span class="hljs-comment">// 新的版本下载失败</span><br>      wx.showModal(&#123;<br>       <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;已经有新版本了哟~&#x27;</span>,<br>       <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~&#x27;</span><br>      &#125;)<br>     &#125;)<br>    &#125;<br>   &#125;)<br>  &#125;<br> &#125;<br></code></pre></td></tr></table></figure><p><strong>知识点4</strong>: 小程序重新初始化时会触发onLaunch事件. onLaunch事件会触发在页面onShow事件之前.获取小程序更新版本可以写在onLaunch里.</p><p><strong>知识点5</strong>: 随着小程序的不断更新, 部分功能可能需要最新版的微信客户端才能使用. 这时候可以弹窗提示用户更新到最新版本微信</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs javascript">onLaunch () &#123;<br> <span class="hljs-keyword">if</span> (wx.canIUse(<span class="hljs-string">&#x27;getUpdateManager&#x27;</span>)) &#123;<br>  <span class="hljs-keyword">const</span> updateManager = wx.getUpdateManager()<br>  updateManager.onCheckForUpdate(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>   <span class="hljs-keyword">if</span> (res.hasUpdate) &#123;<br>    updateManager.onUpdateReady(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>     wx.showModal(&#123;<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;更新提示&#x27;</span>,<br>      <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经准备好，是否重启应用？&#x27;</span>,<br>      <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>       <span class="hljs-keyword">if</span> (res.confirm) &#123;<br>        updateManager.applyUpdate()<br>       &#125;<br>      &#125;<br>     &#125;)<br>    &#125;)<br>    updateManager.onUpdateFailed(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>     wx.showModal(&#123;<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;已经有新版本了哟~&#x27;</span>,<br>      <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~&#x27;</span><br>     &#125;)<br>    &#125;)<br>   &#125;<br>  &#125;)<br> &#125; <span class="hljs-keyword">else</span> &#123;<br>  wx.showModal(&#123;<br>   <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;提示&#x27;</span>,<br>   <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。&#x27;</span><br>  &#125;)<br> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微信小程序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>微信小程序登录鉴权</title>
+    <link href="/2021/09/09/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83/"/>
+    <url>/2021/09/09/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83/</url>
+    
+    <content type="html"><![CDATA[<h3 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h3><p>为了方便小程序应用使用微信登录态进行授权登录，微信小程序提供了登录授权的开放接口。乍一看文档，感觉文档上讲的非常有道理，但是实现起来又真的是摸不着头脑，不知道如何管理和维护登录态。本文就来手把手的教会大家在业务里如何接入和维护微信登录态。</p><h3 id="接入流程"><a href="#接入流程" class="headerlink" title="接入流程"></a>接入流程</h3><p>这里官方文档上的流程图已经足够清晰，我们直接就该图展开详述和补充。</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/4/8/162a3f3836b2adae~tplv-t2oaga2asx-watermark.awebp" alt="img"></p><p>首先大家看到这张图，肯定会注意到小程序进行通信交互的不止是小程序前端和我们自己的服务端，微信第三方服务端也参与其中，那么微信服务端在其中扮演着怎样的角色呢？我们一起来串一遍登录鉴权的流程就明白了。</p><p><strong>1. 调用wx.login生成code</strong></p><p>wx.login()这个API的作用就是为当前用户生成一个临时的登录凭证，这个临时登录凭证的有效期只有五分钟。我们拿到这个登录凭证后就可以进行下一步操作：获取<code>openid</code>和<code>session_key</code></p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">wx.login(&#123;<br>    success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(loginRes)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (loginRes.code) &#123;<br>            <span class="hljs-comment">// example: 081LXytJ1Xq1Y40sg3uJ1FWntJ1LXyth</span><br>        &#125;<br>    &#125;<br>&#125;);<br><br>复制代码<br></code></pre></td></tr></table></figure><p><strong>2. 获取openid和session_key</strong></p><p>我们先来介绍下openid，用过公众号的童鞋应该对这个标识都不陌生了，在公众平台里，用来标识每个用户在订阅号、服务号、小程序这三种不同应用的唯一标识，也就是说每个用户在每个应用的openid都是不一致的，所以在小程序里，我们可以用openid来标识用户的唯一性。</p><p>那么session_key是用来干嘛的呢？有了用户标识，我们就需要让该用户进行登录，那么<code>session_key</code>就保证了当前用户进行会话操作的有效性，这个session_key是微信服务端给我们派发的。也就是说，我们可以用这个标识来间接地维护我们小程序用户的登录态，那么这个session_key是怎么拿到的呢？我们需要在自己的服务端请求微信提供的第三方接口<code>https://api.weixin.qq.com/sns/jscode2session</code>，这个接口需要带上四个参数字段：</p><table><thead><tr><th>参数</th><th>值</th></tr></thead><tbody><tr><td>appid</td><td>小程序的appid</td></tr><tr><td>secret</td><td>小程序的secret</td></tr><tr><td>js_code</td><td>前面调用wx.login派发的code</td></tr><tr><td>grant_type</td><td>‘authorization_code’</td></tr></tbody></table><p>从这几个参数，我们可以看出，要请求这个接口必须先调用wx.login()来获取到用户当前会话的code。那么为什么我们要在服务端来请求这个接口呢？其实是出于安全性的考量，如果我们在前端通过request调用此接口，就不可避免的需要将我们小程序的appid和小程序的secret暴露在外部，同时也将微信服务端下发的session_key暴露给“有心之人”，这就给我们的业务安全带来极大的风险。除了需要在服务端进行session_key的获取，我们还需要注意两点：</p><ul><li>session_key和微信派发的code是一一对应的，同一code只能换取一次session_key。每次调用wx.login()，都会下发一个新的code和对应的session_key，为了保证用户体验和登录态的有效性，开发者需要清楚用户需要重新登录时才去调用wx.login()</li><li>session_key是有时效性的，即便是不调用wx.login，session_key也会过期，过期时间跟用户使用小程序的频率成正相关，但具体的时间长短开发者和用户都是获取不到的</li></ul><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">function getSessionKey (code, appid, appSecret) &#123;<br>    <span class="hljs-keyword">var</span> opt = &#123;<br>        method: <span class="hljs-string">&#x27;GET&#x27;</span>,<br>        url: <span class="hljs-string">&#x27;https://api.weixin.qq.com/sns/jscode2session&#x27;</span>,<br>        params: &#123;<br>            appid: appid,<br>            secret: appSecret,<br>            js_code: code,<br>            grant_type: <span class="hljs-string">&#x27;authorization_code&#x27;</span><br>        &#125;<br>    &#125;;<br>    <span class="hljs-keyword">return</span> http(opt).then(function (response) &#123;<br>        <span class="hljs-keyword">var</span> <span class="hljs-keyword">data</span> = response.<span class="hljs-keyword">data</span>;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">data</span>.openid || !<span class="hljs-keyword">data</span>.session_key || <span class="hljs-keyword">data</span>.errcode) &#123;<br>            <span class="hljs-keyword">return</span> &#123;<br>                result: -<span class="hljs-number">2</span>,<br>                errmsg: <span class="hljs-keyword">data</span>.errmsg || <span class="hljs-string">&#x27;返回数据字段不完整&#x27;</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">data</span><br>        &#125;<br>    &#125;);<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure><p><strong>3. 生成3rd_session</strong></p><p>前面说过通过<code>session_key</code>来“间接”地维护登录态，所谓间接，也就是我们需要<strong>自己维护用户的登录态信息</strong>，这里也是考虑到安全性因素，如果直接使用微信服务端派发的session_key来作为业务方的登录态使用，会被“有心之人”用来获取用户的敏感信息，比如wx.getUserInfo()这个接口呢，就需要session_key来配合解密微信用户的敏感信息。</p><p>那么我们如果生成自己的登录态标识呢，这里可以使用几种常见的不可逆的哈希算法，比如md5、sha1等，将生成后的登录态标识（这里我们统称为’skey’）返回给前端，并在前端维护这份登录态标识(一般是存入storage)。而在服务端呢，我们会把生成的skey存在用户对应的数据表中，前端通过传递skey来存取用户的信息。</p><p>可以看到这里我们使用了sha1算法来生成了一个skey：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;crypto&#x27;</span>);<br><br><span class="hljs-keyword">return</span> getSessionKey(code, appid, secret)<br>    .then(<span class="hljs-function"><span class="hljs-params">resData</span> =&gt;</span> &#123;<br>        <span class="hljs-comment">// 选择加密算法生成自己的登录态标识</span><br>        <span class="hljs-keyword">const</span> &#123; session_key &#125; = resData;<br>        <span class="hljs-keyword">const</span> skey = encryptSha1(session_key);<br>    &#125;);<br>    <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encryptSha1</span>(<span class="hljs-params">data</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> crypto.createHash(<span class="hljs-string">&#x27;sha1&#x27;</span>).update(data, <span class="hljs-string">&#x27;utf8&#x27;</span>).digest(<span class="hljs-string">&#x27;hex&#x27;</span>)<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure><p><strong>4. checkSession</strong></p><p>前面我们将skey存入前端的storage里，每次进行用户数据请求时会带上skey，那么如果此时session_key过期呢？所以我们需要调用到wx.checkSession()这个API来校验当前session_key是否已经过期，这个API并不需要传入任何有关session_key的信息参数，而是微信小程序自己去调自己的服务来查询用户最近一次生成的session_key是否过期。如果当前session_key过期，就让用户来重新登录，更新session_key，并将最新的skey存入用户数据表中。</p><p>checkSession这个步骤呢，我们一般是放在小程序启动时就校验登录态的逻辑处，这里贴个校验登录态的流程图：</p><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/4/8/162a3f3836d66f11~tplv-t2oaga2asx-watermark.awebp" alt="img2"></p><p>下面代码即校验登录态的简单流程：</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs awk">let loginFlag = wx.getStorageSync(<span class="hljs-string">&#x27;skey&#x27;</span>);<br><span class="hljs-keyword">if</span> (loginFlag) &#123;<br>    <span class="hljs-regexp">//</span> 检查 session_key 是否过期<br>    wx.checkSession(&#123;<br>        <span class="hljs-regexp">//</span> session_key 有效(未过期)<br>        success: <span class="hljs-keyword">function</span>() &#123;<br>            <span class="hljs-regexp">//</span> 业务逻辑处理<br>        &#125;,<br>    <br>        <span class="hljs-regexp">//</span> session_key 过期<br>        fail: <span class="hljs-keyword">function</span>() &#123;<br>            <span class="hljs-regexp">//</span> session_key过期，重新登录<br>            doLogin();<br>        &#125;<br>    &#125;);<br>) <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-regexp">//</span> 无skey，作为首次登录<br>    doLogin();<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure><p><strong>5. 支持emoji表情存储</strong></p><p>如果需要将用户微信名存入数据表中，那么就确认数据表及数据列的编码格式。因为用户微信名可能会包含emoji图标，而常用的UTF8编码只支持1-3个字节，emoji图标刚好是4个字节的编码进行存储。</p><p>这里有两种方式(以mysql为例)：</p><p>1.设置存储字符集</p><p>在mysql5.5.3版本后，支持将数据库及数据表和数据列的字符集设置为<code>utf8mb4</code>，因此可在<code>/etc/my.cnf</code>设置默认字符集编码及服务端编码格式</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">// my.cnf<br><br>[client]<br><span class="hljs-keyword">default</span>-<span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>=utf8mb4<br>[mysql]<br><span class="hljs-keyword">default</span>-<span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>=utf8mb4<br>[mysqld]<br><span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>-client-handshake = <span class="hljs-keyword">FALSE</span><br><span class="hljs-type">character</span>-<span class="hljs-keyword">set</span>-<span class="hljs-keyword">server</span>=utf8mb4<br><span class="hljs-keyword">collation</span>-<span class="hljs-keyword">server</span>=utf8mb4_unicode_ci<br>复制代码<br></code></pre></td></tr></table></figure><p>设置完默认字符集编码及服务端字符集编码，如果是对已经存在的表和字段进行编码转换，需要执行下面几个步骤：</p><ul><li>设置数据库字符集为<code>utf8mb4</code></li></ul><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> 数据库名称 <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> = utf8mb4 <span class="hljs-keyword">COLLATE</span> = utf8mb4_unicode_ci;<br><br>复制代码<br></code></pre></td></tr></table></figure><ul><li>设置数据表字符集为<code>utf8mb4</code></li></ul><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 数据表名称 <span class="hljs-keyword">CONVERT</span> <span class="hljs-keyword">TO</span> <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_unicode_ci;<br><br>复制代码<br></code></pre></td></tr></table></figure><ul><li>设置数据列字段字符集为<code>utf8mb4</code></li></ul><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 数据表名称 CHANGE 字段列名称 <span class="hljs-type">VARCHAR</span>(n) <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_unicode_ci;<br><br>复制代码<br></code></pre></td></tr></table></figure><p>这里的<code>COLLATE</code>指的是排序字符集，也就是用来对存储的字符进行排序和比较的，<code>utf8mb4</code>常用的collation有两种：<code>utf8mb4_unicode_ci</code>和<code>utf8mb4_general_ci</code>，一般建议使用<code>utf8mb4_unicode_ci</code>，因为它是基于标准的<code>Unicode Collation Algorithm(UCA)</code>来排序的，可以在各种语言进行精确排序。这两种排序方式的具体区别可以参考：<a href="https://link.juejin.cn/?target=https://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci">What’s the difference between utf8_general_ci and utf8_unicode_ci</a></p><ol><li>通过使用sequelize对emoji字符进行编码入库，使用时再进行解码</li></ol><p>这里是sequelize的配置，可参考<a href="https://link.juejin.cn/?target=http://docs.sequelizejs.com/class/lib/sequelize.js~Sequelize.html">Sequelize文档</a></p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vim">&#123;<br>       dialec<span class="hljs-variable">t:</span> <span class="hljs-string">&#x27;mysql&#x27;</span>,    // 数据库类型<br>       dialectOption<span class="hljs-variable">s:</span> &#123;    <br>         charse<span class="hljs-variable">t:</span> <span class="hljs-string">&#x27;utf8mb4&#x27;</span>,<br>         collate: <span class="hljs-string">&quot;utf8mb4_unicode_ci&quot;</span><br>      &#125;,<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>前面讲了微信小程序如何接入微信登录态标识的详细流程，那么如何获取小程序中的用户数据以及对用户敏感数据进行解密，并保证用户数据的完整性，我将在下一篇文章给大家做一个详细地介绍。</p><p>作者：腾讯IVWEB团队<br>链接：<a href="https://juejin.cn/post/6844903588498522120">https://juejin.cn/post/6844903588498522120</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>]]></content>
     
     
     <categories>
@@ -166,6 +199,8 @@
     
     <tags>
       
+      <tag>JavaScript</tag>
+      
       <tag>axios</tag>
       
     </tags>
@@ -209,6 +244,8 @@
     
     
     <tags>
+      
+      <tag>vue</tag>
       
       <tag>MarkDown</tag>
       
@@ -279,6 +316,8 @@
     
     <tags>
       
+      <tag>JavaScript</tag>
+      
       <tag>vue</tag>
       
     </tags>
@@ -302,6 +341,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -320,6 +365,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
     
   </entry>
   
@@ -408,6 +459,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
     
   </entry>
   
@@ -609,6 +666,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -649,6 +712,8 @@
     
     <tags>
       
+      <tag>JavaScript</tag>
+      
       <tag>vue</tag>
       
       <tag>axios</tag>
@@ -675,6 +740,8 @@
     
     
     <tags>
+      
+      <tag>JavaScript</tag>
       
       <tag>vue</tag>
       
