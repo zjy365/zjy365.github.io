@@ -226,6 +226,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/15/created%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E9%97%AE%E9%A2%98/" target="_self">
+          vue在created钩子函数请求异步数据，在mounted钩子获取不到？
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/15/created%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E9%97%AE%E9%A2%98/" target="_self">
+          
+          
+            
+          
+          vue在created钩子函数请求异步数据，在mounted钩子获取不到？恢复现场,我们在created,周期中调用了一个methods,此方法为异步请求获取数据
+
+在created周期,实例已经完成数据观测,属性,方法的运算,watch/event事件的回调,完成data数据的初始化el并没有。mounted是模板挂载
+在mounted周期中调用
+结果如下，长度为零，拿不到返回值
+
+解决方法，原
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-15 20:46" pubdate>
+              2021-08-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vue/">vue</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/06/flex%E5%B8%83%E5%B1%80/" target="_self">
           必备的flex布局
         </a>
@@ -637,57 +693,6 @@ js 中有 RegExp 方法做正则表达式校验，而 path-to-regexp 可以看�
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/JavaScript/">JavaScript</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/20/Nginx%E5%AD%A6%E4%B9%A0/" target="_self">
-          Nginx学习记录
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/20/Nginx%E5%AD%A6%E4%B9%A0/" target="_self">
-          
-          
-            
-          
-          nginx的特点
-Nginx的基础，特性，配置部署，优化，以及企业中的日常运维管理和应用。作为HTTP服务软件的后起之秀，Nginx与它的老大哥Apache相比有很多改进之处，比如，在性能上，Nginx占用的系统资源更少，能支持更多的并发连接（特别是静态小文件场景下），达到更高的访问效率；在功能上，Nginx不但是一个优秀的Web服务软件，还可以作为反向代理负载均衡及缓存服务使用；在安装配置上，N
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-20 20:46" pubdate>
-              2021-07-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/nginx/">nginx</a>
             
           </div>
         

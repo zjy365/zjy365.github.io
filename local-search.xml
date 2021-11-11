@@ -275,6 +275,31 @@
   
   
   <entry>
+    <title>vue在created钩子函数请求异步数据，在mounted钩子获取不到？</title>
+    <link href="/2021/08/15/created%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E9%97%AE%E9%A2%98/"/>
+    <url>/2021/08/15/created%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="vue在created钩子函数请求异步数据，在mounted钩子获取不到？"><a href="#vue在created钩子函数请求异步数据，在mounted钩子获取不到？" class="headerlink" title="vue在created钩子函数请求异步数据，在mounted钩子获取不到？"></a>vue在created钩子函数请求异步数据，在mounted钩子获取不到？</h1><h3 id="恢复现场-我们在created-周期中调用了一个methods-此方法为异步请求获取数据"><a href="#恢复现场-我们在created-周期中调用了一个methods-此方法为异步请求获取数据" class="headerlink" title="恢复现场,我们在created,周期中调用了一个methods,此方法为异步请求获取数据"></a>恢复现场,我们在created,周期中调用了一个methods,此方法为异步请求获取数据</h3><p><img src="http://lxandzjy.top:9003/2021/11/11/501ac6f4e7de8.png"></p><p><img src="http://lxandzjy.top:9003/2021/11/11/05724cfc4d3d3.png"></p><p>在created周期,实例已经完成数据观测,属性,方法的运算,watch/event事件的回调,完成data数据的初始化el并没有。mounted是模板挂载</p><h3 id="在mounted周期中调用"><a href="#在mounted周期中调用" class="headerlink" title="在mounted周期中调用"></a>在mounted周期中调用</h3><p><img src="http://lxandzjy.top:9003/2021/11/11/a69e002f69161.png"></p><p>结果如下，长度为零，拿不到返回值</p><p><img src="http://lxandzjy.top:9003/2021/11/11/0e61f98183f68.png"></p><h3 id="解决方法，原因因为我们是异步请求初始化数据导致"><a href="#解决方法，原因因为我们是异步请求初始化数据导致" class="headerlink" title="解决方法，原因因为我们是异步请求初始化数据导致"></a>解决方法，原因因为我们是异步请求初始化数据导致</h3><p>  （1） 可以通过setTimeOut()设定等待一个时间，确保你的初始值都已经被初始化了，但是问题是不知道需要延迟多久，况且这个方法也不是很好。<strong>在mounted当中使用 this.$nextTick 也不好用；使用setTimeout，设置延时可以，但是在网速不好的情况下还是有问题。所以不推荐；</strong></p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">mounted () &#123;<br>  <span class="hljs-keyword">this</span>.getCateTypeList()<br>  setTimeout(<span class="hljs-keyword">this</span>.getCateTypeList,<span class="hljs-number">1000</span>)<br>&#125;,<br></code></pre></td></tr></table></figure><p>  （2） 通过watch，去监听这个 categoryList，再通过nextTick渲染</p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">watch: &#123;<br>  categoryList(e)&#123;<br>    <span class="hljs-regexp">//</span> <span class="hljs-built_in">console</span>.log(e, <span class="hljs-string">&#x27;e&#x27;</span>);<br>    <span class="hljs-built_in">this</span>.$nextTick( <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>      <span class="hljs-built_in">this</span>.categoryList = e<br>      <span class="hljs-built_in">this</span>.getCateTypeList()<br>    &#125;)<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure><p>下面了解下<code>nextTick</code>的主要应用的场景及原因。</p><ul><li>在Vue生命周期的<code>created()</code>钩子函数进行的DOM操作一定要放在<code>Vue.nextTick()</code>的回调函数中</li></ul><p>在<code>created()</code>钩子函数执行的时候DOM 其实并未进行任何渲染，而此时进行DOM操作无异于徒劳，所以此处一定要将DOM操作的js代码放进<code>Vue.nextTick()</code>的回调函数中。与之对应的就是<code>mounted()</code>钩子函数，因为该钩子函数执行时所有的DOM挂载和渲染都已完成，此时在该钩子函数中进行任何DOM操作都不会有问题 。</p><ul><li>在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的DOM结构的时候，这个操作都应该放进<code>Vue.nextTick()</code>的回调函数中。</li></ul><blockquote><p>Vue 异步执行 DOM 更新。只要观察到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据改变。如果同一个 watcher 被多次触发，只会被推入到队列中一次。这种在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作上非常重要。然后，在下一个的事件循环“tick”中，Vue 刷新队列并执行实际 (已去重的) 工作。Vue 在内部尝试对异步队列使用原生的 <code>Promise.then</code> 和<code>MessageChannel</code>，如果执行环境不支持，会采用 <code>setTimeout(fn, 0)</code>代替。</p></blockquote><blockquote><p>例如，当你设置<code>vm.someData = &#39;new value&#39;</code>，该组件不会立即重新渲染。当刷新队列时，组件会在事件循环队列清空时的下一个“tick”更新。多数情况我们不需要关心这个过程，但是如果你想在 DOM 状态更新后做点什么，这就可能会有些棘手。虽然 Vue.js 通常鼓励开发人员沿着“数据驱动”的方式思考，避免直接接触 DOM，但是有时我们确实要这么做。为了在数据变化之后等待 Vue 完成更新 DOM ，可以在数据变化之后立即使用<code>Vue.nextTick(callback)</code> 。这样回调函数在 DOM 更新完成后就会调用。</p></blockquote><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs awk">new Vue(&#123;<br>  <span class="hljs-regexp">//</span> ...<br>  methods: &#123;<br>    <span class="hljs-regexp">//</span> ...<br>    example: <span class="hljs-keyword">function</span> () &#123;<br>      <span class="hljs-regexp">//</span> 修改数据<br>      this.message = <span class="hljs-string">&#x27;changed&#x27;</span><br>      <span class="hljs-regexp">//</span> DOM 还没有更新<br>      this.<span class="hljs-variable">$nextTick</span>(<span class="hljs-keyword">function</span> () &#123;<br>        <span class="hljs-regexp">//</span> DOM 现在更新了<br>        <span class="hljs-regexp">//</span> `this` 绑定到当前实例<br>        this.doSomethingElse()<br>      &#125;)<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>必备的flex布局</title>
     <link href="/2021/08/06/flex%E5%B8%83%E5%B1%80/"/>
     <url>/2021/08/06/flex%E5%B8%83%E5%B1%80/</url>
