@@ -1,0 +1,636 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这是小土猪的个人博客,记录自己的学习经历和成长过程,并也希望能够产生价值,帮助到其他人.">
+  <meta name="author" content="zjy">
+  <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
+  
+  <title>webpack实战 - 小土猪的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zjy365.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小土猪</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/home.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="webpack实战">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-10 20:46" pubdate>
+        November 10, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      66
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">webpack实战</h1>
+            
+            <div class="markdown-body">
+              <h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><p>新建一个目录，初始化npm</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> init<br></code></pre></td></tr></table></figure>
+
+<p>webpack是运行在node环境中的,我们需要安装以下两个npm包</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm i -D webpack webpack-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>npm i -D 为npm install –save-dev的缩写</li>
+<li>npm i -S 为npm install –save的缩写</li>
+</ul>
+<p>新建一个文件夹<code>src</code> ,然后新建一个文件<code>main.js</code>,写一点代码测试一下</p>
+<p>​    <img src="http://lxandzjy.top:9003/2021/11/17/0e1611dd10763.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="1-2-开始我们自己的配置"><a href="#1-2-开始我们自己的配置" class="headerlink" title="1.2 开始我们自己的配置"></a>1.2 开始我们自己的配置</h3><p>上面一个简单的例子只是webpack自己默认的配置，下面我们要实现更加丰富的自定义配置<br>新建一个<code>build</code>文件夹,里面新建一个<code>webpack.config.js</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.config.js<br><br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>module.exports = &#123;<br>    mode:<span class="hljs-string">&#x27;development&#x27;</span>, <span class="hljs-regexp">//</span> 开发模式<br>    entry: path.resolve(__dirname,<span class="hljs-string">&#x27;../src/main.js&#x27;</span>),    <span class="hljs-regexp">//</span> 入口文件<br>    output: &#123;<br>        filename: <span class="hljs-string">&#x27;output.js&#x27;</span>,      <span class="hljs-regexp">//</span> 打包后的文件名称<br>        path: path.resolve(__dirname,<span class="hljs-string">&#x27;../dist&#x27;</span>)  <span class="hljs-regexp">//</span> 打包后的目录<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-3-配置html模板"><a href="#1-3-配置html模板" class="headerlink" title="1.3 配置html模板"></a>1.3 配置html模板</h3><p>js文件打包好了,但是我们不可能每次在<code>html</code>文件中手动引入打包好的js</p>
+<blockquote>
+<p>这里可能有的朋友会认为我们打包js文件名称不是一直是固定的嘛(output.js)？这样每次就不用改动引入文件名称了呀？实际上我们日常开发中往往会这样配置:</p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">module.exports = &#123;<br>    <span class="hljs-regexp">//</span> 省略其他配置<br>    output: &#123;<br>      filename: <span class="hljs-string">&#x27;[name].[hash:8].js&#x27;</span>,      <span class="hljs-regexp">//</span> 打包后的文件名称<br>      path: path.resolve(__dirname,<span class="hljs-string">&#x27;../dist&#x27;</span>)  <span class="hljs-regexp">//</span> 打包后的目录<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>为了缓存，你会发现打包好的js文件的名称每次都不一样。webpack打包出来的js文件我们需要引入到html中，但是每次我们都手动修改js文件名显得很麻烦，因此我们需要一个插件来帮我们完成这件事情</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">npm <span class="hljs-selector-tag">i</span> -D <span class="hljs-selector-tag">html</span>-webpack-plugin<br></code></pre></td></tr></table></figure>
+
+<p>新建一个<code>build</code>同级的文件夹<code>public</code>,里面新建一个index.html<br> 具体配置文件如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webpack.config.js</span><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>)<br><span class="hljs-built_in">module</span>.exports = &#123;<br>    <span class="hljs-attr">mode</span>:<span class="hljs-string">&#x27;development&#x27;</span>, <span class="hljs-comment">// 开发模式</span><br>    <span class="hljs-attr">entry</span>: path.resolve(__dirname,<span class="hljs-string">&#x27;../src/main.js&#x27;</span>),    <span class="hljs-comment">// 入口文件</span><br>    <span class="hljs-attr">output</span>: &#123;<br>      <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;[name].[hash:8].js&#x27;</span>,      <span class="hljs-comment">// 打包后的文件名称</span><br>      <span class="hljs-attr">path</span>: path.resolve(__dirname,<span class="hljs-string">&#x27;../dist&#x27;</span>)  <span class="hljs-comment">// 打包后的目录</span><br>    &#125;,<br>    <span class="hljs-attr">plugins</span>:[<br>      <span class="hljs-keyword">new</span> HtmlWebpackPlugin(&#123;<br>        <span class="hljs-attr">template</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;../public/index.html&#x27;</span>)<br>      &#125;)<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-3-1-多入口文件如何开发"><a href="#1-3-1-多入口文件如何开发" class="headerlink" title="1.3.1 多入口文件如何开发"></a>1.3.1 多入口文件如何开发</h4><blockquote>
+<p>生成多个html-webpack-plugin实例来解决这个问题</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>)<br><span class="hljs-built_in">module</span>.exports = &#123;<br>    <span class="hljs-attr">mode</span>:<span class="hljs-string">&#x27;development&#x27;</span>, <span class="hljs-comment">// 开发模式</span><br>    <span class="hljs-attr">entry</span>: &#123;<br>      <span class="hljs-attr">main</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;../src/main.js&#x27;</span>),<br>      <span class="hljs-attr">header</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;../src/header.js&#x27;</span>)<br>  &#125;, <br>    <span class="hljs-attr">output</span>: &#123;<br>      <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;[name].[hash:8].js&#x27;</span>,      <span class="hljs-comment">// 打包后的文件名称</span><br>      <span class="hljs-attr">path</span>: path.resolve(__dirname,<span class="hljs-string">&#x27;../dist&#x27;</span>)  <span class="hljs-comment">// 打包后的目录</span><br>    &#125;,<br>    <span class="hljs-attr">plugins</span>:[<br>      <span class="hljs-keyword">new</span> HtmlWebpackPlugin(&#123;<br>        <span class="hljs-attr">template</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;../public/index.html&#x27;</span>),<br>        <span class="hljs-attr">filename</span>:<span class="hljs-string">&#x27;index.html&#x27;</span>,<br>        <span class="hljs-attr">chunks</span>:[<span class="hljs-string">&#x27;main&#x27;</span>] <span class="hljs-comment">// 与入口文件对应的模块名</span><br>      &#125;),<br>      <span class="hljs-keyword">new</span> HtmlWebpackPlugin(&#123;<br>        <span class="hljs-attr">template</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;../public/header.html&#x27;</span>),<br>        <span class="hljs-attr">filename</span>:<span class="hljs-string">&#x27;header.html&#x27;</span>,<br>        <span class="hljs-attr">chunks</span>:[<span class="hljs-string">&#x27;header&#x27;</span>] <span class="hljs-comment">// 与入口文件对应的模块名</span><br>      &#125;),<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-3-2-clean-webpack-plugin"><a href="#1-3-2-clean-webpack-plugin" class="headerlink" title="1.3.2 clean-webpack-plugin"></a>1.3.2 clean-webpack-plugin</h4><blockquote>
+<p>每次执行npm run build 会发现dist文件夹里会残留上次打包的文件，这里我们推荐一个plugin来帮我们在打包输出前清空文件夹<code>clean-webpack-plugin</code></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">const</span> &#123;CleanWebpackPlugin&#125; = require(<span class="hljs-string">&#x27;clean-webpack-plugin&#x27;</span>)<br><span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> = &#123;<br>    <span class="hljs-comment">// ...省略其他配置</span><br>    plugins:[<span class="hljs-keyword">new</span> CleanWebpackPlugin()]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-4-引用CSS"><a href="#1-4-引用CSS" class="headerlink" title="1.4 引用CSS"></a>1.4 引用CSS</h3><p>我们的入口文件是js，所以我们在入口js中引入我们的css文件</p>
+<p><img src="C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20211117143439680.png" srcset="/img/loading.gif" lazyload alt="image-20211117143439680"></p>
+<p>同时我们也需要一些loader来解析我们的css文件 scss文件</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">npm install -D sass-loader <span class="hljs-keyword">node</span><span class="hljs-title">-sass</span> style-loader css-loader<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;<br>test:<span class="hljs-regexp">/\.css$/</span>,<br>use:[<span class="hljs-string">&#x27;style-loader&#x27;</span>,<span class="hljs-string">&#x27;css-loader&#x27;</span>] <span class="hljs-regexp">//</span> 从右向左解析原则<br>&#125;,<br>&#123;<br>    test: <span class="hljs-regexp">/\.scss$/</span>,<br>    use:[ <span class="hljs-string">&#x27;style-loader&#x27;</span>,<span class="hljs-string">&#x27;css-loader&#x27;</span>,<span class="hljs-string">&#x27;postcss-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>],<br>&#125;,<br>&#123;<br>    test: <span class="hljs-regexp">/\.(jpe?g|png|gif)$/i</span>, <span class="hljs-regexp">//</span>图片文件<br>    use: [<br>      &#123;<br>        loader: <span class="hljs-string">&#x27;url-loader&#x27;</span>,<br>        options: &#123;<br>          limit: <span class="hljs-number">10240</span>,<br>          fallback: &#123;<br>            loader: <span class="hljs-string">&#x27;file-loader&#x27;</span>,<br>            options: &#123;<br>                name: <span class="hljs-string">&#x27;img/[name].[hash:8].[ext]&#x27;</span><br>            &#125;<br>          &#125;<br>        &#125;<br>      &#125;<br>    ]<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-5-打包-图片、字体、媒体、等文件"><a href="#1-5-打包-图片、字体、媒体、等文件" class="headerlink" title="1.5 打包 图片、字体、媒体、等文件"></a>1.5 打包 图片、字体、媒体、等文件</h3><p><code>file-loader</code>就是将文件在进行一些处理后（主要是处理文件名和路径、解析文件url），并将文件移动到输出的目录中<br> <code>url-loader</code> 一般与<code>file-loader</code>搭配使用，功能与 file-loader 类似，如果文件小于限制的大小。则会返回 base64 编码，否则使用 file-loader 将文件移动到输出的目录中</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-meta">//</span> <span class="hljs-string">webpack.config.js</span><br><span class="hljs-meta">module.exports</span> = <span class="hljs-string">&#123;</span><br>  <span class="hljs-meta">//</span> <span class="hljs-string">省略其它配置 ...</span><br>  <span class="hljs-attr">module</span>: <span class="hljs-string">&#123;</span><br>    <span class="hljs-attr">rules</span>: <span class="hljs-string">[</span><br>      <span class="hljs-meta">//</span> <span class="hljs-string">...</span><br>      <span class="hljs-attr">&#123;</span><br>        <span class="hljs-attr">test</span>: <span class="hljs-string">/\.(jpe?g|png|gif)$/i, //图片文件</span><br>        <span class="hljs-attr">use</span>: <span class="hljs-string">[</span><br>          <span class="hljs-attr">&#123;</span><br>            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;url-loader&#x27;,</span><br>            <span class="hljs-attr">options</span>: <span class="hljs-string">&#123;</span><br>              <span class="hljs-attr">limit</span>: <span class="hljs-string">10240,</span><br>              <span class="hljs-attr">fallback</span>: <span class="hljs-string">&#123;</span><br>                <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;file-loader&#x27;,</span><br>                <span class="hljs-attr">options</span>: <span class="hljs-string">&#123;</span><br>                    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;img/[name].[hash:8].[ext]&#x27;</span><br>                <span class="hljs-attr">&#125;</span><br>              <span class="hljs-attr">&#125;</span><br>            <span class="hljs-attr">&#125;</span><br>          <span class="hljs-attr">&#125;</span><br>        <span class="hljs-attr">]</span><br>      <span class="hljs-attr">&#125;,</span><br>      <span class="hljs-attr">&#123;</span><br>        <span class="hljs-attr">test</span>: <span class="hljs-string">/\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/, //媒体文件</span><br>        <span class="hljs-attr">use</span>: <span class="hljs-string">[</span><br>          <span class="hljs-attr">&#123;</span><br>            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;url-loader&#x27;,</span><br>            <span class="hljs-attr">options</span>: <span class="hljs-string">&#123;</span><br>              <span class="hljs-attr">limit</span>: <span class="hljs-string">10240,</span><br>              <span class="hljs-attr">fallback</span>: <span class="hljs-string">&#123;</span><br>                <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;file-loader&#x27;,</span><br>                <span class="hljs-attr">options</span>: <span class="hljs-string">&#123;</span><br>                  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;media/[name].[hash:8].[ext]&#x27;</span><br>                <span class="hljs-attr">&#125;</span><br>              <span class="hljs-attr">&#125;</span><br>            <span class="hljs-attr">&#125;</span><br>          <span class="hljs-attr">&#125;</span><br>        <span class="hljs-attr">]</span><br>      <span class="hljs-attr">&#125;,</span><br>      <span class="hljs-attr">&#123;</span><br>        <span class="hljs-attr">test</span>: <span class="hljs-string">/\.(woff2?|eot|ttf|otf)(\?.*)?$/i, // 字体</span><br>        <span class="hljs-attr">use</span>: <span class="hljs-string">[</span><br>          <span class="hljs-attr">&#123;</span><br>            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;url-loader&#x27;,</span><br>            <span class="hljs-attr">options</span>: <span class="hljs-string">&#123;</span><br>              <span class="hljs-attr">limit</span>: <span class="hljs-string">10240,</span><br>              <span class="hljs-attr">fallback</span>: <span class="hljs-string">&#123;</span><br>                <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;file-loader&#x27;,</span><br>                <span class="hljs-attr">options</span>: <span class="hljs-string">&#123;</span><br>                  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;fonts/[name].[hash:8].[ext]&#x27;</span><br>                <span class="hljs-attr">&#125;</span><br>              <span class="hljs-attr">&#125;</span><br>            <span class="hljs-attr">&#125;</span><br>          <span class="hljs-attr">&#125;</span><br>        <span class="hljs-attr">]</span><br>      <span class="hljs-attr">&#125;,</span><br>    <span class="hljs-attr">]</span><br>  <span class="hljs-attr">&#125;</span><br><span class="hljs-attr">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-6-用babel转义js文件"><a href="#1-6-用babel转义js文件" class="headerlink" title="1.6 用babel转义js文件"></a>1.6 用babel转义js文件</h3><p>为了使我们的js代码兼容更多的环境我们需要安装依赖</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i -D babel-loader @babel/preset-env @babel/core<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>注意 <code>babel-loader</code>与<code>babel-core</code>的版本对应关系</li>
+</ul>
+<ol>
+<li><code>babel-loader</code> 8.x 对应<code>babel-core</code> 7.x</li>
+<li><code>babel-loader</code> 7.x 对应<code>babel-core</code> 6.x<br> 配置如下</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.config.js<br>module.exports = &#123;<br>    <span class="hljs-regexp">//</span> 省略其它配置 ...<br>    module:&#123;<br>        rules:[<br>          &#123;<br>            test:<span class="hljs-regexp">/\.js$/</span>,<br>            use:&#123;<br>              loader:<span class="hljs-string">&#x27;babel-loader&#x27;</span>,<br>              options:&#123;<br>                presets:[<span class="hljs-string">&#x27;@babel/preset-env&#x27;</span>]<br>              &#125;<br>            &#125;,<br>            exclude:<span class="hljs-regexp">/node_modules/</span><br>          &#125;,<br>       ]<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的<code>babel-loader</code>只会将 ES6/7/8语法转换为ES5语法，但是对新api并不会转换 例如(promise、Generator、Set、Maps、Proxy等)<br> 此时我们需要借助babel-polyfill来帮助我们转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">npm i <span class="hljs-meta">@babel</span>/polyfill<br><br><span class="hljs-comment">// webpack.config.js</span><br><span class="hljs-keyword">const</span> path = require(<span class="hljs-string">&#x27;path&#x27;</span>)<br><span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> = &#123;<br>    entry: [<span class="hljs-string">&quot;@babel/polyfill&quot;</span>,path.resolve(__dirname,<span class="hljs-string">&#x27;../src/index.js&#x27;</span>)],    <span class="hljs-comment">// 入口文件</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-搭建vue开发环境"><a href="#2-搭建vue开发环境" class="headerlink" title="2 搭建vue开发环境"></a>2 搭建vue开发环境</h2><p>上面的小例子已经帮助而我们实现了打包css、图片、js、html等文件。 但是我们还需要以下几种配置</p>
+<h4 id="2-1-解析-vue文件"><a href="#2-1-解析-vue文件" class="headerlink" title="2.1 解析.vue文件"></a>2.1 解析.vue文件</h4><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i -D vue-loader vue-template-compiler vue-style-loader<br><span class="hljs-built_in">npm</span> i -S vue<br></code></pre></td></tr></table></figure>
+
+<p><code>vue-loader</code> 用于解析<code>.vue</code>文件<br> <code>vue-template-compiler</code> 用于编译模板 配置如下</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs vim">const vueLoaderPlugin = require(<span class="hljs-string">&#x27;vue-loader/lib/plugin&#x27;</span>)<br>module.exports = &#123;<br>    module:&#123;<br>        rule<span class="hljs-variable">s:</span>[&#123;<br>            tes<span class="hljs-variable">t:</span>/\.vue$/,<br>            use:[<span class="hljs-string">&#x27;vue-loader&#x27;</span>]<br>        &#125;,]<br>     &#125;,<br>    <span class="hljs-built_in">resolve</span>:&#123;<br>        alia<span class="hljs-variable">s:</span>&#123;<br>          <span class="hljs-string">&#x27;vue$&#x27;</span>:<span class="hljs-string">&#x27;vue/dist/vue.runtime.esm.js&#x27;</span>,<br>          <span class="hljs-string">&#x27; @&#x27;</span>:path.<span class="hljs-built_in">resolve</span>(__dirname,<span class="hljs-string">&#x27;../src&#x27;</span>)<br>        &#125;,<br>        extension<span class="hljs-variable">s:</span>[<span class="hljs-string">&#x27;*&#x27;</span>,<span class="hljs-string">&#x27;.js&#x27;</span>,<span class="hljs-string">&#x27;.json&#x27;</span>,<span class="hljs-string">&#x27;.vue&#x27;</span>]<br>   &#125;,<br>   plugin<span class="hljs-variable">s:</span>[<br>        <span class="hljs-keyword">new</span> vueLoaderPlugin()<br>   ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-2-配置webpack-dev-server进行热更新"><a href="#2-2-配置webpack-dev-server进行热更新" class="headerlink" title="2.2 配置webpack-dev-server进行热更新"></a>2.2 配置webpack-dev-server进行热更新</h4><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">npm i -D webpack-dev-<span class="hljs-keyword">server</span><br></code></pre></td></tr></table></figure>
+
+<p>配置如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">const</span> Webpack = require(<span class="hljs-string">&#x27;webpack&#x27;</span>)<br><span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> = &#123;<br>  <span class="hljs-comment">// ...省略其他配置</span><br>  devServer:&#123;<br>    port:<span class="hljs-number">3000</span>,<br>    hot:<span class="hljs-keyword">true</span>,<br>    contentBase:<span class="hljs-string">&#x27;../dist&#x27;</span><br>  &#125;,<br>  plugins:[<br>    <span class="hljs-keyword">new</span> Webpack.HotModuleReplacementPlugin()<br>  ]<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>完整配置如下</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.config.js<br><br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>const HtmlWebpackPlugin = require(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>)<br>const &#123;CleanWebpackPlugin&#125; = require(<span class="hljs-string">&#x27;clean-webpack-plugin&#x27;</span>)<br>const vueLoaderPlugin = require(<span class="hljs-string">&#x27;vue-loader/lib/plugin&#x27;</span>)<br>const Webpack = require(<span class="hljs-string">&#x27;webpack&#x27;</span>)<br><br><br>module.exports = &#123;<br>    mode:<span class="hljs-string">&#x27;development&#x27;</span>, <span class="hljs-regexp">//</span> 开发模式<br>    entry: &#123;<br>        main:path.resolve(__dirname,<span class="hljs-string">&#x27;./src/main.js&#x27;</span>),<br>        <span class="hljs-regexp">//</span> header:path.resolve(__dirname,<span class="hljs-string">&#x27;./src/header.js&#x27;</span>)<br>    &#125;,    <span class="hljs-regexp">//</span> 入口文件<br>    output: &#123;<br>        filename: <span class="hljs-string">&#x27;[name].[hash:8].js&#x27;</span>,      <span class="hljs-regexp">//</span> 打包后的文件名称<br>        path: path.resolve(__dirname,<span class="hljs-string">&#x27;./dist&#x27;</span>)  <span class="hljs-regexp">//</span> 打包后的目录<br>    &#125;,<br>    devServer:&#123;<br>        port:<span class="hljs-number">3000</span>,<br>        hot:true,<br>    &#125;,<br>    plugins:[<br>        <span class="hljs-regexp">//</span> new HtmlWebpackPlugin(&#123;<br>        <span class="hljs-regexp">//</span>     filename:<span class="hljs-string">&#x27;index.html&#x27;</span>,<br>        <span class="hljs-regexp">//</span>     chunks:[<span class="hljs-string">&#x27;main&#x27;</span>] <span class="hljs-regexp">//</span> 与入口文件对应的模块名<br>        <span class="hljs-regexp">//</span> &#125;),<br>        <span class="hljs-regexp">//</span> new HtmlWebpackPlugin(&#123;<br>        <span class="hljs-regexp">//</span>     filename:<span class="hljs-string">&#x27;header.html&#x27;</span>,<br>        <span class="hljs-regexp">//</span>     chunks:[<span class="hljs-string">&#x27;header&#x27;</span>] <span class="hljs-regexp">//</span> 与入口文件对应的模块名<br>        <span class="hljs-regexp">//</span> &#125;),<br>        new HtmlWebpackPlugin(&#123;<br>          template:path.resolve(__dirname,<span class="hljs-string">&#x27;./public/index.html&#x27;</span>),<br>          filename:<span class="hljs-string">&#x27;index.html&#x27;</span><br>        &#125;),<br>        new CleanWebpackPlugin(),<br>        new vueLoaderPlugin(),<br>        new Webpack.HotModuleReplacementPlugin()<br>    ],<br>    module:&#123;<br>        rules:[<br>            &#123;<br>            test:<span class="hljs-regexp">/\.css$/</span>,<br>            use:[<span class="hljs-string">&#x27;style-loader&#x27;</span>,<span class="hljs-string">&#x27;css-loader&#x27;</span>] <span class="hljs-regexp">//</span> 从右向左解析原则<br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.scss$/</span>,<br>                use:[ <span class="hljs-string">&#x27;style-loader&#x27;</span>,<span class="hljs-string">&#x27;css-loader&#x27;</span>,<span class="hljs-string">&#x27;postcss-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>],<br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.(jpe?g|png|gif)$/i</span>, <span class="hljs-regexp">//</span>图片文件<br>                use: [<br>                  &#123;<br>                    loader: <span class="hljs-string">&#x27;url-loader&#x27;</span>,<br>                    options: &#123;<br>                      limit: <span class="hljs-number">10240</span>,<br>                      fallback: &#123;<br>                        loader: <span class="hljs-string">&#x27;file-loader&#x27;</span>,<br>                        options: &#123;<br>                            name: <span class="hljs-string">&#x27;img/[name].[hash:8].[ext]&#x27;</span><br>                        &#125;<br>                      &#125;<br>                    &#125;<br>                  &#125;<br>                ]<br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/</span>, <span class="hljs-regexp">//</span>媒体文件<br>                use: [<br>                  &#123;<br>                    loader: <span class="hljs-string">&#x27;url-loader&#x27;</span>,<br>                    options: &#123;<br>                      limit: <span class="hljs-number">10240</span>,<br>                      fallback: &#123;<br>                        loader: <span class="hljs-string">&#x27;file-loader&#x27;</span>,<br>                        options: &#123;<br>                          name: <span class="hljs-string">&#x27;media/[name].[hash:8].[ext]&#x27;</span><br>                        &#125;<br>                      &#125;<br>                    &#125;<br>                  &#125;<br>                ]<br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.(woff2?|eot|ttf|otf)(\?.*)?$/i</span>, <span class="hljs-regexp">//</span> 字体<br>                use: [<br>                  &#123;<br>                    loader: <span class="hljs-string">&#x27;url-loader&#x27;</span>,<br>                    options: &#123;<br>                      limit: <span class="hljs-number">10240</span>,<br>                      fallback: &#123;<br>                        loader: <span class="hljs-string">&#x27;file-loader&#x27;</span>,<br>                        options: &#123;<br>                          name: <span class="hljs-string">&#x27;fonts/[name].[hash:8].[ext]&#x27;</span><br>                        &#125;<br>                      &#125;<br>                    &#125;<br>                  &#125;<br>                ]<br>            &#125;,<br>            &#123;<br>                test:<span class="hljs-regexp">/\.js$/</span>,<br>                use:&#123;<br>                  loader:<span class="hljs-string">&#x27;babel-loader&#x27;</span>,<br>                  options:&#123;<br>                    presets:[<span class="hljs-string">&#x27;@babel/preset-env&#x27;</span>]<br>                  &#125;<br>                &#125;,<br>                exclude:<span class="hljs-regexp">/node_modules/</span><br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.vue$/</span>,<br>                use: [<span class="hljs-string">&#x27;vue-loader&#x27;</span>]<br>            &#125;,<br>        ]<br>    &#125;,<br>    resolve:&#123;<br>        alias:&#123;<br>          <span class="hljs-string">&#x27;vue$&#x27;</span>:<span class="hljs-string">&#x27;vue/dist/vue.runtime.esm.js&#x27;</span>,<br>          <span class="hljs-string">&#x27; @&#x27;</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;./src&#x27;</span>)<br>        &#125;,<br>        extensions:[<span class="hljs-string">&#x27;*&#x27;</span>,<span class="hljs-string">&#x27;.js&#x27;</span>,<span class="hljs-string">&#x27;.json&#x27;</span>,<span class="hljs-string">&#x27;.vue&#x27;</span>]<br>   &#125;,<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webpack.dev.js</span><br><br><span class="hljs-keyword">const</span> Webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>)<br><span class="hljs-keyword">const</span> webpackConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./webpack.config.js&#x27;</span>)<br><span class="hljs-keyword">const</span> WebpackMerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack-merge&#x27;</span>)<br><span class="hljs-built_in">module</span>.exports = WebpackMerge(webpackConfig,&#123;<br>  <span class="hljs-attr">mode</span>:<span class="hljs-string">&#x27;development&#x27;</span>,<br>  <span class="hljs-attr">devtool</span>:<span class="hljs-string">&#x27;cheap-module-eval-source-map&#x27;</span>,<br>  <span class="hljs-attr">devServer</span>:&#123;<br>    <span class="hljs-attr">port</span>:<span class="hljs-number">3000</span>,<br>    <span class="hljs-attr">hot</span>:<span class="hljs-literal">true</span>,<br>  &#125;,<br>  <span class="hljs-attr">plugins</span>:[<br>    <span class="hljs-keyword">new</span> Webpack.HotModuleReplacementPlugin()<br>  ]<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webpack.prod.js</span><br><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>)<br><span class="hljs-keyword">const</span> webpackConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./webpack.config.js&#x27;</span>)<br><span class="hljs-keyword">const</span> WebpackMerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack-merge&#x27;</span>)<br><span class="hljs-keyword">const</span> CopyWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;copy-webpack-plugin&#x27;</span>)<br><span class="hljs-keyword">const</span> OptimizeCssAssetsPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;optimize-css-assets-webpack-plugin&#x27;</span>)<br><span class="hljs-keyword">const</span> UglifyJsPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;uglifyjs-webpack-plugin&#x27;</span>)<br><span class="hljs-built_in">module</span>.exports = WebpackMerge(webpackConfig,&#123;<br>  <span class="hljs-attr">mode</span>:<span class="hljs-string">&#x27;production&#x27;</span>,<br>  <span class="hljs-attr">devtool</span>:<span class="hljs-string">&#x27;cheap-module-source-map&#x27;</span>,<br>  <span class="hljs-attr">plugins</span>:[<br>    <span class="hljs-keyword">new</span> CopyWebpackPlugin([&#123;<br>      <span class="hljs-attr">from</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;./public&#x27;</span>),<br>      <span class="hljs-attr">to</span>:path.resolve(__dirname,<span class="hljs-string">&#x27;./dist&#x27;</span>)<br>    &#125;]),<br>  ],<br>  <span class="hljs-attr">optimization</span>:&#123;<br>    <span class="hljs-attr">minimizer</span>:[<br>      <span class="hljs-keyword">new</span> UglifyJsPlugin(&#123;<span class="hljs-comment">//压缩js</span><br>        <span class="hljs-attr">cache</span>:<span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">parallel</span>:<span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">sourceMap</span>:<span class="hljs-literal">true</span><br>    &#125;),<br>    <span class="hljs-keyword">new</span> OptimizeCssAssetsPlugin(&#123;&#125;)<br>    ],<br>    <span class="hljs-attr">splitChunks</span>:&#123;<br>      <span class="hljs-attr">chunks</span>:<span class="hljs-string">&#x27;all&#x27;</span>,<br>      <span class="hljs-attr">cacheGroups</span>:&#123;<br>        <span class="hljs-attr">libs</span>: &#123;<br>          <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;chunk-libs&quot;</span>,<br>          <span class="hljs-attr">test</span>: <span class="hljs-regexp">/[\\/]node_modules[\\/]/</span>,<br>          priority: <span class="hljs-number">10</span>,<br>          <span class="hljs-attr">chunks</span>: <span class="hljs-string">&quot;initial&quot;</span> <span class="hljs-comment">// 只打包初始时依赖的第三方</span><br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-4-区分开发环境与生产环境"><a href="#2-4-区分开发环境与生产环境" class="headerlink" title="2.4 区分开发环境与生产环境"></a>2.4 区分开发环境与生产环境</h3><p>实际应用到项目中，我们需要区分开发环境与生产环境，我们在原来webpack.config.js的基础上再新增两个文件</p>
+<ul>
+<li><p><code>webpack.dev.js</code> 开发环境配置文件</p>
+<ul>
+<li>开发环境主要实现的是热更新,不要压缩代码，完整的sourceMap</li>
+</ul>
+</li>
+<li><p><code>webpack.prod.js</code> 生产环境配置文件</p>
+<ul>
+<li>生产环境主要实现的是压缩代码、提取css文件、合理的sourceMap、分割代码<br>需要安装以下模块:<br>npm i -D  webpack-merge copy-webpack-plugin optimize-css-assets-webpack-plugin uglifyjs-webpack-plugin</li>
+</ul>
+</li>
+<li><p><code>webpack-merge</code> 合并配置</p>
+</li>
+<li><p><code>copy-webpack-plugin</code> 拷贝静态资源</p>
+</li>
+<li><p><code>optimize-css-assets-webpack-plugin</code> 压缩css</p>
+</li>
+<li><p><code>uglifyjs-webpack-plugin</code> 压缩js</p>
+</li>
+</ul>
+<h2 id="2-5-优化webpack配置"><a href="#2-5-优化webpack配置" class="headerlink" title="2.5 优化webpack配置"></a>2.5 优化webpack配置</h2><p>优化配置对我们来说非常有实际意义，这实际关系到你打包出来文件的大小，打包的速度等。 具体优化可以分为以下几点：</p>
+<h3 id="2-5-1-优化打包速度"><a href="#2-5-1-优化打包速度" class="headerlink" title="2.5.1 优化打包速度"></a>2.5.1 优化打包速度</h3><blockquote>
+<p>构建速度指的是我们每次修改代码后热更新的速度以及发布前打包文件的速度。</p>
+</blockquote>
+<h4 id="2-5-1-2-缩小文件的搜索范围-配置include-exclude-alias-noParse-extensions"><a href="#2-5-1-2-缩小文件的搜索范围-配置include-exclude-alias-noParse-extensions" class="headerlink" title="2.5.1.2 缩小文件的搜索范围(配置include exclude alias noParse extensions)"></a>2.5.1.2 缩小文件的搜索范围(配置include exclude alias noParse extensions)</h4><ul>
+<li><code>alias</code>: 当我们代码中出现 <code>import &#39;vue&#39;</code>时， webpack会采用向上递归搜索的方式去<code>node_modules</code> 目录下找。为了减少搜索范围我们可以直接告诉webpack去哪个路径下查找。也就是别名(<code>alias</code>)的配置。</li>
+<li><code>include exclude</code> 同样配置<code>include exclude</code>也可以减少<code>webpack loader</code>的搜索转换时间。</li>
+<li><code>noParse </code> 当我们代码中使用到<code>import jq from &#39;jquery&#39;</code>时，<code>webpack</code>会去解析jq这个库是否有依赖其他的包。但是我们对类似<code>jquery</code>这类依赖库，一般会认为不会引用其他的包(特殊除外,自行判断)。增加<code>noParse</code>属性,告诉<code>webpack</code>不必解析，以此增加打包速度。</li>
+<li><code>extensions ``webpack</code>会根据<code>extensions</code>定义的后缀查找文件(频率较高的文件类型优先写在前面)</li>
+</ul>
+<h4 id="2-5-1-3-使用HappyPack开启多进程Loader转换"><a href="#2-5-1-3-使用HappyPack开启多进程Loader转换" class="headerlink" title="2.5.1.3 使用HappyPack开启多进程Loader转换"></a>2.5.1.3 使用HappyPack开启多进程Loader转换</h4><blockquote>
+<p>在webpack构建过程中，实际上耗费时间大多数用在loader解析转换以及代码的压缩中。日常开发中我们需要使用Loader对js，css，图片，字体等文件做转换操作，并且转换的文件数据量也是非常大。由于js单线程的特性使得这些转换操作不能并发处理文件，而是需要一个个文件进行处理。HappyPack的基本原理是将这部分任务分解到多个子进程中去并行处理，子进程处理完成后把结果发送到主进程中，从而减少总的构建时间</p>
+</blockquote>
+<h4 id="2-5-1-4-使用webpack-parallel-uglify-plugin-增强代码压缩"><a href="#2-5-1-4-使用webpack-parallel-uglify-plugin-增强代码压缩" class="headerlink" title="2.5.1.4 使用webpack-parallel-uglify-plugin 增强代码压缩"></a>2.5.1.4 使用webpack-parallel-uglify-plugin 增强代码压缩</h4><blockquote>
+<p>上面对于loader转换已经做优化，那么下面还有另一个难点就是优化代码的压缩时间</p>
+</blockquote>
+<h4 id="2-5-1-5-抽离第三方模块"><a href="#2-5-1-5-抽离第三方模块" class="headerlink" title="2.5.1.5 抽离第三方模块"></a>2.5.1.5 抽离第三方模块</h4><blockquote>
+<p>对于开发项目中不经常会变更的静态依赖文件。类似于我们的<code>elementUi、vue</code>全家桶等等。因为很少会变更，所以我们不希望这些依赖要被集成到每一次的构建逻辑中去。 这样做的好处是每次更改我本地代码的文件的时候，<code>webpack</code>只需要打包我项目本身的文件代码，而不会再去编译第三方库。以后只要我们不升级第三方包的时候，那么<code>webpack</code>就不会对这些库去打包，这样可以快速的提高打包的速度。</p>
+</blockquote>
+<p>这里我们使用<code>webpack</code>内置的<code>DllPlugin DllReferencePlugin</code>进行抽离<br> 在与<code>webpack</code>配置文件同级目录下新建<code>webpack.dll.config.js</code> 代码如下</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs lua">// webpack.dll.<span class="hljs-built_in">config</span>.js<br>const <span class="hljs-built_in">path</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>);<br>const webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;webpack&quot;</span>);<br><span class="hljs-built_in">module</span>.exports = &#123;<br>  // 你想要打包的模块的数组<br>  entry: &#123;<br>    vendor: [<span class="hljs-string">&#x27;vue&#x27;</span>,<span class="hljs-string">&#x27;element-ui&#x27;</span>] <br>  &#125;,<br>  <span class="hljs-built_in">output</span>: &#123;<br>    <span class="hljs-built_in">path</span>: <span class="hljs-built_in">path</span>.resolve(__dirname, <span class="hljs-string">&#x27;static/js&#x27;</span>), // 打包后文件输出的位置<br>    filename: <span class="hljs-string">&#x27;[name].dll.js&#x27;</span>,<br>    library: <span class="hljs-string">&#x27;[name]_library&#x27;</span> <br>     // 这里需要和webpack.DllPlugin中的`name: <span class="hljs-string">&#x27;[name]_library&#x27;</span>,`保持一致。<br>  &#125;,<br>  plugins: [<br>    new webpack.DllPlugin(&#123;<br>      <span class="hljs-built_in">path</span>: <span class="hljs-built_in">path</span>.resolve(__dirname, <span class="hljs-string">&#x27;[name]-manifest.json&#x27;</span>),<br>      name: <span class="hljs-string">&#x27;[name]_library&#x27;</span>, <br>      context: __dirname<br>    &#125;)<br>  ]<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>package.json</code>中配置如下命令</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;dll&quot;</span>: <span class="hljs-string">&quot;webpack --config build/webpack.dll.config.js&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来在我们的<code>webpack.config.js</code>中增加以下代码</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs haxe">module.exports = &#123;<br>  plugins: <span class="hljs-type"></span>[<br>    <span class="hljs-keyword">new</span> <span class="hljs-type">webpack</span>.DllReferencePlugin(&#123;<br>      context: <span class="hljs-type">__dirname</span>,<br>      manifest: <span class="hljs-type">require</span>(<span class="hljs-string">&#x27;./vendor-manifest.json&#x27;</span>)<br>    &#125;),<br>    <span class="hljs-keyword">new</span> <span class="hljs-type">CopyWebpackPlugin</span>([ <span class="hljs-comment">// 拷贝生成的文件到dist目录 这样每次不必手动去cv</span><br>      &#123;from: <span class="hljs-type"></span>&#x27;<span class="hljs-keyword">static</span><span class="hljs-string">&#x27;, to:&#x27;</span><span class="hljs-keyword">static</span><span class="hljs-string">&#x27;&#125;</span><br><span class="hljs-string">    ]),</span><br><span class="hljs-string">  ]</span><br><span class="hljs-string">&#125;;</span><br></code></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">npm <span class="hljs-builtin-name">run</span> dll<br></code></pre></td></tr></table></figure>
+
+<p>会发现生成了我们需要的集合第三地方 代码的<code>vendor.dll.js</code> 我们需要在<code>html</code>文件中手动引入这个<code>js</code>文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>老yuan<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;static/js/vendor.dll.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样如果我们没有更新第三方依赖包，就不必<code>npm run dll</code>。直接执行<code>npm run dev npm run build</code>的时候会发现我们的打包速度明显有所提升。因为我们已经通过<code>dllPlugin</code>将第三方依赖包抽离出来了</p>
+<h4 id="2-5-1-6-配置缓存"><a href="#2-5-1-6-配置缓存" class="headerlink" title="2.5.1.6 配置缓存"></a>2.5.1.6 配置缓存</h4><blockquote>
+<p>我们每次执行构建都会把所有的文件都重复编译一遍，这样的重复工作是否可以被缓存下来呢，答案是可以的，目前大部分 <code>loader</code> 都提供了<code>cache</code> 配置项。比如在 <code>babel-loader</code> 中，可以通过设置<code>cacheDirectory</code> 来开启缓存，<code>babel-loader?cacheDirectory=true</code> 就会将每次的编译结果写进硬盘文件（默认是在项目根目录下的<code>node_modules/.cache/babel-loader</code>目录内，当然你也可以自定义）</p>
+</blockquote>
+<p>但如果 <code>loader</code> 不支持缓存呢？我们也有方法,我们可以通过<code>cache-loader</code> ，它所做的事情很简单，就是 <code>babel-loader</code> 开启 <code>cache </code>后做的事情，将 <code>loader</code> 的编译结果写入硬盘缓存。再次构建会先比较一下，如果文件较之前的没有发生变化则会直接使用缓存。使用方法如官方 demo 所示，在一些性能开销较大的 loader 之前添加此 loader即可</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i -D cache-loader<br></code></pre></td></tr></table></figure>
+
+
+<p><img src="http://lxandzjy.top:9003/2021/11/17/eccbd354b1c97.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-5-2-优化打包文件体积"><a href="#2-5-2-优化打包文件体积" class="headerlink" title="2.5.2 优化打包文件体积"></a>2.5.2 优化打包文件体积</h3><blockquote>
+<p>打包的速度我们是进行了优化，但是打包后的文件体积却是十分大，造成了页面加载缓慢，浪费流量等，接下来让我们从文件体积上继续优化</p>
+</blockquote>
+<h4 id="2-5-2-1-引入webpack-bundle-analyzer分析打包后的文件"><a href="#2-5-2-1-引入webpack-bundle-analyzer分析打包后的文件" class="headerlink" title="2.5.2.1 引入webpack-bundle-analyzer分析打包后的文件"></a>2.5.2.1 引入webpack-bundle-analyzer分析打包后的文件</h4><p><code>webpack-bundle-analyzer</code>将打包后的内容束展示为方便交互的直观树状图，让我们知道我们所构建包中真正引入的内容</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i -D webpack-bundle-analyzer<br></code></pre></td></tr></table></figure>
+
+<p>接下来在<code>package.json</code>里配置启动命令</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;analyz&quot;</span>: <span class="hljs-string">&quot;NODE_ENV=production npm_config_report=true npm run build&quot;</span> <br></code></pre></td></tr></table></figure>
+
+<p>windows请安装<code>npm i -D cross-env</code></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;analyz&quot;</span>: <span class="hljs-string">&quot;cross-env NODE_ENV=production npm_config_report=true npm run build&quot;</span> <br></code></pre></td></tr></table></figure>
+
+<h4 id="2-5-2-3-externals"><a href="#2-5-2-3-externals" class="headerlink" title="2.5.2.3 externals"></a>2.5.2.3 externals</h4><blockquote>
+<p>按照官方文档的解释，如果我们想引用一个库，但是又不想让<code>webpack</code>打包，并且又不影响我们在程序中以<code>CMD、AMD</code>或者<code>window/global</code>全局等方式进行使用，那就可以通过配置<code>Externals</code>。这个功能主要是用在创建一个库的时候用的，但是也可以在我们项目开发中充分使用 <code>Externals</code>的方式，我们将这些不需要打包的静态资源从构建逻辑中剔除出去，而使用 <code>CDN</code> 的方式，去引用它们。</p>
+</blockquote>
+<p>有时我们希望我们通过<code>script</code>引入的库，如用CDN的方式引入的<code>jquery</code>，我们在使用时，依旧用<code>require</code>的方式来使用，但是却不希望<code>webpack</code>将它又编译进文件中。这里官网案例已经足够清晰明了，大家有兴趣可以点击了解  </p>
+<p><a href="https://link.juejin.cn/?target=https://webpack.js.org/configuration/externals/%23root">webpack</a> 官网案例如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script<br>  src=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.1.0.js&quot;</span><br>  integrity=<span class="hljs-string">&quot;sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=&quot;</span><br>  crossorigin=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;<br>&lt;/script&gt;<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-comment">//...</span><br>  <span class="hljs-attr">externals</span>: &#123;<br>    <span class="hljs-attr">jquery</span>: <span class="hljs-string">&#x27;jQuery&#x27;</span><br>  &#125;<br>&#125;;<br>复制代码<br><span class="hljs-keyword">import</span> $ <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jquery&#x27;</span>;<br>$(<span class="hljs-string">&#x27;.my-element&#x27;</span>).animate(<span class="hljs-comment">/* ... */</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><code>loader</code>从本质上来说其实就是一个<code>node</code>模块。相当于一台榨汁机<code>(loader)</code>将相关类型的文件代码<code>(code)</code>给它。根据我们设置的规则，经过它的一系列加工后还给我们加工好的果汁<code>(code)</code>。</p>
+</blockquote>
+<blockquote>
+<p>知识点普及之<code>AST</code>。<code>AST</code>通俗的来说，假设我们有一个文件<code>a.js</code>,我们对<code>a.js</code>里面的1000行进行一些操作处理,比如为所有的<code>await</code> 增加<code>try catch</code>,以及其他操作，但是<code>a.js</code>里面的代码本质上来说就是一堆字符串。那我们怎么办呢，那就是转换为带标记信息的对象(抽象语法树)我们方便进行增删改查。这个带标记的对象(抽象语法树)就是<code>AST</code>。这里推荐一篇不错的AST文章 <a href="https://link.juejin.cn/?target=https://segmentfault.com/a/1190000016231512">AST快速入门</a></p>
+</blockquote>
+<blockquote>
+<p>在 <code>Webpack</code> 运行的生命周期中会广播出许多事件，<code>Plugin</code> 可以监听这些事件，在合适的时机通过<code>Webpack</code>提供的<code>API</code>改变输出结果。通俗来说：一盘美味的 <a href="https://link.juejin.cn/?target=https://www.meishij.net/zuofa/yandouchaojidan.html">盐豆炒鸡蛋</a> 需要经历烧油 炒制 调味到最后的装盘等过程，而<code>plugin</code>相当于可以监控每个环节并进行操作，比如可以写一个少放胡椒粉<code>plugin</code>,监控<code>webpack</code>暴露出的生命周期事件(调味)，在调味的时候执行少放胡椒粉操作。那么它与<code>loader</code>的区别是什么呢？上面我们也提到了<code>loader</code>的单一原则,<code>loader</code>只能一件事，比如说<code>less-loader</code>,只能解析<code>less</code>文件，<code>plugin</code>则是针对整个流程执行广泛的任务。</p>
+</blockquote>
+<p>动手实践学习于 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904031240863758">https://juejin.cn/post/6844904031240863758</a> </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/webpack/">webpack</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/25/animation%E3%80%81transition%E3%80%81transform%E3%80%81translate%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85/">
+                        <span class="hidden-mobile">CSS动画</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        豫ICP备2021008845号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
