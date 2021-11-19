@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这是小土猪的个人博客,记录自己的学习经历和成长过程,并也希望能够产生价值,帮助到其他人.">
+  <meta name="author" content="zjy">
+  <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
+  
+  <title>DOM property 和 attribute 的区别 - 小土猪的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zjy365.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小土猪</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/home.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DOM property 和 attribute 的区别">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-12 20:46" pubdate>
+        November 12, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DOM property 和 attribute 的区别</h1>
+            
+            <div class="markdown-body">
+              <h3 id="DOM-property-和-attribute-的区别详解"><a href="#DOM-property-和-attribute-的区别详解" class="headerlink" title="DOM property 和 attribute 的区别详解"></a>DOM property 和 attribute 的区别详解</h3><h1 id="明确概念"><a href="#明确概念" class="headerlink" title="明确概念"></a>明确概念</h1><p>首先因为两个单词在中文中都翻译成<strong>属性</strong>，所以会造成较多混淆。在此也先明确一下其它一些基础概念。 身为前端人员我们经常会用<code>标签</code>，<code>元素</code>，<code>DOM</code>来形容<code>HTML</code> 内容，对此其实有明确划分的。如下<code>HTML code</code>（能明确区分的可以跳过）</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>标签指的是 <code>div</code>，也有其他标签如：<code>a</code>，<code>p</code>，<code>input</code>等等。 多数标签分为<code>&lt;div&gt;</code> 开始标签(opening tag)，以及<code>&lt;/div&gt;</code>结束标签(closing tag)。 当然有的也不区分如: <code>&lt;input&gt;</code>，<code>&lt;hr&gt;</code>，<code>&lt;br&gt;</code>等。 标签上有附加信息我们称之为 <code>HTML 属性</code>，如 <code>id</code>，<code>class</code> 以上合起来，我们统称为<code>HTML 元素</code>，而一个<code>HTML文档</code>就是多个<code>HTML元素</code>构成的。</p>
+<p>而<code>HTML DOM</code>是 HTML 的标准对象模型，<code>DOM(Document Object Model)</code>，直译就是<strong>文档对象模型</strong> <code>HTML DOM</code> 定义了所有 HTML 元素的<strong>对象</strong>和<strong>属性</strong>，以及访问它们的<strong>方法</strong>。 而DOM对象上的<strong>属性</strong>我们称之为<code>property</code>。</p>
+<h1 id="讨论原因"><a href="#讨论原因" class="headerlink" title="讨论原因"></a>讨论原因</h1><p>引发<a href="https://link.juejin.cn/?target=https://stackoverflow.com/questions/6003819/what-is-the-difference-between-properties-and-attributes-in-html%23answer-6004028"><strong>此次</strong></a>讨论的主要原因就是因为<code>jQuery v1.6.1</code>的发布，此版本之前直接用<code>attr()</code>方法处理了<code>property</code>和<code>attribute</code>，为了消除<code>property</code>和<code>attribute</code>的歧义，以及一些<code>attr()</code>的bug和维护困难的问题，于是新添加了<code>prop()</code>方法，<code>jQuery v1.6.1</code>发布日志可以在<a href="https://link.juejin.cn/?target=http://blog.jquery.com/2011/05/12/jquery-1-6-1-released/"><strong>这里</strong></a>看。</p>
+<h1 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h1><p>编写HTML源代码时，可以在HTML元素上定义属性(attribute) 。 然后，一旦浏览器解析了您的代码，就会创建一个对应的DOM节点。 该节点是一个对象，因此具有属性 (property)。 例如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;input <span class="hljs-attribute">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><code>input</code>元素有两个属性(attribute)，<code>type</code>和<code>value</code>。 浏览器解析这段代码后，将创建一个<a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLInputElement"><strong>HTMLInputElement</strong></a>对象，该对象将包含许多属性。 例如：<code>accept</code>，<code>accessKey</code>，<code>align</code>，<code>alt</code>，<code>attributes</code>，<code>autofocus</code>，<code>baseURI</code>，<code>checked</code>，<code>childElementCount</code>，<code>childNodes</code>，<code>childNodes</code>，<code>classList</code>，<code>className</code>，<code>clientHeight</code>等</p>
+<p>解析创建后的这个<strong>DOM节点对象</strong>，<code>property</code>是这个对象的属性，而<code>attribute</code>是这个对象的<code>attributes</code>这个对象的属性 （简单讲就是这样 <code>domObj.attibutes.attribute</code> ）。</p>
+<p>因为是根据HTML 元素创建的<strong>DOM节点对象</strong>，所以会有许多属性(property)都与<strong>具有相同或相似名称</strong>的属性(attribute)相关，但这不并是一对一的关系。 比如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;input <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;inputId&quot;</span> <span class="hljs-attribute">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>此元素创建的<strong>DOM节点对象</strong>有，<code>id</code>，<code>type</code>，<code>value</code> 等属性(property) DOM节点对象上的<code>id</code> 属性(property)是映射的<code>id</code>属性(attribute)。获取<code>id</code>的<code>property</code>就是获取<code>attribute</code>值，设置也是一样。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> inputDom = document<span class="hljs-selector-class">.querySelector</span>(<span class="hljs-string">&#x27;#inputId&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.id)<br><span class="hljs-comment">// &quot;inputId&quot;</span><br><span class="hljs-comment">// &quot;inputId&quot;</span><br><br>inputDom<span class="hljs-selector-class">.setAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>,<span class="hljs-string">&#x27;inputId2&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.id)<br><span class="hljs-comment">// &quot;inputId2&quot;</span><br><span class="hljs-comment">// &quot;inputId2&quot;</span><br><br>inputDom<span class="hljs-selector-class">.id</span> = <span class="hljs-string">&#x27;inputId&#x27;</span><br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.id)<br><span class="hljs-comment">// &quot;inputId&quot;</span><br><span class="hljs-comment">// &quot;inputId&quot;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>DOM节点对象上的<code>type</code>属性(property)是映射 <code>type</code>的属性(attribute)，获取<code>property</code>读取的是<code>attribute</code>值，并且设置<code>property</code>写入的是<code>attribute</code>值。<code>type</code>不是纯粹的映射属性，因为它的值只能为 <strong>已知值</strong> （例如:<code>text</code>，<code>submit</code>，<code>button</code>，<code>checkbox</code>等等）。以下可以看到，设置<code>type</code>为<strong>未知值</strong> 时 <code>property</code>始终为text。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> inputDom = document<span class="hljs-selector-class">.querySelector</span>(<span class="hljs-string">&#x27;#inputId&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;type&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.type)<br><span class="hljs-comment">// text</span><br><span class="hljs-comment">// text</span><br><br>inputDom<span class="hljs-selector-class">.setAttribute</span>(<span class="hljs-string">&#x27;type&#x27;</span>,<span class="hljs-string">&#x27;007&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;type&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.type)<br><span class="hljs-comment">// 007</span><br><span class="hljs-comment">// text</span><br><br>inputDom<span class="hljs-selector-class">.type</span> = <span class="hljs-string">&#x27;008&#x27;</span><br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;type&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.type)<br><span class="hljs-comment">// 008</span><br><span class="hljs-comment">// text</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><code>value</code>属性(property)不是完全映射<code>value</code>属性(attribute)。 初始状态<code>value</code>属性(property)映射的<code>value</code>属性(attribute)， 当用户手动更改输入框的内容时 ， <code>value</code>属性(property)将更改为用户输入的信息。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs stylus">&lt;<span class="hljs-selector-tag">input</span> id=<span class="hljs-string">&quot;inputId&quot;</span> type=<span class="hljs-string">&quot;text&quot;</span> value=<span class="hljs-string">&quot;name&quot;</span>&gt;<br>复制代码<br><span class="hljs-selector-tag">var</span> inputDom = document<span class="hljs-selector-class">.querySelector</span>(<span class="hljs-string">&#x27;#inputId&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;value&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.value)<br><span class="hljs-comment">// name</span><br><span class="hljs-comment">// name</span><br><br>inputDom<span class="hljs-selector-class">.setAttribute</span>(<span class="hljs-string">&#x27;value&#x27;</span>,<span class="hljs-string">&#x27;007&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;value&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.value)<br><span class="hljs-comment">// 007</span><br><span class="hljs-comment">// 007</span><br><br>inputDom<span class="hljs-selector-class">.value</span> = <span class="hljs-string">&#x27;008&#x27;</span><br>console<span class="hljs-selector-class">.log</span>(inputDom<span class="hljs-selector-class">.getAttribute</span>(<span class="hljs-string">&#x27;value&#x27;</span>))<br>console<span class="hljs-selector-class">.log</span>(inputDom.value)<br><span class="hljs-comment">// 007</span><br><span class="hljs-comment">// 008</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>由以上可以得知，<code>input</code>的<code>value</code>属性(property)在用户未输入数据，或设置<code>property</code>的值时，取的值是<code>attribute</code>的值。当用户输入值或者设置了<code>property</code>的值后，<code>property</code>的值就不受<code>attribute</code>影响了，<code>property</code>的值就是页面输入框内展示的内容（如下图）</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/3/1713f34e72850b41~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><code>attribute</code>的值是HTML源代码属性（如下图）</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/3/1713f34e7479f135~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="attribute 的值"></p>
+<p>从这个例子中就能很明显看出来<code>property</code>和<code>attribute</code>的区别了，当然还有很多属性<code>property</code>与<code>attribute</code>之间的映射关系并不相同，比如<code>class attribute</code> 和 <code>className property</code>、<code>classList property</code> 之间的关系等等。</p>
+<p>这里有篇 <a href="https://link.juejin.cn/?target=https://angular.cn/guide/template-syntax%23html-attribute-vs-dom-property"><strong>Angular 的文档</strong></a>，其中也描述了html属性和DOM属性的一些内容，有兴趣的小伙伴们可以进去看看。 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/API%23%E6%8E%A5%E5%8F%A3">Web API 接口参考</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最后总的来讲就是  <strong>HTML属性</strong> (attribute)和 <strong>DOM属性</strong>(property)，是相互关联的。多数情况<code>attribute</code>值仅用作初始DOM节点对象使用，而<code>property</code>更多用于页面交互，很多框架都是在与元素和指令的 <code>property</code>和事件打交道。</p>
+<p>以上描述如有错误欢迎指正，谢谢</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>以上所引用文档都尽量更换为中文文档，原英文文档参考下方。</p>
+<p><a href="https://link.juejin.cn/?target=https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a> <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/en-US/docs/Web/API%23Interfaces">Web APIs</a> <a href="https://link.juejin.cn/?target=https://angular.io/guide/template-syntax%23html-attribute-vs-dom-property">HTML attribute vs. DOM property</a> <a href="https://link.juejin.cn/?target=https://stackoverflow.com/questions/6003819/what-is-the-difference-between-properties-and-attributes-in-html%23answer-6004028">Stack Overflow</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6003819/what-is-the-difference-between-properties-and-attributes-in-html#answer-6004028">https://stackoverflow.com/questions/6003819/what-is-the-difference-between-properties-and-attributes-in-html#answer-6004028</a></p>
+<p>————————————————<br>版权声明：本文为CSDN博主「rudy_zhou」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/rudy_zhou/article/details/104058741">https://blog.csdn.net/rudy_zhou/article/details/104058741</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/20/websocket/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Websocket学习</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8Bv-bind/">
+                        <span class="hidden-mobile">vue学习笔记之v-bind</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        豫ICP备2021008845号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
