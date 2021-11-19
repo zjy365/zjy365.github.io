@@ -18,7 +18,7 @@
   <meta name="author" content="zjy">
   <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
   
-  <title>vue的学习笔记之 v-on - 小土猪的个人博客</title>
+  <title>vue学习笔记之v-bind - 小土猪的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="vue的学习笔记之 v-on">
+            <span class="h2" id="subtitle" title="vue学习笔记之v-bind">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-07 21:46" pubdate>
-        March 7, 2021 pm
+      <time datetime="2020-11-10 20:46" pubdate>
+        November 10, 2020 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      190 字
+      861 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      13
        分钟
     </span>
   
@@ -225,19 +225,55 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">vue的学习笔记之 v-on</h1>
+            <h1 style="display: none">vue学习笔记之v-bind</h1>
             
             <div class="markdown-body">
-              <p><code>v-on</code>就是<strong>用于绑定事件的</strong><br>例如：有个按钮，当点击的时候执行一些操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;div class=&quot;app&quot;&gt;<br>    &lt;button v-on:click=&quot;myclick&quot;&gt;click me&lt;/button&gt;<br>&lt;/div&gt;  <br></code></pre></td></tr></table></figure>
+              <h2 id="vue官方文档-https-cn-vuejs-org"><a href="#vue官方文档-https-cn-vuejs-org" class="headerlink" title="vue官方文档  https://cn.vuejs.org/"></a>vue官方文档  <a target="_blank" rel="noopener" href="https://cn.vuejs.org/">https://cn.vuejs.org/</a></h2><p><code>v-bind</code><strong>用于绑定数据和元素属性</strong><br>例如：绑定<code>a</code>标签的<code>href</code>属性</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;div id=<span class="hljs-string">&quot;app&quot;</span>&gt;<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">&quot;url&quot;</span>&gt;</span>click me<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><br>&lt;/div&gt;  <br></code></pre></td></tr></table></figure>
 
-<p><code>v-on:</code>后面的值是一个方法，可以写成<code>myclick()</code>，没有参数可以写成<code>myclick</code>。</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> Vue(&#123;<br>    <span class="hljs-attr">el</span>:<span class="hljs-string">&#x27;.app&#x27;</span>,<br>    <span class="hljs-attr">data</span>:&#123;<br>        <br>    &#125;,<br>    <span class="hljs-attr">methods</span>:&#123;<br>        <span class="hljs-attr">myclick</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-number">111111</span>);<br>        &#125;<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> Vue(&#123;<br>    el:<span class="hljs-string">&#x27;#app&#x27;</span>,<br>    data:&#123;<br>        url:<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>,<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
 
-<p><code>v-on</code>也可以绑定多个事件<br>多个事件可以单独多个v-on绑定</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;app&quot;</span>&gt;<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:mouseenter</span>=<span class="hljs-string">&#x27;onenter&#x27;</span> <span class="hljs-attr">v-on:mouseleave</span>=<span class="hljs-string">&#x27;leave&#x27;</span>&gt;</span>click me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>&lt;/div&gt;  <br></code></pre></td></tr></table></figure>
+<p>以上代码中，使用<code>v-bind</code>绑定了<code>a</code>标签的<code>href</code>属性，当<code>a</code>标签被点击时，会根据对应<code>vue</code>中的对应的<code>url</code>数据进行跳转到<code>https://www.baidu.com</code><br> 不光是<code>href</code>属性可以被<code>v-bind</code>指令绑定，任何属性都可以被绑定<br> 例如，绑定<code>src</code>属性、<code>class</code>属性</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;div id=<span class="hljs-string">&quot;app&quot;</span>&gt;<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">&quot;url&quot;</span> <span class="hljs-attr">v-bind:class</span>=<span class="hljs-string">&quot;klass&quot;</span>&gt;</span>click me<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">v-bind:src</span>=<span class="hljs-string">&quot;imgsrc&quot;</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>  <br></code></pre></td></tr></table></figure>
 
-<h6 id="跟v-bind一样，v-on也非常常用，对应也有快捷方式："><a href="#跟v-bind一样，v-on也非常常用，对应也有快捷方式：" class="headerlink" title="跟v-bind一样，v-on也非常常用，对应也有快捷方式："></a><strong>跟<code>v-bind</code>一样，v-on也非常常用，对应也有快捷方式：</strong></h6><p><strong><code>**v-on:事件名** 可以简写为 **@事件名**</code></strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> Vue(&#123;<br>    el:<span class="hljs-string">&#x27;#app&#x27;</span>,<br>    data:&#123;<br>        url:<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>,<br>        imgsrc:<span class="hljs-string">&quot;https://cn.vuejs.org/images/logo.png&quot;</span>,<br>        kclass:<span class="hljs-string">&quot;btn btn-default&quot;</span><br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h5 id="再看文档时-作为一个-DOM-property-绑定而不是作为-attribute-绑定。-差别在哪里？-我去百度一波"><a href="#再看文档时-作为一个-DOM-property-绑定而不是作为-attribute-绑定。-差别在哪里？-我去百度一波" class="headerlink" title="再看文档时    作为一个 DOM property 绑定而不是作为 attribute 绑定。(差别在哪里？)    (我去百度一波)"></a>再看文档时    作为一个 DOM property 绑定而不是作为 attribute 绑定。(<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6003819/properties-and-attributes-in-html#answer-6004028">差别在哪里？</a>)    (我去百度一波)</h5><h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#v-bind">v-bind</a></h3><ul>
+<li><p><strong>缩写</strong>：<code>:</code></p>
+</li>
+<li><p><strong>预期</strong>：<code>any (with argument) | Object (without argument)</code></p>
+</li>
+<li><p><strong>参数</strong>：<code>attrOrProp (optional)</code></p>
+</li>
+<li><p><strong>修饰符</strong>：</p>
+<ul>
+<li><code>.prop</code> - 作为一个 DOM property 绑定而不是作为 attribute 绑定。(<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6003819/properties-and-attributes-in-html#answer-6004028">差别在哪里？</a>)</li>
+<li><code>.camel</code> - (2.1.0+) 将 kebab-case attribute 名转换为 camelCase。(从 2.1.0 开始支持)</li>
+<li><code>.sync</code> (2.3.0+) 语法糖，会扩展成一个更新父组件绑定值的 <code>v-on</code> 侦听器。</li>
+</ul>
+</li>
+<li><p><strong>用法</strong>：</p>
+<p>动态地绑定一个或多个 attribute，或一个组件 prop 到表达式。</p>
+<p>在绑定 <code>class</code> 或 <code>style</code> attribute 时，支持其它类型的值，如数组或对象。可以通过下面的教程链接查看详情。</p>
+<p>在绑定 prop 时，prop 必须在子组件中声明。可以用修饰符指定不同的绑定类型。</p>
+<p>没有参数时，可以绑定到一个包含键值对的对象。注意此时 <code>class</code> 和 <code>style</code> 绑定不支持数组和对象。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 绑定一个 attribute --&gt;<br>&lt;img v-bind:src=&quot;imageSrc&quot;&gt;<br><br>&lt;!-- 动态 attribute 名 (2.6.0+) --&gt;<br>&lt;button v-bind:[key]=&quot;value&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 缩写 --&gt;<br>&lt;img :src=&quot;imageSrc&quot;&gt;<br><br>&lt;!-- 动态 attribute 名缩写 (2.6.0+) --&gt;<br>&lt;button :[key]=&quot;value&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 内联字符串拼接 --&gt;<br>&lt;img :src=&quot;&#x27;/path/to/images/&#x27; + fileName&quot;&gt;<br><br>&lt;!-- class 绑定 --&gt;<br>&lt;div :class=&quot;&#123; red: isRed &#125;&quot;&gt;&lt;/div&gt;<br>&lt;div :class=&quot;[classA, classB]&quot;&gt;&lt;/div&gt;<br>&lt;div :class=&quot;[classA, &#123; classB: isB, classC: isC &#125;]&quot;&gt;<br><br>&lt;!-- style 绑定 --&gt;<br>&lt;div :style=&quot;&#123; fontSize: size + &#x27;px&#x27; &#125;&quot;&gt;&lt;/div&gt;<br>&lt;div :style=&quot;[styleObjectA, styleObjectB]&quot;&gt;&lt;/div&gt;<br><br>&lt;!-- 绑定一个全是 attribute 的对象 --&gt;<br>&lt;div v-bind=&quot;&#123; id: someProp, &#x27;other-attr&#x27;: otherProp &#125;&quot;&gt;&lt;/div&gt;<br><br>&lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt;<br>&lt;div v-bind:text-content.prop=&quot;text&quot;&gt;&lt;/div&gt;<br><br>&lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt;<br>&lt;my-component :prop=&quot;someThing&quot;&gt;&lt;/my-component&gt;<br><br>&lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt;<br>&lt;child-component v-bind=&quot;$props&quot;&gt;&lt;/child-component&gt;<br><br>&lt;!-- XLink --&gt;<br>&lt;svg&gt;&lt;a :xlink:special=&quot;foo&quot;&gt;&lt;/a&gt;&lt;/svg&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>.camel</code> 修饰符允许在使用 DOM 模板时将 <code>v-bind</code> property 名称驼峰化，例如 SVG 的 <code>viewBox</code> property：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;svg :view-box.camel=&quot;viewBox&quot;&gt;&lt;/svg&gt;<br></code></pre></td></tr></table></figure>
+
+<p>在使用字符串模板或通过 <code>vue-loader</code>/<code>vueify</code> 编译时，无需使用 <code>.camel</code>。</p>
+</li>
+<li><p><strong>参考</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/class-and-style.html">Class 与 Style 绑定</a></li>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/components.html#%E9%80%9A%E8%BF%87-Prop-%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE">组件 - Props</a></li>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/components-custom-events.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6">组件 - <code>.sync</code> 修饰符</a></li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr>
@@ -272,9 +308,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/01/Mockjs%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                      <a href="/2020/11/12/DOM%20property%20%E5%92%8C%20attribute%20/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mock.js的简单使用</span>
+                        <span class="hidden-mobile">DOM property 和 attribute 的区别</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -282,8 +318,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/20/websocket/">
-                        <span class="hidden-mobile">Websocket学习</span>
+                      <a href="/2020/10/28/learn-vue01/">
+                        <span class="hidden-mobile">vue的学习笔记---vue的生命周期</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

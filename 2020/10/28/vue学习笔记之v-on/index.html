@@ -18,7 +18,7 @@
   <meta name="author" content="zjy">
   <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
   
-  <title>element 导航菜单折叠动画，文字不隐藏 - 小土猪的个人博客</title>
+  <title>vue的学习笔记之 v-on - 小土猪的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="element 导航菜单折叠动画，文字不隐藏">
+            <span class="h2" id="subtitle" title="vue的学习笔记之 v-on">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-12 20:46" pubdate>
-        October 12, 2021 pm
+      <time datetime="2020-10-28 21:46" pubdate>
+        October 28, 2020 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      89 字
+      898 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      12
        分钟
     </span>
   
@@ -225,13 +225,53 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">element 导航菜单折叠动画，文字不隐藏</h1>
+            <h1 style="display: none">vue的学习笔记之 v-on</h1>
             
             <div class="markdown-body">
-              <h3 id="element-导航菜单折叠动画，文字不隐藏问题"><a href="#element-导航菜单折叠动画，文字不隐藏问题" class="headerlink" title="element 导航菜单折叠动画，文字不隐藏问题"></a>element 导航菜单折叠动画，文字不隐藏问题</h3><p>记录一下留着自己好找</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>修改css样式</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/*隐藏文字*/</span><br>  <span class="hljs-selector-class">.el-menu--collapse</span>  <span class="hljs-selector-class">.el-submenu__title</span> <span class="hljs-selector-tag">span</span>&#123;<br>    <span class="hljs-attribute">display</span>: none;<br>  &#125;<br>  <span class="hljs-comment">/*隐藏 &gt; */</span><br>  <span class="hljs-selector-class">.el-menu--collapse</span>  <span class="hljs-selector-class">.el-submenu__title</span> <span class="hljs-selector-class">.el-submenu__icon-arrow</span>&#123;<br>    <span class="hljs-attribute">display</span>: none;<br>  &#125;<br>  <span class="hljs-comment">/* .sub-el-icon[data-v-31ea41b3]&#123;</span><br><span class="hljs-comment">    margin-right: 12px !important;</span><br><span class="hljs-comment">    margin-left: -6px;</span><br><span class="hljs-comment">  &#125; */</span><br>  <span class="hljs-selector-class">.sub-el-icon</span>&#123;<br>    <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">12px</span> <span class="hljs-meta">!important</span>;<br>    m<br></code></pre></td></tr></table></figure>
+              <p><code>v-on</code>就是<strong>用于绑定事件的</strong><br>例如：有个按钮，当点击的时候执行一些操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;div class=&quot;app&quot;&gt;<br>    &lt;button v-on:click=&quot;myclick&quot;&gt;click me&lt;/button&gt;<br>&lt;/div&gt;  <br></code></pre></td></tr></table></figure>
 
+<p><code>v-on:</code>后面的值是一个方法，可以写成<code>myclick()</code>，没有参数可以写成<code>myclick</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> Vue(&#123;<br>    <span class="hljs-attr">el</span>:<span class="hljs-string">&#x27;.app&#x27;</span>,<br>    <span class="hljs-attr">data</span>:&#123;<br>        <br>    &#125;,<br>    <span class="hljs-attr">methods</span>:&#123;<br>        <span class="hljs-attr">myclick</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-number">111111</span>);<br>        &#125;<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><code>v-on</code>也可以绑定多个事件<br>多个事件可以单独多个v-on绑定</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;app&quot;</span>&gt;<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:mouseenter</span>=<span class="hljs-string">&#x27;onenter&#x27;</span> <span class="hljs-attr">v-on:mouseleave</span>=<span class="hljs-string">&#x27;leave&#x27;</span>&gt;</span>click me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>&lt;/div&gt;  <br></code></pre></td></tr></table></figure>
+
+<h6 id="跟v-bind一样，v-on也非常常用，对应也有快捷方式："><a href="#跟v-bind一样，v-on也非常常用，对应也有快捷方式：" class="headerlink" title="跟v-bind一样，v-on也非常常用，对应也有快捷方式："></a><strong>跟<code>v-bind</code>一样，v-on也非常常用，对应也有快捷方式：</strong></h6><p><strong><code>**v-on:事件名** 可以简写为 **@事件名**</code></strong></p>
+<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#v-on">v-on</a></h3><ul>
+<li><p><strong>缩写</strong>：<code>@</code></p>
+</li>
+<li><p><strong>预期</strong>：<code>Function | Inline Statement | Object</code></p>
+</li>
+<li><p><strong>参数</strong>：<code>event</code></p>
+</li>
+<li><p><strong>修饰符</strong>：</p>
+<ul>
+<li><code>.stop</code> - 调用 <code>event.stopPropagation()</code>。</li>
+<li><code>.prevent</code> - 调用 <code>event.preventDefault()</code>。</li>
+<li><code>.capture</code> - 添加事件侦听器时使用 capture 模式。</li>
+<li><code>.self</code> - 只当事件是从侦听器绑定的元素本身触发时才触发回调。</li>
+<li><code>.&#123;keyCode | keyAlias&#125;</code> - 只当事件是从特定键触发时才触发回调。</li>
+<li><code>.native</code> - 监听组件根元素的原生事件。</li>
+<li><code>.once</code> - 只触发一次回调。</li>
+<li><code>.left</code> - (2.2.0) 只当点击鼠标左键时触发。</li>
+<li><code>.right</code> - (2.2.0) 只当点击鼠标右键时触发。</li>
+<li><code>.middle</code> - (2.2.0) 只当点击鼠标中键时触发。</li>
+<li><code>.passive</code> - (2.3.0) 以 <code>&#123; passive: true &#125;</code> 模式添加侦听器</li>
+</ul>
+</li>
+<li><p><strong>用法</strong>：</p>
+<p>绑定事件监听器。事件类型由参数指定。表达式可以是一个方法的名字或一个内联语句，如果没有修饰符也可以省略。</p>
+<p>用在普通元素上时，只能监听<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Events"><strong>原生 DOM 事件</strong></a>。用在自定义元素组件上时，也可以监听子组件触发的<strong>自定义事件</strong>。</p>
+<p>在监听原生 DOM 事件时，方法以事件为唯一的参数。如果使用内联语句，语句可以访问一个 <code>$event</code> property：<code>v-on:click=&quot;handle(&#39;ok&#39;, $event)&quot;</code>。</p>
+<p>从 <code>2.4.0</code> 开始，<code>v-on</code> 同样支持不带参数绑定一个事件/监听器键值对的对象。注意当使用对象语法时，是不支持任何修饰器的。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 方法处理器 --&gt;<br>&lt;button v-on:click=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 动态事件 (2.6.0+) --&gt;<br>&lt;button v-on:[event]=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 内联语句 --&gt;<br>&lt;button v-on:click=&quot;doThat(&#x27;hello&#x27;, $event)&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 缩写 --&gt;<br>&lt;button @click=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 动态事件缩写 (2.6.0+) --&gt;<br>&lt;button @[event]=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 停止冒泡 --&gt;<br>&lt;button @click.stop=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 阻止默认行为 --&gt;<br>&lt;button @click.prevent=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 阻止默认行为，没有表达式 --&gt;<br>&lt;form @submit.prevent&gt;&lt;/form&gt;<br><br>&lt;!--  串联修饰符 --&gt;<br>&lt;button @click.stop.prevent=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 键修饰符，键别名 --&gt;<br>&lt;input @keyup.enter=&quot;onEnter&quot;&gt;<br><br>&lt;!-- 键修饰符，键代码 --&gt;<br>&lt;input @keyup.13=&quot;onEnter&quot;&gt;<br><br>&lt;!-- 点击回调只会触发一次 --&gt;<br>&lt;button v-on:click.once=&quot;doThis&quot;&gt;&lt;/button&gt;<br><br>&lt;!-- 对象语法 (2.4.0+) --&gt;<br>&lt;button v-on=&quot;&#123; mousedown: doThis, mouseup: doThat &#125;&quot;&gt;&lt;/button&gt;<br></code></pre></td></tr></table></figure>
+
+<p>在子组件上监听自定义事件 (当子组件触发“my-event”时将调用事件处理器)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;my-component @my-event=&quot;handleThis&quot;&gt;&lt;/my-component&gt;<br><br>&lt;!-- 内联语句 --&gt;<br>&lt;my-component @my-event=&quot;handleThis(123, $event)&quot;&gt;&lt;/my-component&gt;<br><br>&lt;!-- 组件中的原生事件 --&gt;<br>&lt;my-component @click.native=&quot;onClick&quot;&gt;&lt;/my-component&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
 
             </div>
             <hr>
@@ -251,10 +291,6 @@
                     
                       <a class="hover-with-bg" href="/tags/vue/">vue</a>
                     
-                      <a class="hover-with-bg" href="/tags/element-ui/">element-ui</a>
-                    
-                      <a class="hover-with-bg" href="/tags/asdasdas/">asdasdas</a>
-                    
                   </div>
                 
               </div>
@@ -270,21 +306,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/20/vue%E4%B8%AD%E4%BD%BF%E7%94%A8svg%E5%9B%BE%E6%A0%87/">
+                      <a href="/2020/10/28/learn-vue01/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue中使用svg图标</span>
+                        <span class="hidden-mobile">vue的学习笔记---vue的生命周期</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2021/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95/">
-                        <span class="hidden-mobile">微信小程序版本自动更新的方法</span>
-                        <span class="visible-mobile">Next</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
