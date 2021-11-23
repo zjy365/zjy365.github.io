@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      66
+      67
        分钟
     </span>
   
@@ -228,7 +228,7 @@
             <h1 style="display: none">webpack实战</h1>
             
             <div class="markdown-body">
-              <h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><p>新建一个目录，初始化npm</p>
+              <h4 id="1-1-初始化项目"><a href="#1-1-初始化项目" class="headerlink" title="1.1 初始化项目"></a>1.1 初始化项目</h4><p>新建一个目录，初始化npm</p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> init<br></code></pre></td></tr></table></figure>
 
 <p>webpack是运行在node环境中的,我们需要安装以下两个npm包</p>
@@ -266,7 +266,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">const</span> &#123;CleanWebpackPlugin&#125; = require(<span class="hljs-string">&#x27;clean-webpack-plugin&#x27;</span>)<br><span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> = &#123;<br>    <span class="hljs-comment">// ...省略其他配置</span><br>    plugins:[<span class="hljs-keyword">new</span> CleanWebpackPlugin()]<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="1-4-引用CSS"><a href="#1-4-引用CSS" class="headerlink" title="1.4 引用CSS"></a>1.4 引用CSS</h3><p>我们的入口文件是js，所以我们在入口js中引入我们的css文件</p>
-<p><img src="C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20211117143439680.png" srcset="/img/loading.gif" lazyload alt="image-20211117143439680"></p>
+<p><img src="http://lxandzjy.top:9003/2021/11/17/55834c91a5e45.png" srcset="/img/loading.gif" lazyload></p>
 <p>同时我们也需要一些loader来解析我们的css文件 scss文件</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">npm install -D sass-loader <span class="hljs-keyword">node</span><span class="hljs-title">-sass</span> style-loader css-loader<br></code></pre></td></tr></table></figure>
 
@@ -410,7 +410,7 @@
 <blockquote>
 <p>在 <code>Webpack</code> 运行的生命周期中会广播出许多事件，<code>Plugin</code> 可以监听这些事件，在合适的时机通过<code>Webpack</code>提供的<code>API</code>改变输出结果。通俗来说：一盘美味的 <a href="https://link.juejin.cn/?target=https://www.meishij.net/zuofa/yandouchaojidan.html">盐豆炒鸡蛋</a> 需要经历烧油 炒制 调味到最后的装盘等过程，而<code>plugin</code>相当于可以监控每个环节并进行操作，比如可以写一个少放胡椒粉<code>plugin</code>,监控<code>webpack</code>暴露出的生命周期事件(调味)，在调味的时候执行少放胡椒粉操作。那么它与<code>loader</code>的区别是什么呢？上面我们也提到了<code>loader</code>的单一原则,<code>loader</code>只能一件事，比如说<code>less-loader</code>,只能解析<code>less</code>文件，<code>plugin</code>则是针对整个流程执行广泛的任务。</p>
 </blockquote>
-<p>动手实践学习于 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904031240863758">https://juejin.cn/post/6844904031240863758</a> </p>
+<p>动手实践学习于 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904031240863758">https://juejin.cn/post/6844904031240863758</a> ,来源：稀土掘金</p>
 
             </div>
             <hr>
