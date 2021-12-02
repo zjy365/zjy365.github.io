@@ -18,7 +18,7 @@
   <meta name="author" content="zjy">
   <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
   
-  <title>git的学习笔记 - 小土猪的个人博客</title>
+  <title>常用git指令集合 - 小土猪的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="git的学习笔记">
+            <span class="h2" id="subtitle" title="常用git指令集合">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-04 09:47" pubdate>
-        July 4, 2021 am
+      <time datetime="2021-07-04 20:46" pubdate>
+        July 4, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      529 字
+      611 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      7
        分钟
     </span>
   
@@ -225,18 +225,33 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">git的学习笔记</h1>
+            <h1 style="display: none">常用git指令集合</h1>
             
             <div class="markdown-body">
-              <h2 id="git的学习与使用"><a href="#git的学习与使用" class="headerlink" title="git的学习与使用"></a>git的学习与使用</h2><p>学习源,有很多===&gt;&gt;&gt;</p>
-<p>例: 廖雪峰官方网站 ——<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">https://www.liaoxuefeng.com/wiki/896043488029600</a></p>
-<p>Linux 内核开源项目有着为数众广的参与者。绝大多数的 Linux 内核维护工作都 花在了提交补丁和保存归档的繁琐事务上（1991－2002 年间）。到 2002 年， Linux系统已经发展了十年了，代码库之大让Linus很难继续通过手工方式管理了， 于是整个项目组开始启用分布式版本控制系统 BitKeeper 来管理和维护代码。 到 2005 年的时候，开发 BitKeeper 的商业公司同 Linux 内核开源社区的 合作关系结束，他们收回了免费使用 BitKeeper 的权力。这就迫使 Linux 开源社 区（特别是 Linux 的缔造者 Linus Torvalds ）不得不吸取教训，只有开发一套属 于自己的版本控制系统才不至于重蹈覆辙。</p>
-<p>SVN 是集中式版本控制系统，版本库是集中放在中央服务器的，而干活的时 候，用的都是自己的电脑，所以首先要从中央服务器哪里得到最新的版本，然后 干活，干完后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是 必须联网才能工作，如果在局域网还可以，带宽够大，速度够快，如果在互联网 下，如果网速慢的话，就郁闷了。</p>
-<p><img src="http://47.100.67.62:9002/2021/07/04/c83eebf707bb7.png" srcset="/img/loading.gif" lazyload></p>
-<p>Git 是分布式版本控制系统，那么它可以没有中央服务器的，每个人的电脑 就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本都是在自己的电脑上。既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？ 比如说自己在电脑上改了文件 A，其他人也在电脑上改了文件 A，这时，你们两 之间只需把各自的修改推送给对方，就可以互相看到对方的修改了</p>
-<p><img src="http://47.100.67.62:9002/2021/07/04/be01beffe18b1.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="http://47.100.67.62:9002/2021/07/04/b65d052e3725b.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="http://47.100.67.62:9002/2021/07/04/239c8ab06f4ba.png" srcset="/img/loading.gif" lazyload></p>
+              <h2 id="常用的git指令集合"><a href="#常用的git指令集合" class="headerlink" title="常用的git指令集合"></a>常用的git指令集合</h2><p><img src="http://lxandzjy.top:9003/2021/12/01/d30bde1f73083.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://lxandzjy.top:9003/2021/12/01/550cb97dc2987.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>workspace：工作区</li>
+<li>staging area：暂存区/缓存区</li>
+<li>local repository：版本库或本地仓库</li>
+<li>remote repository：远程仓库</li>
+</ul>
+<h4 id="1-git-查看本地仓库，对应的“远程仓库地址”"><a href="#1-git-查看本地仓库，对应的“远程仓库地址”" class="headerlink" title="1. git 查看本地仓库，对应的“远程仓库地址”"></a>1. git 查看本地仓库，对应的“远程仓库地址”</h4><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit">[root<span class="hljs-symbol">@istester</span> gittest]<span class="hljs-meta"># git remote -v</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-下载git注册git账号并进行全局配置-Git-Bash-Here"><a href="#2-下载git注册git账号并进行全局配置-Git-Bash-Here" class="headerlink" title="2. 下载git注册git账号并进行全局配置 // Git Bash Here"></a>2. 下载git注册git账号并进行全局配置 // Git Bash Here</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-number">1</span>. git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.name</span> <span class="hljs-string">&quot;nameVal&quot;</span> <span class="hljs-comment">// 配置用户名</span><br><span class="hljs-number">2</span>. git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.email</span> <span class="hljs-string">&quot;eamil@qq.com&quot;</span> <span class="hljs-comment">// 配置邮箱</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-版本回退"><a href="#3-版本回退" class="headerlink" title="3. 版本回退"></a>3. 版本回退</h4><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta"># 回到上一个版本,将HEAD指针指向上一个commitID</span><br>git reset --hard <span class="hljs-string">&quot;HEAD^&quot;</span><br><br><span class="hljs-meta"># 回到指定版本</span><br>git reset --hard 版本号<br><br><span class="hljs-meta"># 回到最新版本</span><br>git pull origin [branchName]<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-Git强制拉取覆盖本地-Pull-force"><a href="#4-Git强制拉取覆盖本地-Pull-force" class="headerlink" title="4. Git强制拉取覆盖本地 Pull force"></a>4. Git强制拉取覆盖本地 Pull force</h4><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">git <span class="hljs-keyword">fetch</span> <span class="hljs-comment">--all  </span><br>git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--hard origin/master </span><br>git pull<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-第一次创建远程仓库并推送文件"><a href="#5-第一次创建远程仓库并推送文件" class="headerlink" title="5. 第一次创建远程仓库并推送文件"></a>5. 第一次创建远程仓库并推送文件</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 先进入项目文件夹<br><span class="hljs-number">1</span>. git init <span class="hljs-regexp">//</span> 初始化本地仓库<br><span class="hljs-number">2</span>. git remote add origin http...git <span class="hljs-regexp">//</span> 绑定本地和远程仓库<br><span class="hljs-number">3</span>. git add . <span class="hljs-regexp">//</span> 将本地仓库的变化添加到缓存区<br><span class="hljs-number">4</span>. git commit -m <span class="hljs-string">&quot;注释&quot;</span> <span class="hljs-regexp">//</span> 确认本地缓存区的内容 可以准备push<br><span class="hljs-number">5</span>. git push -u origin master<br></code></pre></td></tr></table></figure>
+
+<h4 id="6-提交代码"><a href="#6-提交代码" class="headerlink" title="6. 提交代码"></a>6. 提交代码</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">git <span class="hljs-keyword">add </span>. <span class="hljs-comment"># 将workspace修改的内容提交到暂存区</span><br>git commit -m <span class="hljs-string">&quot;提交信息&quot;</span> <span class="hljs-comment"># 将暂存区的内容提交到版本库</span><br><span class="hljs-comment"># 如果本地分支名与远程分支名相同，直接git push即可</span><br>git push <span class="hljs-keyword">origin </span>[<span class="hljs-keyword">branchName] </span><span class="hljs-comment"># 将版本库内容提交到远程仓库</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="7-在现有代码基础上获取远程最新代码"><a href="#7-在现有代码基础上获取远程最新代码" class="headerlink" title="7. 在现有代码基础上获取远程最新代码"></a>7. 在现有代码基础上获取远程最新代码</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">git fetch <span class="hljs-regexp">//</span> 获取远程最新代码版本<br>git pull <span class="hljs-regexp">//</span> 拉取远程最新版本的代码，并合并到本地 需要先做第一步 否则直接git pull拉取不到任何代码<br><span class="hljs-regexp">//</span> 如果遇见报错    Please, commit your changes or stash them before you can merge.  <br>git stash <span class="hljs-regexp">//</span> 备份当前的工作区，从最近一次提交中读取相关内容，让工作区保持和上一次提交的内容一致。<br>git pull <span class="hljs-regexp">//</span> 拉取远程代码<br>git stash pop  从git栈中读取最近一次保存的内容，恢复工作区的相关内容。 <br>自行对比修改  解决冲突<br></code></pre></td></tr></table></figure>
+
+<h4 id="8-删除远程-amp-本地分支"><a href="#8-删除远程-amp-本地分支" class="headerlink" title="8. 删除远程&amp;本地分支"></a>8. 删除远程&amp;本地分支</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment"># 删除远程</span><br>git push <span class="hljs-keyword">origin </span>--delete [<span class="hljs-keyword">branchName] </span><span class="hljs-comment"># 远程分支名</span><br><br><span class="hljs-comment"># 删除本地分支,因为删除远程分支时并不会把本地分支一并删除</span><br><span class="hljs-comment"># 注意删除本地分支时HEAD不能指向该分支,不然会删除失败</span><br>git <span class="hljs-keyword">branch </span>-D [<span class="hljs-keyword">branchName]</span><br><span class="hljs-keyword"></span><br><span class="hljs-comment"># 查看现有分支</span><br>git <span class="hljs-keyword">branch </span>-a<br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>
