@@ -837,7 +837,7 @@
   
   
   <entry>
-    <title>async 函数的使用</title>
+    <title>async await</title>
     <link href="/2021/06/12/Async%E5%87%BD%E6%95%B0/"/>
     <url>/2021/06/12/Async%E5%87%BD%E6%95%B0/</url>
     
@@ -862,7 +862,7 @@
   
   
   <entry>
-    <title>Promise的使用</title>
+    <title>Promise</title>
     <link href="/2021/06/10/Promise%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <url>/2021/06/10/Promise%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     
@@ -1014,7 +1014,7 @@
   
   
   <entry>
-    <title>Websocket学习</title>
+    <title>Websocket</title>
     <link href="/2021/02/20/websocket/"/>
     <url>/2021/02/20/websocket/</url>
     
