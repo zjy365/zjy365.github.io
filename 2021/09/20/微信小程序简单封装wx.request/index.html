@@ -18,7 +18,7 @@
   <meta name="author" content="zjy">
   <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
   
-  <title>element 导航菜单折叠动画，文字不隐藏 - 小土猪的个人博客</title>
+  <title>微信小程序简单封装 wx.request - 小土猪的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="element 导航菜单折叠动画，文字不隐藏">
+            <span class="h2" id="subtitle" title="微信小程序简单封装 wx.request">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-12 20:46" pubdate>
-        October 12, 2021 pm
+      <time datetime="2021-09-20 20:46" pubdate>
+        September 20, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      89 字
+      347 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      5
        分钟
     </span>
   
@@ -225,14 +225,63 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">element 导航菜单折叠动画，文字不隐藏</h1>
+            <h1 style="display: none">微信小程序简单封装 wx.request</h1>
             
             <div class="markdown-body">
-              <h3 id="element-导航菜单折叠动画，文字不隐藏问题"><a href="#element-导航菜单折叠动画，文字不隐藏问题" class="headerlink" title="element 导航菜单折叠动画，文字不隐藏问题"></a>element 导航菜单折叠动画，文字不隐藏问题</h3><p>记录一下留着自己好找</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>修改css样式</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/*隐藏文字*/</span><br>  <span class="hljs-selector-class">.el-menu--collapse</span>  <span class="hljs-selector-class">.el-submenu__title</span> <span class="hljs-selector-tag">span</span>&#123;<br>    <span class="hljs-attribute">display</span>: none;<br>  &#125;<br>  <span class="hljs-comment">/*隐藏 &gt; */</span><br>  <span class="hljs-selector-class">.el-menu--collapse</span>  <span class="hljs-selector-class">.el-submenu__title</span> <span class="hljs-selector-class">.el-submenu__icon-arrow</span>&#123;<br>    <span class="hljs-attribute">display</span>: none;<br>  &#125;<br>  <span class="hljs-comment">/* .sub-el-icon[data-v-31ea41b3]&#123;</span><br><span class="hljs-comment">    margin-right: 12px !important;</span><br><span class="hljs-comment">    margin-left: -6px;</span><br><span class="hljs-comment">  &#125; */</span><br>  <span class="hljs-selector-class">.sub-el-icon</span>&#123;<br>    <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">12px</span> <span class="hljs-meta">!important</span>;<br>    m<br></code></pre></td></tr></table></figure>
+              <h3 id="微信小程序简单封装-wx-request-Object-object"><a href="#微信小程序简单封装-wx-request-Object-object" class="headerlink" title="微信小程序简单封装 wx.request(Object object)"></a>微信小程序简单封装 wx.request(Object object)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 简单封装wx.request</span><br><span class="hljs-keyword">const</span> app = getApp();<br><span class="hljs-comment">// 请求的基本路径</span><br><span class="hljs-keyword">const</span> baseUrl= <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-keyword">const</span> GET = <span class="hljs-string">&#x27;GET&#x27;</span>;<br><span class="hljs-keyword">const</span> POST = <span class="hljs-string">&#x27;POST&#x27;</span>;<br><span class="hljs-keyword">const</span> PUT = <span class="hljs-string">&#x27;PUT&#x27;</span>;<br><span class="hljs-keyword">const</span> FORM = <span class="hljs-string">&#x27;FORM&#x27;</span>;<br><span class="hljs-keyword">const</span> DELETE = <span class="hljs-string">&#x27;DELETE&#x27;</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params">&#123;method= GET, url, data&#125;</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>&#123;<br>        <span class="hljs-keyword">let</span> header = &#123;<br>            <span class="hljs-string">&#x27;content-type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>,<br>            <span class="hljs-string">&#x27;token&#x27;</span>: app.globalData.userInfo.token || <span class="hljs-string">&#x27;&#x27;</span><br>        &#125;;<br>        wx.request(&#123;<br>            <span class="hljs-attr">url</span>: baseUrl + url,<br>            <span class="hljs-attr">method</span>: method,<br>            <span class="hljs-attr">data</span>: method === POST ? <span class="hljs-built_in">JSON</span>.stringify(data) : data,<br>            <span class="hljs-attr">header</span>: header,<br>            <span class="hljs-function"><span class="hljs-title">success</span>(<span class="hljs-params">res</span>)</span> &#123;<br>                resolve(res);<br>            &#125;,<br>            <span class="hljs-function"><span class="hljs-title">fail</span>(<span class="hljs-params">err</span>)</span> &#123;<br>                reject(err)<br>            &#125;<br>        &#125;)<br>    &#125;)<br>&#125;<br><br><span class="hljs-keyword">export</span>  &#123;request&#125;;<br></code></pre></td></tr></table></figure>
 
+<p>// api中调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;request&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../utils/request.js&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sign</span>(<span class="hljs-params">data</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> request(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;/login&#x27;</span>,<br>      <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;post&#x27;</span>,<br>      data<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h4 id="picker-选择器渲染对象数组Object-Array问题-range-key"><a href="#picker-选择器渲染对象数组Object-Array问题-range-key" class="headerlink" title="picker  选择器渲染对象数组Object Array问题         range-key"></a>picker  选择器渲染对象数组Object Array问题         range-key</h4><table>
+<thead>
+<tr>
+<th>range-key</th>
+<th>string</th>
+<th></th>
+<th>当 range 是一个 Object Array 时，通过 range-key 来指定 Object 中 key 的值作为选择器显</th>
+</tr>
+</thead>
+</table>
+<h4 id="微信小程序事件传递参数问题-dataset-target-触发事件的源组件。"><a href="#微信小程序事件传递参数问题-dataset-target-触发事件的源组件。" class="headerlink" title="微信小程序事件传递参数问题   dataset     target    触发事件的源组件。"></a>微信小程序事件传递参数问题   dataset     target    触发事件的源组件。</h4><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">String</td>
+<td align="left">事件源组件的id</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html#dataset">dataset</a></td>
+<td align="left">Object</td>
+<td align="left">事件源组件上由<code>data-</code>开头的自定义属性组成的集合</td>
+</tr>
+</tbody></table>
+<h4 id="currentTarget-事件绑定的当前组件。"><a href="#currentTarget-事件绑定的当前组件。" class="headerlink" title="currentTarget   事件绑定的当前组件。"></a>currentTarget   事件绑定的当前组件。</h4><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">String</td>
+<td align="left">当前组件的id</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html#dataset">dataset</a></td>
+<td align="left">Object</td>
+<td align="left">当前组件上由<code>data-</code>开头的自定义属性组成的集合</td>
+</tr>
+</tbody></table>
+<h3 id="cover-view-滚动视图"><a href="#cover-view-滚动视图" class="headerlink" title="cover-view 滚动视图"></a>cover-view 滚动视图</h3><h4 id="onReachBottom-function-页面上拉触底事件的处理函数-监听page页面的触底事件"><a href="#onReachBottom-function-页面上拉触底事件的处理函数-监听page页面的触底事件" class="headerlink" title="onReachBottom    function    页面上拉触底事件的处理函数   监听page页面的触底事件"></a>onReachBottom    function    页面上拉触底事件的处理函数   监听page页面的触底事件</h4>
             </div>
             <hr>
             <div>
@@ -249,11 +298,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
-                    
-                      <a class="hover-with-bg" href="/tags/element-ui/">element-ui</a>
-                    
-                      <a class="hover-with-bg" href="/tags/asdasdas/">asdasdas</a>
+                      <a class="hover-with-bg" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
                     
                   </div>
                 
@@ -270,9 +315,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/20/vue%E4%B8%AD%E4%BD%BF%E7%94%A8svg%E5%9B%BE%E6%A0%87/">
+                      <a href="/2021/10/12/element%20%E5%AF%BC%E8%88%AA%E8%8F%9C%E5%8D%95%E6%8A%98%E5%8F%A0%E5%8A%A8%E7%94%BB%EF%BC%8C%E6%96%87%E5%AD%97%E4%B8%8D%E9%9A%90%E8%97%8F/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue中使用svg图标</span>
+                        <span class="hidden-mobile">element 导航菜单折叠动画，文字不隐藏</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -280,8 +325,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/20/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85wx.request/">
-                        <span class="hidden-mobile">微信小程序简单封装 wx.request</span>
+                      <a href="/2021/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">微信小程序版本自动更新的方法</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
