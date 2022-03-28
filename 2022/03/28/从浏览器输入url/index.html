@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这是小土猪的个人博客,记录自己的学习经历和成长过程,并也希望能够产生价值,帮助到其他人.">
+  <meta name="author" content="zjy">
+  <meta name="keywords" content="学习笔记,vue,axios,,JavaScript,前端,后端">
+  
+  <title>小土猪的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"zjy365.github.io","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>小土猪</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/home.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-28 20:27" pubdate>
+        March 28, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <ul>
+<li>DNS解析  将域名解析成IP地址</li>
+<li>tcp 连接: tcp三次握手</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>断开连接 TCP四次挥手</li>
+</ul>
+<h4 id="什么是url-—-统一资源定位符，用于定位互联网上资源，俗称网址"><a href="#什么是url-—-统一资源定位符，用于定位互联网上资源，俗称网址" class="headerlink" title="什么是url?              — 统一资源定位符，用于定位互联网上资源，俗称网址"></a>什么是url?              — 统一资源定位符，用于定位互联网上资源，俗称网址</h4><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">scheme       - 定义因特网服务的类型。常见的协议有 <span class="hljs-keyword">http</span>、<span class="hljs-keyword">https</span>、<span class="hljs-keyword">ftp</span>、<span class="hljs-built_in">file</span>，<br>               其中最常见的类型是 <span class="hljs-keyword">http</span>，而 <span class="hljs-keyword">https</span> 则是进行加密的网络传输。<br>host         - 定义域主机（<span class="hljs-keyword">http</span> 的默认主机是 www）<br>domain       - 定义因特网域名，比如 baidu.com<br>port         - 定义主机上的端口号（<span class="hljs-keyword">http</span> 的默认端口号是 <span class="hljs-number">80</span>）<br>path         - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。<br>filename     - 定义文档/资源的名称<br>query        - 即查询参数<br>fragment     - 即 <span class="hljs-comment"># 后的hash值，一般用来定位到某个位置</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="DNS域名解析"><a href="#DNS域名解析" class="headerlink" title="DNS域名解析"></a>DNS域名解析</h2><p>在浏览器输入网址后，首先要经过域名解析，因为浏览器并不能直接通过域名找到对应的服务器，而是要通过 IP 地址。</p>
+<ul>
+<li>IP 地址</li>
+</ul>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-built_in">IP</span> 地址是指互联网协议地址，是 <span class="hljs-built_in">IP</span> Address 的缩写。<span class="hljs-built_in">IP</span> 地址是 <span class="hljs-built_in">IP</span> 协议提供的一种统一的地址格式，<br>它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>什么是域名解析</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">DNS 协议提供通过域名查找<span class="hljs-built_in"> IP </span>地址，或逆向从<span class="hljs-built_in"> IP </span>地址反查域名的服务。<span class="hljs-built_in"></span><br><span class="hljs-built_in">DNS </span>是一个网络服务器，我们的域名解析简单来说就是在<span class="hljs-built_in"> DNS </span>上记录一条信息记录。<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>浏览器如何通过域名去查询 URL 对应的 IP 呢？</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">DNS域名解析分为递归查询和迭代查询两种方式，现一般为迭代查询。<br></code></pre></td></tr></table></figure>
+
+<h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692e4385f72aae4~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ul>
+<li>客户端发送一个带 SYN=1，Seq=X 的数据包到服务器端口<code>（第一次握手，由浏览器发起，告诉服务器我要发送请求了）</code></li>
+<li>服务器发回一个带 SYN=1， ACK=X+1， Seq=Y 的响应包以示传达确认信息<code>（第二次握手，由服务器发起，告诉浏览器我准备接受了，你赶紧发送吧）</code></li>
+<li>客户端再回传一个带 ACK=Y+1， Seq=Z 的数据包，代表“握手结束”<code>（第三次握手，由浏览器发送，告诉服务器，我马上就发了，准备接受吧）</code></li>
+</ul>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs gcode">用户界面    <span class="hljs-comment">(User Interface)</span>    － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分<br><br>浏览器引擎  <span class="hljs-comment">(Browser Engine)</span>    － 用来查询及操作渲染引擎的接口<br><br>渲染引擎    <span class="hljs-comment">(Rendering Engine)</span>  － 用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来<br><br>网络        <span class="hljs-comment">(Networking)</span>        － 用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作<br><br>JS解释器    <span class="hljs-comment">(JS Interpreter)</span>    － 用来解释执行JS代码<br><br>UI后端      <span class="hljs-comment">(UI Backend)</span>        － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口<br><br>数据存储    <span class="hljs-comment">(DB Persistence)</span>    － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML<span class="hljs-number">5</span>定义了web database技术，这是一种轻量级完整的客户端存储技术<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>总是要问：为什么需要三次握手，两次不行吗？其实这是由TCP的自身特点<strong>可靠传输</strong>决定的。客户端和服务端要进行可靠传输，那么就需要<strong>确认双方的<code>接收</code>和<code>发送</code>能力</strong>。第一次握手可以确认客服端的<code>发送能力</code>,第二次握手，服务端<code>SYN=1,Seq=Y</code>就确认了<code>发送能力</code>,<code>ACK=X+1</code>就确认了<code>接收能力</code>,所以第三次握手才可以确认客户端的<code>接收能力</code>。不然容易出现丢包的现象。</p>
+</blockquote>
+<h4 id="第三次握手的必要性？"><a href="#第三次握手的必要性？" class="headerlink" title="第三次握手的必要性？"></a>第三次握手的必要性？</h4><p>试想如果是用两次握手，则会出现下面这种情况： 如客户端发出连接请求，但因连接请求报文丢失而未收到确认，于是客户端再重传一次连接请求。后来收到了确认，建立了连接。数据传输完毕后，就释放了连接，客户端共发出了两个连接请求报文段，其中第一个丢失，第二个到达了服务端，但是第一个丢失的报文段只是在某些网络结点长时间滞留了，延误到连接释放以后的某个时间才到达服务端，此时服务端误认为客户端又发出一次新的连接请求，于是就向客户端发出确认报文段，同意建立连接，不采用三次握手，只要服务端发出确认，就建立新的连接了，此时客户端忽略服务端发来的确认，也不发送数据，则服务端一致等待客户端发送数据，浪费资源。</p>
+<h4 id="多进程的浏览器"><a href="#多进程的浏览器" class="headerlink" title="多进程的浏览器"></a>多进程的浏览器</h4><ul>
+<li>Browser进程浏览器的主进程</li>
+<li>第三方插件进程</li>
+<li>Gpu进程  用于3D渲染</li>
+<li>浏览器渲染内核</li>
+</ul>
+<h4 id="多线程的浏览器内核"><a href="#多线程的浏览器内核" class="headerlink" title="多线程的浏览器内核"></a>多线程的浏览器内核</h4><p>每一个tab页面可以看作是浏览器内核进程，然后这个进程是多线程的，它有几大类子线程：</p>
+<ol>
+<li>GUI线程</li>
+<li>JS引擎线程</li>
+<li>事件触发线程</li>
+<li>定时器线程</li>
+<li>网络请求线程</li>
+</ol>
+<h3 id="浏览器内核拿到内容后，渲染步骤大致可以分为以下几步："><a href="#浏览器内核拿到内容后，渲染步骤大致可以分为以下几步：" class="headerlink" title="浏览器内核拿到内容后，渲染步骤大致可以分为以下几步："></a>浏览器内核拿到内容后，渲染步骤大致可以分为以下几步：</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 解析HTML，构建DOM树<br><br><span class="hljs-bullet">2.</span> 解析CSS，生成CSS规则树<br><br><span class="hljs-bullet">3.</span> 合并DOM树和CSS规则，生成render树<br><br><span class="hljs-bullet">4.</span> 布局render树（Layout/reflow），负责各元素尺寸、位置的计算<br><br><span class="hljs-bullet">5.</span> 绘制render树（paint），绘制页面像素信息<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">以webkit内核为例<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692e6c31379adc6~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="1-HTML解析，构建DOM"><a href="#1-HTML解析，构建DOM" class="headerlink" title="1. HTML解析，构建DOM"></a>1. HTML解析，构建DOM</h4><p>简单的理解，这一步的流程是这样的：浏览器解析HTML，构建DOM树。 解析HTML到构建出DOM当然过程可以简述如下：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Bytes → <span class="hljs-built_in">characters</span> → tokens → nodes → DOM<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f37de1ac505e~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">其中比较关键的几个步骤<br><span class="hljs-number">1.</span> <span class="hljs-keyword">Conversion</span>转换：浏览器将获得的HTML内容（Bytes）基于他的编码转换为单个字符<br><br><span class="hljs-number">2.</span> Tokenizing分词：浏览器按照HTML规范标准将这些字符转换为不同的标记token。每个token都有自己独特的含义以及规则集<br><br><span class="hljs-number">3.</span> Lexing词法分析：分词的结果是得到一堆的token，此时把他们转换为对象，这些对象分别定义他们的属性和规则<br><br><span class="hljs-number">4.</span> DOM构建：因为HTML标记定义的就是不同标签之间的关系，这个关系就像是一个树形结构一样<br>例如：body对象的父节点就是HTML对象，然后段略p对象的父节点就是body对象<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-解析CSS，生成CSS规则树"><a href="#2-解析CSS，生成CSS规则树" class="headerlink" title="2. 解析CSS，生成CSS规则树"></a>2. 解析CSS，生成CSS规则树</h4><p>同理，CSS规则树的生成也是类似。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Bytes → <span class="hljs-built_in">characters</span> → tokens → nodes → CSSOM<br>复制代码<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f392c69b8b3c~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="3-合并DOM树和CSS规则，生成render树"><a href="#3-合并DOM树和CSS规则，生成render树" class="headerlink" title="3. 合并DOM树和CSS规则，生成render树"></a>3. 合并DOM树和CSS规则，生成render树</h4><p>当DOM树和CSSOM都有了后，就要开始构建渲染树了</p>
+<p>一般来说，渲染树和DOM树相对应的，但不是严格意义上的一一对应,因为有一些不可见的DOM元素不会插入到渲染树中，如head这种不可见的标签或者display: none等</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f39d1fa1584e~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="4-布局render树（Layout-Reflow），负责各元素尺寸、位置的计算"><a href="#4-布局render树（Layout-Reflow），负责各元素尺寸、位置的计算" class="headerlink" title="4. 布局render树（Layout/Reflow），负责各元素尺寸、位置的计算"></a>4. 布局render树（Layout/Reflow），负责各元素尺寸、位置的计算</h4><p>布局：通过渲染树中渲染对象的信息，计算出每一个渲染对象的位置和尺寸。</p>
+<h4 id="5-绘制render树（Paint），绘制页面像素信息"><a href="#5-绘制render树（Paint），绘制页面像素信息" class="headerlink" title="5. 绘制render树（Paint），绘制页面像素信息"></a>5. 绘制render树（Paint），绘制页面像素信息</h4><p>绘制阶段，系统会遍历呈现树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f3e3ca738411~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs markdown">这张图片中重要的四个步骤<br><span class="hljs-bullet">1.</span> 计算CSS样式<br><br><span class="hljs-bullet">2.</span> 构建渲染树<br><br><span class="hljs-bullet">3.</span> 布局，主要定位坐标和大小，是否换行，各种position overflow z-index属性<br><br><span class="hljs-bullet">4.</span> 绘制，将图像绘制出来<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Layout，也称为Reflow，即回流。一般意味着元素的内容、结构、位置或尺寸发生了变化，需要重新计算样式和渲染树</li>
+<li>Repaint，即重绘。意味着元素发生的改变只是影响了元素的一些外观之类的时候（例如，背景色，边框颜色，文字颜色等），此时只需要应用新样式绘制这个元素就可以了</li>
+</ul>
+<h2 id="七、断开连接"><a href="#七、断开连接" class="headerlink" title="七、断开连接"></a>七、断开连接</h2><p>当数据传送完毕，需要断开 tcp 连接，此时发起 tcp 四次挥手。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f41b21b32870~tplv-t2oaga2asx-watermark.awebp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ul>
+<li>发起方向被动方发送报文，Fin、Ack、Seq，表示已经没有数据传输了。并进入 FIN_WAIT_1 状态。 <code>(第一次挥手：由浏览器发起的，发送给服务器，我请求报文发送完了，你准备关闭吧)</code></li>
+<li>被动方发送报文，Ack、Seq，表示同意关闭请求。此时主机发起方进入 FIN_WAIT_2 状态。 <code>(第二次挥手：由服务器发起的，告诉浏览器，我请求报文接受完了，我准备关闭了，你也准备吧)</code></li>
+<li>被动方向发起方发送报文段，Fin、Ack、Seq，请求关闭连接。并进入 LAST_ACK 状态。 <code>(第三次挥手：由服务器发起，告诉浏览器，我响应报文发送完了，你准备关闭吧)</code></li>
+<li>发起方向被动方发送报文段，Ack、Seq。然后进入等待 TIME_WAIT 状态。被动方收到发起方的报文段以后关闭连接。发起方等待一定时间未收到回复，则正常关闭。 <code>(第四次挥手：由浏览器发起，告诉服务器，我响应报文接受完了，我准备关闭了，你也准备吧)</code></li>
+</ul>
+<h3 id="挥手为什么需要四次？"><a href="#挥手为什么需要四次？" class="headerlink" title="挥手为什么需要四次？"></a>挥手为什么需要四次？</h3><p>因为当服务端收到客户端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当服务端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉客户端，“你发的FIN报文我收到了”。只有等到我服务端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四次挥手。</p>
+<h3 id="为什么客户端发送ACK之后不直接关闭，而是要等一阵子才关闭？"><a href="#为什么客户端发送ACK之后不直接关闭，而是要等一阵子才关闭？" class="headerlink" title="为什么客户端发送ACK之后不直接关闭，而是要等一阵子才关闭？"></a>为什么客户端发送ACK之后不直接关闭，而是要等一阵子才关闭？</h3><p>客户端收到服务端的连接释放报文段后，对此发出确认报文段（ACK=1，seq=u+1，ack=w+1），客户端进入TIME_WAIT（时间等待）状态。此时TCP未释放掉，需要经过时间等待计时器设置的时间2MSL后，客户端才进入CLOSED状态。如果不等待，客户端直接跑路，当服务端还有很多数据包要给客户端发，且还在路上的时候，若客户端的端口此时刚好被新的应用占用，那么就接收到了无用数据包，造成数据包混乱。</p>
+<h3 id="为什么TIME-WAIT状态需要经过2MSL（最大报文生存时间）才能返回到CLOSE状态？"><a href="#为什么TIME-WAIT状态需要经过2MSL（最大报文生存时间）才能返回到CLOSE状态？" class="headerlink" title="为什么TIME_WAIT状态需要经过2MSL（最大报文生存时间）才能返回到CLOSE状态？"></a>为什么TIME_WAIT状态需要经过2MSL（最大报文生存时间）才能返回到CLOSE状态？</h3><p>理论上，四个报文都发送完毕，就可以直接进入CLOSE状态了，但是可能网络是不可靠的，有可能最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文。 1 个 MSL 确保四次挥手中主动关闭方最后的 ACK 报文最终能达到对端； 1 个 MSL 确保对端没有收到 ACK 重传的 FIN 报文可以到达。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/28/css%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/28/IOS%E8%B8%A9%E5%9D%91%20%E4%B8%8D%E5%85%BC%E5%AE%B9%E6%AD%A3%E5%88%99%E5%90%8E%E8%A1%8C%E6%96%AD%E8%A8%80/">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        豫ICP备2021008845号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
